@@ -60,10 +60,5 @@ add_dependencies(${TARGET_SIM_NAME} ${${TARGET_SIM_NAME}_EXPORTED_TARGETS} ${cat
 target_link_libraries(${TARGET_SIM_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
 install(TARGETS ${TARGET_SIM_NAME} RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
-set(TARGET_SIM_NAME robot_control_sim_sample)
 
-add_executable(${TARGET_SIM_NAME}  src/robot_control_sim_sample.cpp) 
-add_dependencies(${TARGET_SIM_NAME} ${${TARGET_SIM_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS}) 
-target_link_libraries(${TARGET_SIM_NAME} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
-install(TARGETS ${TARGET_SIM_NAME} RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
