@@ -1,5 +1,5 @@
 #include <ros/ros.h>
-#include <keti_msgs/RobotStateSim.h>
+#include <keti_msgs/RobotState.h>
 
 #include "robot_move_sim_action.h"
 
