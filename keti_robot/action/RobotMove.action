@@ -1,0 +1,11 @@
+#goal definition
+int32 cmd
+int32 num
+float64[] value
+float64 velocity
+---
+#result definition
+int32[] sequence
+---
+#feedback
+int32[] sequence

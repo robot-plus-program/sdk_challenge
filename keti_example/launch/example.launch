@@ -1,0 +1,5 @@
+<launch>
+    <arg name="mode" default="virtual"/>
+    <param name="mode" type="string" value="$(arg mode)" />
+    <node pkg="keti_example" type="example" name="example" output="screen" />
+</launch>

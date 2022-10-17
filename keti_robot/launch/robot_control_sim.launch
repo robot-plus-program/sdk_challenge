@@ -1,0 +1,4 @@
+<launch>
+    <include file="$(find moveit_config_keti)/launch/demo.launch"/>
+    <node pkg="keti_robot" type="robot_control_sim" name="robot_control_sim_node" output="screen" />
+</launch>
