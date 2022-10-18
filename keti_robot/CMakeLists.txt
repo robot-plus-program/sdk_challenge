@@ -46,12 +46,12 @@ include_directories(
   ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-set(TARGET_NAME robot_control)
+# set(TARGET_NAME robot_control)
 
-add_executable(${TARGET_NAME}  src/robot_control.cpp src/robot_move_action.cpp) 
-add_dependencies(${TARGET_NAME} ${${TARGET_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS}) 
-target_link_libraries(${TARGET_NAME} ${catkin_LIBRARIES} robotsdk)
-install(TARGETS ${TARGET_NAME} RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
+# add_executable(${TARGET_NAME}  src/robot_control.cpp src/robot_move_action.cpp) 
+# add_dependencies(${TARGET_NAME} ${${TARGET_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS}) 
+# target_link_libraries(${TARGET_NAME} ${catkin_LIBRARIES} robotsdk)
+# install(TARGETS ${TARGET_NAME} RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 
 set(TARGET_SIM_NAME robot_control_sim)
 
