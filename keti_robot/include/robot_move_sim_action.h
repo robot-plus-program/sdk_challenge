@@ -34,6 +34,7 @@ public:
     void RobotMoveStateCallback(const moveit_msgs::ExecuteTrajectoryActionFeedback &feedback);
     void getCurrentJoint(std::vector<double> *vec_dst);
     void getCurrentPose(geometry_msgs::Pose *pose_dst);
+    int getCurrentState();
 
     ros::Subscriber subRobotState;
     ros::Subscriber subRobotMoveState;
@@ -50,4 +51,6 @@ private:
 
     bool success;
     moveit::planning_interface::MoveGroupInterface::Plan plan;
+
+    double height;
 };

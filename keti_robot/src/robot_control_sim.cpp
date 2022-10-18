@@ -47,6 +47,7 @@ int main(int argc, char **argv) {
     double T_matrix[16] = {0,};
 
     while(ros::ok()){
+        msg.robot_state = robotMove.getCurrentState();
         robotMove.getCurrentJoint(&current_joint);
         robotMove.getCurrentPose(&current_pose);
 

@@ -1,4 +1,6 @@
 <launch>
     <include file="$(find moveit_config_keti)/launch/demo.launch"/>
+    <arg name="height" default="0.15"/>
+    <param name="height" type="double" value="$(arg height)" />
     <node pkg="keti_robot" type="robot_control_sim" name="robot_control_sim_node" output="screen" />
 </launch>

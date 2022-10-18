@@ -8,6 +8,9 @@ RobotMoveSimActionClass::RobotMoveSimActionClass(std::string name, ros::NodeHand
     memset(current_rotation, 0, sizeof(double)*3);
     memset(current_T_matrix, 0, sizeof(double)*16);
 
+    nh.getParam("height", height);
+    ROS_INFO("height : %f", height);
+
     move_group_interface = new moveit::planning_interface::MoveGroupInterface(PLANNING_GROUP);
     moveit::planning_interface::PlanningSceneInterface planning_scene_interface;
     const moveit::core::JointModelGroup *joint_model_group = move_group_interface->getCurrentState()->getJointModelGroup(PLANNING_GROUP);
@@ -85,7 +88,7 @@ RobotMoveSimActionClass::RobotMoveSimActionClass(std::string name, ros::NodeHand
     primitive_obstacle.dimensions.resize(3);
     primitive_obstacle.dimensions[primitive_obstacle.BOX_X] = 0.5;
     primitive_obstacle.dimensions[primitive_obstacle.BOX_Y] = 0.05;
-    primitive_obstacle.dimensions[primitive_obstacle.BOX_Z] = 0.15;
+    primitive_obstacle.dimensions[primitive_obstacle.BOX_Z] = height;//0.15;
 
     geometry_msgs::Pose box_obstacle_pose;
     box_obstacle_pose.orientation.w = 1.0;
@@ -240,6 +243,11 @@ void RobotMoveSimActionClass::getCurrentPose(geometry_msgs::Pose *pose_dst)
     geometry_msgs::PoseStamped current_pose = move_group_interface->getCurrentPose();
     pose_dst->orientation = current_pose.pose.orientation;
     pose_dst->position = current_pose.pose.position;
+}
+
+int RobotMoveSimActionClass::getCurrentState()
+{
+    return robot_state;
 }
 
 void RobotMoveSimActionClass::RobotStateCallback(const keti_msgs::RobotState &msg)

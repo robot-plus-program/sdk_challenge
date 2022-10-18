@@ -10,7 +10,7 @@ static double current_joint[6];
 static double current_position[3];
 static double current_rotation[3];
 static double current_T_matrix[16];
-static bool print_enable = false;
+static bool print_enable = true;
 static bool robot_move_complete = false;
 static bool robot_moving = false;;
 static bool gripper_move_complete = false;
@@ -153,11 +153,11 @@ int main(int argc, char **argv){
 
     double cmd_joint[2][6] = {{0, 0, M_PI_2, 0, 0, M_PI_2},
                             {0, 0, M_PI_2, 0, M_PI_2, 0}};
-    double cmd_pose[5][6] = {{0.5, 0.2, 0.6, 0, M_PI, 0},
-                            {0.5, -0.2, 0.6, 0, M_PI, 0},
-                            {0.5, -0.2, 0.3, 0, M_PI, 0},
-                            {0.5, 0.2, 0.3, 0, M_PI, 0},
-                            {0.5, 0.0, 0.6, 0, M_PI, 0}};
+    double cmd_pose[5][6] = {{0.8, 0.2, 0.6, 0, M_PI, 0},
+                            {0.8, -0.2, 0.6, 0, M_PI, 0},
+                            {0.8, -0.2, 0.3, 0, M_PI, 0},
+                            {0.8, 0.2, 0.3, 0, M_PI, 0},
+                            {0.8, 0.0, 0.6, 0, M_PI, 0}};
 
     robot_move_complete = false;
     robot_moving = false;
