@@ -28,7 +28,7 @@ cm
 roslaunch keti_robot robot_control_sim.launch
 ~~~
 
-### 5. Run simulator operator example
+### 5. Run simulator operating example
 ~~~
 roslaunch keti_example example.launch
 ~~~
