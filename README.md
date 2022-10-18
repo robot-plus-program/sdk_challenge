@@ -18,7 +18,7 @@ sudo apt install ros-noetic-moveit*
 ### 3. Download & Install Project
 ~~~
 cd ~/catkin_ws/src
-git clone https://github.com/robot-plus-program/sdkchallenge.git
+git clone https://github.com/robot-plus-program/sdk_challenge.git
 cm
 ~~~
 \* package의 종속성 문제로 에러 발생할 수 있음. 재빌드 실행 시 이상없이 빌드 됨.
