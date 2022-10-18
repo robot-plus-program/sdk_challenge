@@ -27,6 +27,7 @@ cm
 ~~~
 roslaunch keti_robot robot_control_sim.launch
 ~~~
+![simulation_monitor](./imgs/simulation monitor.png)
 
 ### 5. Run simulator operating example
 ~~~
