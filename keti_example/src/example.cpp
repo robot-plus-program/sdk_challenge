@@ -10,7 +10,7 @@ static double current_joint[6];
 static double current_position[3];
 static double current_rotation[3];
 static double current_T_matrix[16];
-static bool print_enable = true;
+static bool print_enable = false;
 static bool robot_move_complete = false;
 static bool robot_moving = false;;
 static bool gripper_move_complete = false;
@@ -223,11 +223,11 @@ int main(int argc, char **argv){
             case State::RobotMoveB:
             {
                 goalRobot.cmd = 3;
-                goalRobot.num = 5;
+                goalRobot.num = 4;
                 goalRobot.value.clear();
-                for(int i = 0; i < 5; i++){
+                for(int i = 0; i < goalRobot.num; i++){
                     for(int j = 0; j < 6; j++){
-                        goalRobot.value.push_back(cmd_pose[i][j]);
+                        goalRobot.value.push_back(cmd_pose[i + 1][j]);
                     }
                 }
                 acRobot.sendGoal(goalRobot, &RobotMoveCompleteCallback, &RobotMovingActiveCallback, &RobotMovingFeedbackCacllback);

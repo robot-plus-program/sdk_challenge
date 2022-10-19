@@ -44,9 +44,12 @@ void RobotMoveActionClass::executeCB(const keti_robot::RobotMoveGoalConstPtr &go
 
     // publish info to the console for the user
     // ROS_INFO("%s: Executing, creating fibonacci sequence of order %i with seeds %i, %i", action_name_.c_str(), goal->cmd, feedback_.sequence[0], feedback_.sequence[1]);
-    ROS_INFO("%s: Executing, creating robot move sequence, cmd : %d, value : %f, %f, %f, %f, %f, %f, velocity : %f",
-             action_name.c_str(), goal->cmd, goal->value[0], goal->value[1], goal->value[2], goal->value[3], goal->value[4], goal->value[5], goal->velocity);
-
+    for(int i = 0; i < goal->num; i++){
+        ROS_INFO("%s: Executing, creating robot move sequence, cmd : %d, value : %f, %f, %f, %f, %f, %f, velocity : %f",
+                action_name.c_str(), goal->cmd, goal->value[i*6 + 0], 
+                goal->value[i*6 + 1], goal->value[i*6 + 2], goal->value[i*6 + 3], 
+                goal->value[i*6 + 4], goal->value[i*6 + 5], goal->velocity);
+    }
     // SetVelocity(goal->velocity);
     // usleep(100000);
 
@@ -97,6 +100,60 @@ void RobotMoveActionClass::executeCB(const keti_robot::RobotMoveGoalConstPtr &go
         }
 
         movel(base, result_mat);
+    }
+    else if(goal->cmd == 3){
+        double moveb_mat[5][16];
+        for(int indx = 0; indx < goal->num; indx++){
+            double mat[9] = {0,};
+            double ang_z1 = goal->value[indx*6 + 3], ang_y = goal->value[indx*6 + 4], ang_z2 = goal->value[indx*6 + 5];
+            double Rz1[9] = {cos(ang_z1), -sin(ang_z1), 0, sin(ang_z1), cos(ang_z1), 0, 0, 0, 1};
+            double Ry[9] = {cos(ang_y), 0, sin(ang_y), 0, 1, 0, -sin(ang_y), 0, cos(ang_y)};
+            double Rz2[9] = {cos(ang_z2), -sin(ang_z2), 0, sin(ang_z2), cos(ang_z2), 0, 0, 0, 1};
+            double Rz1y[9] = {0,};
+            double temp = 0;
+            for(unsigned int i = 0; i < 3; i++){
+                for(unsigned int j = 0; j < 3; j++){
+                    temp = 0;
+                    for(unsigned int k = 0; k < 3; k++){
+                        temp += Rz1[i*3 + k]*Ry[k*3 + j];
+                    }
+                    Rz1y[i*3 + j] = temp;
+                }
+            }
+
+            for(unsigned int i = 0; i < 3; i++){
+                for(unsigned int j = 0; j < 3; j++){
+                    temp = 0;
+                    for(unsigned int k = 0; k < 3; k++){
+                        temp += Rz1y[i*3 + k]*Rz2[k*3 + j];
+                    }
+                    mat[i*3 + j] = temp;
+                }
+            }
+
+            double result_mat[16];
+            memcpy(result_mat, current_T_matrix, sizeof(double)*16);
+            result_mat[3]  = goal->value[indx*6 + 0];
+            result_mat[7]  = goal->value[indx*6 + 1];
+            result_mat[11] = goal->value[indx*6 + 2];
+            for(unsigned int i = 0; i < 3; i++){
+                for(unsigned int j = 0; j < 3; j++){
+                    result_mat[i*4 + j] = mat[i*3 + j];
+                }
+            }
+
+            memcpy(moveb_mat[indx], result_mat, sizeof(double)*16);
+
+            // for(unsigned int i = 0; i < 4; i++){
+            //     for(unsigned int j = 0; j < 4; j++){
+            //         printf("%f\t", moveb_mat[indx][i*4 + j]);
+            //     }
+            //     printf("\n");
+            // }
+            // printf("\n");
+        }
+        // moveb(base, 40, goal->num, moveb_mat[0], moveb_mat[1], moveb_mat[2], moveb_mat[3], moveb_mat[4]);
+        moveb(base, 40, goal->num, moveb_mat[0], moveb_mat[1], moveb_mat[2], moveb_mat[3]);
     }
     else{
         return;
