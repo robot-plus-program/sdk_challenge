@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="keti_gripper" type="keti_gripper_server.py" name="keti_gripper_server" output="screen" />
+</launch>

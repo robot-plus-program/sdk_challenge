@@ -31,10 +31,4 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
-# set(TARGET_NAME onrobot_2fg7)
-
-# add_executable(${TARGET_NAME}  src/keti_gripper.cpp src/gripper_move_action.cpp) 
-# add_dependencies(${TARGET_NAME} ${${TARGET_NAME}_EXPORTED_TARGETS} ${catkin_EXPORTED_TARGETS}) 
-# target_link_libraries(${TARGET_NAME} ${catkin_LIBRARIES})
-# install(TARGETS ${TARGET_NAME} RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
 install(PROGRAMS scripts/keti_gripper_server.py DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION})
