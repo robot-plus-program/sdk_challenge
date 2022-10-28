@@ -11,6 +11,13 @@ find_package(catkin REQUIRED COMPONENTS
 add_message_files(
   FILES
   RobotState.msg
+  VisionState.msg
+  GripperState.msg
+)
+
+add_service_files(
+  FILES
+  VisionComm.srv
 )
 
 generate_messages(

@@ -12,7 +12,7 @@ static double current_rotation[3];
 static double current_T_matrix[16];
 static bool print_enable = false;
 static bool robot_move_complete = false;
-static bool robot_moving = false;;
+static bool robot_moving = false;
 static bool gripper_move_complete = false;
 static bool gripper_moving = false;
 static int step = 0;

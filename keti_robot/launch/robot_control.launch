@@ -1,4 +1,5 @@
 <launch>
+    <include file="$(find keti_tcp)/launch/tcp_vision.launch"/>
     <include file="$(find keti_gripper)/launch/gripper_onrobot.launch"/>
     <node pkg="keti_robot" type="robot_control" name="robot_control_node" output="screen" />
 </launch>

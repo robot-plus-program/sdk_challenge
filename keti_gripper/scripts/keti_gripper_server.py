@@ -5,7 +5,6 @@ import actionlib
 import keti_gripper.msg
 from keti_onrobot_2fg7 import *
 
-
 class GripperMoveAction(object):
     feedback = keti_gripper.msg.GripperMoveFeedback()
     result = keti_gripper.msg.GripperMoveResult()
@@ -18,7 +17,7 @@ class GripperMoveAction(object):
         self._as.start()
 
     def execute_cb(self, goal):
-        r = rospy.Rate(10)
+        r = rospy.Rate(100)
         success = True
 
         self.feedback.status = []
@@ -60,9 +59,9 @@ class GripperMoveAction(object):
             rospy.loginfo('%s : Succeeded' % self.action_name)
             self._as.set_succeeded(self.result)
 
-
 if __name__ == '__main__':
     rospy.init_node('keti_gripper_node')
     gripper = TWOFG(dev=Device(cb_ip='192.168.137.201'), t_index=0)
-    server = GripperMoveAction(rospy.get_name(), gripper)
+    gripperActionServer = GripperMoveAction(rospy.get_name(), gripper)
+
     rospy.spin()

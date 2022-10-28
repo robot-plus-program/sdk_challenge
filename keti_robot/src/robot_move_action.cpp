@@ -50,8 +50,10 @@ void RobotMoveActionClass::executeCB(const keti_robot::RobotMoveGoalConstPtr &go
                 goal->value[i*6 + 1], goal->value[i*6 + 2], goal->value[i*6 + 3], 
                 goal->value[i*6 + 4], goal->value[i*6 + 5], goal->velocity);
     }
-    // SetVelocity(goal->velocity);
-    // usleep(100000);
+    if(goal->velocity > 0){
+        SetVelocity(goal->velocity);
+        usleep(100000);
+    }
 
     double value[6];
     memcpy(value, goal->value.data(), sizeof(double)*6);

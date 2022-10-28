@@ -1,0 +1,9 @@
+<launch>
+    <arg name="ip" default="127.0.0.1"/>
+    <arg name="port" default="6000"/>
+
+    <param name="ip" type="string" value="$(arg ip)" />
+    <param name="port" type="int" value="$(arg port)" />
+    
+    <node pkg="keti_tcp" type="tcp_vision" name="tcp_vision_node" output="screen" />
+</launch>
