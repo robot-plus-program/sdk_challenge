@@ -57,10 +57,16 @@ roslaunch keti_example example.launch mode:=virtual
 ~~~
 ### 2. Run robot controller
 ~~~
-roslaunch keti_robot robot_control.launch
+roslaunch keti_robot robot_control.launch robot_ip:=192.168.137.10x
 ~~~
+x = 1 or 2
 
-### 3. Run example
+### 3. Run example(c++)
 ~~~
 roslaunch keti_example example.launch mode:=real
+~~~
+
+### 4. Run example(python)
+~~~
+rosrun keti_example example.py
 ~~~

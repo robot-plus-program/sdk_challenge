@@ -61,7 +61,14 @@ class GripperMoveAction(object):
 
 if __name__ == '__main__':
     rospy.init_node('keti_gripper_node')
-    gripper = TWOFG(dev=Device(cb_ip='192.168.137.201'), t_index=0)
+    robot_ip = rospy.get_param('robot_ip')
+    rospy.loginfo('robot ip : %s', robot_ip)
+    if robot_ip == '192.168.137.101':
+        gripper_ip = '192.168.137.201'
+    elif robot_ip == '192.168.137.102':
+        gripper_ip = '192.168.137.202'
+    rospy.loginfo('gripper ip : %s', gripper_ip)
+    gripper = TWOFG(dev=Device(cb_ip=gripper_ip), t_index=0)
     gripperActionServer = GripperMoveAction(rospy.get_name(), gripper)
 
     rospy.spin()

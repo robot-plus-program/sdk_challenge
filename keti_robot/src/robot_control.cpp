@@ -19,13 +19,17 @@ void RobotStateCallback(const keti_msgs::RobotState &msg){
 
 int main(int argc, char **argv) {
 
-    RobotChange(M1013, "192.168.137.100", 1013);
-    RobotConnect();
-
 	ros::init(argc, argv, "robot_control_node");
 
 	ros::NodeHandle nh;
     ros::Publisher pubRobotState = nh.advertise<keti_msgs::RobotState>("keti_robot_state",1);
+
+    std::string robot_ip;
+    nh.getParam("robot_ip", robot_ip);
+    ROS_INFO("robot_ip : %s", robot_ip.c_str());
+
+    RobotChange(M1013, robot_ip.c_str(), 1013);
+    RobotConnect();
 
     ros::Rate loop_rate(100);
 

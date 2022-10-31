@@ -261,7 +261,6 @@ int main(int argc, char **argv){
     double place_pose_wp2[6] = {0.971071, 0.307948, 0.4, 0, M_PI, 0};
     double place_pose_wp3[6] = {0.971071, 0.307948, 0.22, 0, M_PI, 0};
     
-    /////////////
     goalRobot.cmd = 3;
     goalRobot.num = 3;
     goalRobot.value.clear();
@@ -281,54 +280,6 @@ int main(int argc, char **argv){
     while(state != State::Idle){
         usleep(1000);
     }
-    ///////////////
-
-    ////////////////
-    //     goalRobot.cmd = 2;
-    // goalRobot.num = 1;
-    // goalRobot.value.clear();
-    // for(int j = 0; j < 6; j++){
-    //     goalRobot.value.push_back(place_pose_wp1[j]);
-    // }
-    // acRobot.sendGoal(goalRobot, &RobotMoveCompleteCallback, &RobotMovingActiveCallback, &RobotMovingFeedbackCacllback);
-
-    // while(state != State::MoveWait){
-    //     usleep(1000);
-    // }
-    // while(state != State::Idle){
-    //     usleep(1000);
-    // }
-
-    //     goalRobot.cmd = 2;
-    // goalRobot.num = 1;
-    // goalRobot.value.clear();
-    // for(int j = 0; j < 6; j++){
-    //     goalRobot.value.push_back(place_pose_wp2[j]);
-    // }
-    // acRobot.sendGoal(goalRobot, &RobotMoveCompleteCallback, &RobotMovingActiveCallback, &RobotMovingFeedbackCacllback);
-
-    // while(state != State::MoveWait){
-    //     usleep(1000);
-    // }
-    // while(state != State::Idle){
-    //     usleep(1000);
-    // }
-
-    //     goalRobot.cmd = 2;
-    // goalRobot.num = 1;
-    // goalRobot.value.clear();
-    // for(int j = 0; j < 6; j++){
-    //     goalRobot.value.push_back(place_pose_wp3[j]);
-    // }
-    // acRobot.sendGoal(goalRobot, &RobotMoveCompleteCallback, &RobotMovingActiveCallback, &RobotMovingFeedbackCacllback);
-
-    // while(state != State::MoveWait){
-    //     usleep(1000);
-    // }
-    // while(state != State::Idle){
-    //     usleep(1000);
-    // }
-    ///////////////////
 
     // Gripper release
     goalGripper.cmd = 2;
