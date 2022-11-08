@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="keti_example" type="calibration" name="calibration" output="screen" />
+</launch>
