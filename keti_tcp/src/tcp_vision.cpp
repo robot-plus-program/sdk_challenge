@@ -78,7 +78,7 @@ static void* vision_comm_func(void *arg){
             int ret = connect(serverSockFD, (struct sockaddr*)&server_addr, sizeof(server_addr));
 
             if(ret < 0){
-                ROS_INFO("connect error");
+                // ROS_INFO("connect error");
                 connected = false;
             }
             else{
