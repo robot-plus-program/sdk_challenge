@@ -41,7 +41,7 @@ int main(int argc, char **argv) {
     memset(msg.current_rotation.data(), 0, sizeof(double)*6);
 
     RobotMoveActionClass robotMove("robot_move_action", nh);
-    // robotMove.subRobotState = nh.subscribe("/keti_robot_state", 1, &RobotMoveActionClass::RobotStateCallback, &robotMove);
+    robotMove.subRobotState = nh.subscribe("/keti_robot_state", 1, &RobotMoveActionClass::RobotStateCallback, &robotMove);
 
     while(ros::ok()){
         robotInfor = RobotInfo();
