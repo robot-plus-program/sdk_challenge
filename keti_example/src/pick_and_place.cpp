@@ -52,12 +52,12 @@ void RobotMovingFeedbackCacllback(const keti_robot::RobotMoveFeedbackConstPtr& f
     int state = feedback->sequence.back();
     if(state == 1){
         robot_moving = false;
-        ROS_INFO("Robot don't move");
+        // ROS_INFO("Robot don't move");
     }
     else if(state == 2){
         robot_moving = true;
         robot_move_complete = false;
-        ROS_INFO("Robot moving");
+        // ROS_INFO("Robot moving");
     }
 }
 

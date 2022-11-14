@@ -141,8 +141,33 @@ void mouse_event(int event, int x, int y, int flags, void*)
     }
 }
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <signal.h>
+
+static struct sigaction sigIntHandler;
+static int sig = 0;
+
+void my_handler(int s)
+{
+    if (sig == 0)
+    {
+        sig = s;
+        ros::shutdown();
+        printf("\n Finished Program \n");
+        exit(1);
+    }
+}
+
 int main(int argc, char **argv)
 {
+    sigIntHandler.sa_handler = my_handler;
+    sigemptyset(&sigIntHandler.sa_mask);
+    sigIntHandler.sa_flags = 0;
+
+    sigaction(SIGINT, &sigIntHandler, NULL);
+
     ros::init(argc, argv, "keti_calibration_sample_node");
 
     ros::NodeHandle nh;
@@ -219,4 +244,6 @@ int main(int argc, char **argv)
 
     // Close down OpenCV
     cv::destroyWindow(window_name);
+
+    pipe.stop();
 }

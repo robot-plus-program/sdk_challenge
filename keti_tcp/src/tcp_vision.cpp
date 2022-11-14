@@ -65,9 +65,6 @@ static void* vision_comm_func(void *arg){
 
             memset(&server_addr, 0x00, sizeof(sockaddr_in));
 
-            // std::cout << "ip : " << server_ip << std::endl;
-            // std::cout << "port : " << server_port << std::endl;
-
             server_addr.sin_addr.s_addr = inet_addr(server_ip.c_str());
             server_addr.sin_family = AF_INET;
             server_addr.sin_port = htons(server_port);
@@ -86,23 +83,6 @@ static void* vision_comm_func(void *arg){
                 connected = true;
             }
         }
-
-        // while(connected){
-        //     byteLen = recv(serverSockFD, buf, RECVBUFSIZE, 0);
-        //     if(byteLen > 0){
-        //         if(byteLen == RECVBUFSIZE){
-        //             for(int i = 0; i < byteLen; i++){
-        //                 printf("%d\t", buf[i]);
-        //             }
-        //             printf("\n");
-        //         }
-        //     }
-        //     else{
-        //         connected = false;
-        //         ROS_INFO("Disconnected vision comm");
-        //         break;
-        //     }
-        // }
 
         ros::spinOnce();
         loop_rate.sleep();
@@ -133,7 +113,7 @@ bool vision_comm(keti_msgs::VisionComm::Request &req, keti_msgs::VisionComm::Res
                     memcpy(&data, buf + 8*i, 8);
                     res.value.push_back(data);
                 }
-                ROS_INFO("vision data : %f, %f, %f", res.value[0], res.value[1], res.value[2]);
+                ROS_INFO("vision data : %f, %f, %f, %f", res.value[0], res.value[1], res.value[2], res.value[3]);
             }
             else{
                 connected = false;
@@ -159,14 +139,8 @@ int main(int argc, char **argv) {
     ros::Publisher pubTcpVision = nh.advertise<keti_msgs::VisionState>("keti_vision_state",1);
     ros::ServiceServer srvVisionRequest  = nh.advertiseService("keti_vision_comm", vision_comm);
 
-    std::string ip;
-    int port = 0;
-    nh.getParam("ip", ip);
-    nh.getParam("port", port);
-    ROS_INFO("server ip : %s, server port : %d", ip.c_str(), port);
-
-    server_ip = ip;
-    server_port = port;
+    server_ip = "127.0.0.1";
+    server_port = 6000;
 
     ros::Rate loop_rate(10);
 

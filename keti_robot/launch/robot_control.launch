@@ -1,5 +1,5 @@
 <launch>
-    <arg name="robot_ip" default="192.168.137.101"/>
+    <arg name="robot_ip" default="192.168.137.100"/>
     <param name="robot_ip" type="string" value="$(arg robot_ip)" />
     <include file="$(find keti_tcp)/launch/tcp_vision.launch"/>
     <include file="$(find keti_gripper)/launch/gripper_onrobot.launch"/>
