@@ -58,10 +58,11 @@ def comm_func():
                         break
 
                 if len(vision_data) >= 3:
-                    send_buf = bytearray(24)
+                    send_buf = bytearray(32)
                     send_buf[0:8] = bytearray(struct.pack("d", vision_data[0]))
                     send_buf[8:16] = bytearray(struct.pack("d", vision_data[1]))
                     send_buf[16:24] = bytearray(struct.pack("d", vision_data[2]))
+                    send_buf[24:32] = bytearray(struct.pack("d", vision_data[3]))
                     print(send_buf)
                     client.send(send_buf)
         except:
@@ -141,6 +142,7 @@ if __name__ == '__main__':
             vision_data.append(best_grip[0])
             vision_data.append(best_grip[1])
             vision_data.append(best_grip[2])
+            vision_data.append(best_grip[5])
             robot_request = 0
 
         time.sleep(1)

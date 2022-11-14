@@ -154,6 +154,7 @@ void my_handler(int s)
     if (sig == 0)
     {
         sig = s;
+        cv::destroyAllWindows();
         ros::shutdown();
         printf("\n Finished Program \n");
         exit(1);
