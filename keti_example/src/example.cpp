@@ -151,12 +151,12 @@ int main(int argc, char **argv){
 
     ros::Rate loop_rate(5);
 
-    double cmd_joint[2][6] = {{0, 0, M_PI_2, 0, 0, M_PI_2},
+    double cmd_joint[2][6] = {{0, 0, M_PI_2, 0, 0, 0},
                             {0, 0, M_PI_2, 0, M_PI_2, 0}};
     double cmd_pose[5][6] = {{0.8, 0.2, 0.6, 0, M_PI, 0},
                             {0.8, -0.2, 0.6, 0, M_PI, 0},
-                            {0.8, -0.2, 0.3, 0, M_PI, 0},
-                            {0.8, 0.2, 0.3, 0, M_PI, 0},
+                            {0.8, -0.2, 0.45, 0, M_PI, 0},
+                            {0.8, 0.2, 0.45, 0, M_PI, 0},
                             {0.8, 0.0, 0.6, 0, M_PI, 0}};
 
     robot_move_complete = false;

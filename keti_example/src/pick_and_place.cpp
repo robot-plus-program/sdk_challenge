@@ -187,15 +187,20 @@ int main(int argc, char **argv){
         visionComm.response.value.clear();
         visionComm.response.value.push_back(0);
         visionComm.response.value.push_back(0);
-        visionComm.response.value.push_back(0);
+        visionComm.response.value.push_back(210);
     }
 
     // Move to pick position
+    double offset[3] = {visionComm.response.value[0]/1000.0, visionComm.response.value[1]/1000.0, visionComm.response.value[2]/1000.0};
     double pick_pose[6] = {0,};
-    double offset[3] = {0.0818452352279836, -0.023331711769110135, 0.019284411871427095};
 
-    double pick_pose_wp1[6] = {0.85, -0.245, 0.35, 0, M_PI, 0};
-    double pick_pose_wp2[6] = {0.931071, -0.267948, 0.35, 0, M_PI, 0};
+    for(int i = 0; i < 3; i++){
+        pick_pose[i] = camera_pose[i] + offset[i];
+        pick_pose[i + 3] = camera_pose[i + 3];
+    }
+
+    double pick_pose_wp1[6] = {0.85, -0.245, 0.45, 0, M_PI, 0};
+    double pick_pose_wp2[6] = {0.931071, -0.267948, 0.45, 0, M_PI, 0};
     double pick_pose_wp3[6] = {0.931071, -0.267948, 0.22, 0, M_PI, 0};
     
     goalRobot.cmd = 2;
@@ -232,7 +237,7 @@ int main(int argc, char **argv){
     goalRobot.num = 1;
     goalRobot.value.clear();
     for(int j = 0; j < 6; j++){
-        goalRobot.value.push_back(pick_pose_wp3[j]);
+        goalRobot.value.push_back(pick_pose[j]);
     }
     acRobot.sendGoal(goalRobot, &RobotMoveCompleteCallback, &RobotMovingActiveCallback, &RobotMovingFeedbackCacllback);
 
@@ -259,7 +264,7 @@ int main(int argc, char **argv){
     // Move to place position
     double place_pose_wp1[6] = {0.931071, -0.267948, 0.4, 0, M_PI, 0};
     double place_pose_wp2[6] = {0.971071, 0.307948, 0.4, 0, M_PI, 0};
-    double place_pose_wp3[6] = {0.971071, 0.307948, 0.22, 0, M_PI, 0};
+    double place_pose_wp3[6] = {0.971071, 0.307948, pick_pose[2], 0, M_PI, 0};
     
     goalRobot.cmd = 3;
     goalRobot.num = 3;
