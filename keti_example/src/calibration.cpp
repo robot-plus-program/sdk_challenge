@@ -134,12 +134,12 @@ void mouse_event(int event, int x, int y, int flags, void*)
         depth = data.get_depth_frame().get_distance(x, y);
         rs2_deproject_pixel_to_point(point, &intrin, pixel, depth);
         ROS_INFO("camera x : %f, y : %f, z : %f", point[0], point[1], point[2]);
-        robot_point[0]=-point[1]+(80.6/1000)-15.0/1000.0;
-        robot_point[1]=-point[0]+(30.09/1000)+10.0/1000.0;
+        // robot_point[0]=-point[1]+(80.6/1000)-15.0/1000.0;
+        // robot_point[1]=-point[0]+(30.09/1000)+10.0/1000.0;
+        // robot_point[2]=-point[2]+(72.5/1000) + 0.1;
+        robot_point[0]=-point[1]+(80.6/1000)+3.0/1000.0;
+        robot_point[1]=-point[0]+(30.09/1000)-1.0/1000.0;
         robot_point[2]=-point[2]+(72.5/1000);
-        // robot_point[0]=-point[1]+(80.6/1000)+3.0/1000.0;
-        // robot_point[1]=-point[0]+(30.09/1000)-1.0/1000.0;
-        // robot_point[2]=-point[2]+(72.5/1000);
         ROS_INFO("robot x : %f, y : %f, z : %f", robot_point[0], robot_point[1], robot_point[2]);
     }
 }
@@ -210,7 +210,7 @@ int main(int argc, char **argv)
 
         movej(init_joint);
 
-        double camera_pose[6] = {0.850, -0.245, 0.700, 0, M_PI, 0};
+        double camera_pose[6] = {0.750, -0.245, 0.700, 0, M_PI, 0};
         movel(camera_pose);
         
         memset(robot_point, 0, sizeof(float)*3);

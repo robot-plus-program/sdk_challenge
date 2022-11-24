@@ -24,6 +24,14 @@ public:
 
     ros::Subscriber subRobotState;
 
+    void moveJoint(double cmd_joint[6]);
+    void movePose(double cmd_pose[6]);
+    void moveBlend(double cmd_pose[30], int num);
+
+    void moveWaitJoint(double cmd_joint[6]);
+    void moveWaitPose(double cmd_pose[6]);
+    void moveWaitPoseBlend(double cmd_blend[30], int num);
+
 private:
     int robot_state;
     double current_joint[6];

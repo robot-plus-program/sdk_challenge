@@ -162,6 +162,7 @@ int main(int argc, char **argv){
     acRobot.sendGoal(goalRobot, &RobotMoveCompleteCallback, &RobotMovingActiveCallback, &RobotMovingFeedbackCacllback);
     while(state != State::MoveWait){
         usleep(1000);
+        
     }
     while(state != State::Idle){
         usleep(1000);
