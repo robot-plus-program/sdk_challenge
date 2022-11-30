@@ -102,7 +102,37 @@ void RobotMoveActionClass::moveWaitPose(double cmd_pose[6]){
 }
 
 void RobotMoveActionClass::moveWaitPoseBlend(double cmd_pose[30], int num){
+    int count = 0;
+    bool moving = false;
+    while(true){
+        usleep(100000);
+        if(robot_state == 1.0){
+            count++;
+        }
+        if(count >= 50 && !moving){
+            break;
+        }
+        if(robot_state == 2.0){
+            moving = true;
+        }
+        if(robot_state == 1.0 && moving){
+            break;
+        }
+    }
 
+    double err_max = fabs(cmd_pose[0*6 + 0] - current_position[0]);
+    double err = 0;
+    for(int i = 1; i < 3; i++){
+        err = fabs(cmd_pose[0*6 + i] - current_position[i]);
+        if(err > err_max){
+            err_max = err;
+        }
+    }
+    if(err_max > 0.005){
+        usleep(100000);
+        ROS_INFO("re-command move blend");
+        moveBlend(cmd_pose, num);
+    }
 }
 
 void RobotMoveActionClass::moveJoint(double cmd_joint[6]){
