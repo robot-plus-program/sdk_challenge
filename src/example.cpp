@@ -106,12 +106,13 @@ void my_handler(int s)
 }
 
 int main(int argc, char **argv){
-    if(argc != 3){
+    if(argc != 4){
         std::cout << "\n\nPlease check the input arguments!!\n\n" << std::endl;
         return 0;
     }
     std::string robot_ip = argv[1];
     std::string gripper_ip = argv[2];
+    int gripper_port = atoi(argv[3]);
 
     sigIntHandler.sa_handler = my_handler;
     sigemptyset(&sigIntHandler.sa_mask);
@@ -123,7 +124,7 @@ int main(int argc, char **argv){
     robot_connected = RobotConnect();
     // robot_connected = true;
 
-    gripper.connect(gripper_ip.c_str(), 5002);
+    gripper.connect(gripper_ip.c_str(), gripper_port);
     gripper_connected = gripper.isConnected();
     if(gripper_connected)
         gripper.gripper_init();

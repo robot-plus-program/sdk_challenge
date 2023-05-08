@@ -1,9 +1,7 @@
 ***
-
 ## Environment
 
 ### Linux Version : Ubuntu 20.04
-
 ***
 
 <br>
@@ -30,10 +28,12 @@ mkdir build
 cd build
 cmake ..
 make
-./example xxx.xxx.xxx.xxx ooo.ooo.ooo.ooo
+./example xxx.xxx.xxx.xxx ooo.ooo.ooo.ooo port_num
 ~~~
-xxx.xxx.xxx.xxx : Robot IP address <br>
-ooo.ooo.ooo.ooo : Gripper IP address <br><br>
+xxx.xxx.xxx.xxx : Robot IP address<br>
+ooo.ooo.ooo.ooo : Gripper IP address<br>
+port_num : Gripper port number
+<br><br>
 
 ***
 ## 4. Simulator
