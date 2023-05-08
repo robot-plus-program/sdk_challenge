@@ -1,0 +1,6 @@
+<launch>
+    <include file="$(find keti_robot_moveit)/launch/demo.launch"/>
+    <node pkg="keti_robot_control" type="robot_control" name="robot_control_node" output="screen" />
+
+    <include file="$(find keti_robot_server)/launch/robot_server.launch"/>
+</launch>

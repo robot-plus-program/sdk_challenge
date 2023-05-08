@@ -1,0 +1,56 @@
+keti_robot_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - q1
+    - q2
+    - q3
+    - q4
+    - q5
+    - q6
+  gains:
+    q1:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    q2:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    q3:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    q4:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    q5:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    q6:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+keti_gripper_controller:
+  type: position_controllers/JointTrajectoryController
+  joints:
+    - slide_finger1
+    - slide_finger2
+  gains:
+    slide_finger1:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1
+    slide_finger2:
+      p: 100
+      d: 1
+      i: 1
+      i_clamp: 1

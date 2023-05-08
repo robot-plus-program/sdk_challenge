@@ -1,5 +1,0 @@
-<launch>
-    <arg name="print" default="false"/>
-    <param name="print" type="bool" value="$(arg print)" />
-    <node pkg="keti_example" type="pick_and_place" name="pick_and_place" output="screen" />
-</launch>

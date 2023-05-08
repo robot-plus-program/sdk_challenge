@@ -1,0 +1,11 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: keti_robot_description
+    relative_path: urdf/keti_robot_description.urdf
+    xacro_args: ""
+  SRDF:
+    relative_path: config/keti_robot_description.srdf
+  CONFIG:
+    author_name: HajunSong
+    author_email: hajunsong90@keti.re.kr
+    generated_timestamp: 1681188332

@@ -1,0 +1,19 @@
+controller_list:
+  - name: keti_robot_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: True
+    joints:
+      - q1
+      - q2
+      - q3
+      - q4
+      - q5
+      - q6
+  - name: keti_gripper_controller
+    action_ns: follow_joint_trajectory
+    type: FollowJointTrajectory
+    default: True
+    joints:
+      - slide_finger1
+      - slide_finger2

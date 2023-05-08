@@ -1,0 +1,10 @@
+#goal definition
+int32 cmd
+int32 num
+float64[] value
+---
+#result definition
+int32[] sequence
+---
+#feedback
+int32[] sequence

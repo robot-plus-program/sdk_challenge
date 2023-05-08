@@ -1,0 +1,9 @@
+#goal definition
+int32 cmd
+---
+#result definition
+int32[] sequence
+---
+#feedback
+int32[] sequence
+float64[] width

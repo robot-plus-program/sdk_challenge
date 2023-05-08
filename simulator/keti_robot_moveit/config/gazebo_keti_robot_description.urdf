@@ -1,0 +1,544 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- This URDF was automatically created by SolidWorks to URDF Exporter! Originally created by Stephen Brawner (brawner@gmail.com) 
+     Commit Version: 1.6.0-4-g7f85cfe  Build Version: 1.6.7995.38578
+     For more information, please see http://wiki.ros.org/sw_urdf_exporter -->
+<robot name="keti_robot_description">
+    <link name="base_link">
+        <inertial>
+            <origin xyz="-3.36085209448091E-05 0.000287133945830102 0.0438378188701482" rpy="0 0 0" />
+            <mass value="2.2521398120105" />
+            <inertia ixx="0.00610179258303705" ixy="5.05489141748032E-06" ixz="-2.06579698345411E-06" iyy="0.00603383821255677" iyz="-2.85749716627364E-06" izz="0.0086064928113372" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/base_link.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.8 0.8 0.8 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/base_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <link name="link1">
+        <inertial>
+            <origin xyz="-0.000155570349547256 -0.0115300094964011 0.185903083989741" rpy="0 0 0" />
+            <mass value="3.38715574374258" />
+            <inertia ixx="0.00965712431607013" ixy="2.56211525076845E-06" ixz="-2.07308619063588E-06" iyy="0.00999757655610851" iyz="0.00227412857483655" izz="0.0098539484036096" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link1.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link1.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="q1" type="revolute">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="link1" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.15" upper="3.15" effort="10" velocity="100" />
+    </joint>
+    <link name="link2">
+        <inertial>
+            <origin xyz="-5.04053708179734E-05 -0.255908615808748 -0.18209452458773" rpy="0 0 0" />
+            <mass value="10.3635830804756" />
+            <inertia ixx="0.120627050730748" ixy="2.66500240762151E-06" ixz="2.14328350300721E-06" iyy="0.0227437611612611" iyz="-0.00160299836352993" izz="0.120841706515207" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link2.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.294117647058824 0.294117647058824 0.294117647058824 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link2.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="q2" type="revolute">
+        <origin xyz="0 0 0.198" rpy="-1.5708 0 0" />
+        <parent link="link1" />
+        <child link="link2" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.15" upper="3.15" effort="10" velocity="100" />
+    </joint>
+    <link name="link3">
+        <inertial>
+            <origin xyz="0.266215153303307 1.24415125219574E-07 0.143135454095261" rpy="0 0 0" />
+            <mass value="5.05083810344374" />
+            <inertia ixx="0.00628903769306436" ixy="9.83217919871376E-09" ixz="-0.000370527100010162" iyy="0.0617567752123527" iyz="4.19384943060267E-10" izz="0.0618362132215415" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link3.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.294117647058824 0.294117647058824 0.294117647058824 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link3.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="q3" type="revolute">
+        <origin xyz="0 -0.6127 -0.1875" rpy="0 0 -1.5708" />
+        <parent link="link2" />
+        <child link="link3" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.15" upper="3.15" effort="10" velocity="100" />
+    </joint>
+    <link name="link4">
+        <inertial>
+            <origin xyz="0.00564731922968353 -2.03785547391727E-07 -0.11129418881876" rpy="0 0 0" />
+            <mass value="0.809634503765035" />
+            <inertia ixx="0.000806283837275996" ixy="-1.71867704059923E-08" ixz="0.000215199707058614" iyy="0.000838077342386081" iyz="-7.62900079675169E-09" izz="0.000881367462526004" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link4.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link4.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="q4" type="revolute">
+        <origin xyz="0.57015 0 0.1484" rpy="0 0 0" />
+        <parent link="link3" />
+        <child link="link4" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.15" upper="3.15" effort="10" velocity="100" />
+    </joint>
+    <link name="link5">
+        <inertial>
+            <origin xyz="4.63101048859341E-05 -0.00651524423591263 0.11138476672215" rpy="0 0 0" />
+            <mass value="0.822358154530824" />
+            <inertia ixx="0.000866973842392845" ixy="3.12657392663225E-07" ixz="-1.57214298672093E-06" iyy="0.000822010875326482" iyz="0.000222517239579132" izz="0.00090768237706164" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link5.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link5.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="q5" type="revolute">
+        <origin xyz="0 0 -0.11715" rpy="1.5708 0.0070497 1.5708" />
+        <parent link="link4" />
+        <child link="link5" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.15" upper="3.15" effort="10" velocity="100" />
+    </joint>
+    <link name="link6">
+        <inertial>
+            <origin xyz="-2.6624035920006E-07 -0.000235268346064688 -0.0906803368507646" rpy="0 0 0" />
+            <mass value="0.23767801504912" />
+            <inertia ixx="0.000145950225567596" ixy="-1.22777307820616E-09" ixz="-7.02444790603633E-10" iyy="0.000148314460562859" iyz="5.77656415906496E-07" izz="0.000234953702007301" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link6.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link6.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="q6" type="revolute">
+        <origin xyz="0 0 0.11715" rpy="-1.5708 0 0.0070497" />
+        <parent link="link5" />
+        <child link="link6" />
+        <axis xyz="0 0 1" />
+        <limit lower="-3.15" upper="3.15" effort="10" velocity="100" />
+    </joint>
+    <link name="gripper_body">
+        <inertial>
+            <origin xyz="0.000964497686721692 -0.0461987659883821 0.000126614316610318" rpy="0 0 0" />
+            <mass value="0.833018335285825" />
+            <inertia ixx="0.00035744407226028" ixy="-7.87184581147048E-06" ixz="-7.44634053674841E-07" iyy="0.00141010572775022" iyz="6.64227935729311E-08" izz="0.00118048682314224" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_body.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_body.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="link6_gripper_fixed" type="fixed">
+        <origin xyz="0 0 -0.1148" rpy="1.5708 0.0070497 0" />
+        <parent link="link6" />
+        <child link="gripper_body" />
+        <axis xyz="0 0 0" />
+        <limit lower="-3.15" upper="3.15" effort="10" velocity="100" />
+    </joint>
+    <link name="gripper_tool1">
+        <inertial>
+            <origin xyz="-0.000187095087317513 -0.00839540838169445 0.0503901981194651" rpy="0 0 0" />
+            <mass value="0.0524980209707732" />
+            <inertia ixx="4.33143562379135E-06" ixy="3.76648518766476E-08" ixz="9.29191075202578E-08" iyy="5.26806301784343E-06" iyz="-9.16328438600956E-07" izz="4.96961994940066E-06" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_tool1.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.650980392156863 0.619607843137255 0.588235294117647 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_tool1.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="slide_finger1" type="prismatic">
+        <origin xyz="0.00068029 -0.096498 0" rpy="-3.1345 -1.5708 3.1416" />
+        <parent link="gripper_body" />
+        <child link="gripper_tool1" />
+        <axis xyz="0 0 -1" />
+        <limit lower="0" upper="0.04" effort="10" velocity="100" />
+    </joint>
+    <link name="gripper_finger1">
+        <inertial>
+            <origin xyz="-1.89563253982783E-10 -0.0898683983369567 0.0468507894853555" rpy="0 0 0" />
+            <mass value="0.0694658380950057" />
+            <inertia ixx="0.000232702275402011" ixy="4.53198492623508E-13" ixz="2.61266890896669E-14" iyy="3.23864994331891E-06" iyz="-5.91510564750317E-06" izz="0.000233913802492912" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_finger1.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_finger1.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="tool_finger1_fixed" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="gripper_tool1" />
+        <child link="gripper_finger1" />
+        <axis xyz="0 0 0" />
+    </joint>
+    <link name="gripper_tool2">
+        <inertial>
+            <origin xyz="0.000187095087317068 -0.00839540838169439 -0.0503901981194645" rpy="0 0 0" />
+            <mass value="0.0524980209707734" />
+            <inertia ixx="4.33143562379135E-06" ixy="-3.76648518766326E-08" ixz="9.29191075202769E-08" iyy="5.26806301784346E-06" iyz="9.1632843860095E-07" izz="4.96961994940069E-06" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_tool2.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.650980392156863 0.619607843137255 0.588235294117647 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_tool2.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="slide_finger2" type="prismatic">
+        <origin xyz="0.000680292998159457 -0.0964976020501893 0" rpy="-3.13454292682163 -1.57079631189374 3.14159265358979" />
+        <parent link="gripper_body" />
+        <child link="gripper_tool2" />
+        <axis xyz="0 0 1" />
+        <limit lower="0" upper="0.04" effort="10" velocity="100" />
+    </joint>
+    <link name="gripper_finger2">
+        <inertial>
+            <origin xyz="1.88546733781436E-10 -0.0898683983348695 -0.0468507894819098" rpy="0 0 0" />
+            <mass value="0.0694658380901624" />
+            <inertia ixx="0.000232702275371426" ixy="-4.50738185052233E-13" ixz="2.43052739804296E-14" iyy="3.2386499418736E-06" iyz="5.91510564337428E-06" izz="0.000233913802462028" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_finger2.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_finger2.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="tool_finger2_fixed" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="gripper_tool2" />
+        <child link="gripper_finger2" />
+        <axis xyz="0 0 0" />
+    </joint>
+    <link name="base">
+        <inertial>
+            <origin xyz="0.475174185624575 -0.00377341181843176 -0.364821241376075" rpy="0 0 0" />
+            <mass value="1166.08310054465" />
+            <inertia ixx="126.277054980318" ixy="1.78873159404682" ixz="-6.79491049178361E-14" iyy="379.990896927337" iyz="1.04270672445908E-16" izz="411.085430048862" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/base.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/base.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="base_fixed" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="base" />
+        <axis xyz="0 0 0" />
+        <limit lower="0" upper="0" effort="0" velocity="0" />
+    </joint>
+    <link name="plate_pick">
+        <inertial>
+            <origin xyz="0.926490060276359 -0.256961331374575 -0.0125000000002192" rpy="0 0 0" />
+            <mass value="0.797947283360143" />
+            <inertia ixx="0.010615722604423" ixy="1.26919416816773E-17" ixz="2.64712336886471E-15" iyy="0.010615722604423" iyz="-2.59446079949759E-17" izz="0.0212281204284986" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/plate_pick.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0 1 0 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/plate_pick.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="base_plate_pick_fixed" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="plate_pick" />
+        <axis xyz="0 0 0" />
+    </joint>
+    <link name="plate_place">
+        <inertial>
+            <origin xyz="0.930014894853705 0.243026244012161 -0.0125000000004366" rpy="0 0 0" />
+            <mass value="0.797947283360145" />
+            <inertia ixx="0.010615722604423" ixy="2.16840434498881E-18" ixz="2.64695266744577E-15" iyy="0.010615722604423" iyz="-1.75278270782062E-16" izz="0.0212281204284986" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/plate_place.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0 0 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/plate_place.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="base_plate_place_fixed" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="plate_place" />
+        <axis xyz="0 0 0" />
+    </joint>
+    <link name="obstacle">
+        <inertial>
+            <origin xyz="0.947644597488781 -0.00105915977649695 0.0349999999997669" rpy="0 0 0" />
+            <mass value="2.99739905159225" />
+            <inertia ixx="0.00140388130169823" ixy="0.000435273876309154" ixz="1.5429290968821E-14" iyy="0.0631431513060792" iyz="-1.09490622164355E-16" izz="0.0631462199191515" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/obstacle.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="1 1 1 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/obstacle.STL" />
+            </geometry>
+        </collision>
+    </link>
+    <joint name="base_obstacle_fixed" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="obstacle" />
+        <axis xyz="0 0 0" />
+    </joint>
+    <transmission name="trans_q1">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="q1">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="q1_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_q2">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="q2">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="q2_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_q3">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="q3">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="q3_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_q4">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="q4">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="q4_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_q5">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="q5">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="q5_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_q6">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="q6">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="q6_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_slide_finger1">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="slide_finger1">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="slide_finger1_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <transmission name="trans_slide_finger2">
+        <type>transmission_interface/SimpleTransmission</type>
+        <joint name="slide_finger2">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+        </joint>
+        <actuator name="slide_finger2_motor">
+            <hardwareInterface>hardware_interface/PositionJointInterface</hardwareInterface>
+            <mechanicalReduction>1</mechanicalReduction>
+        </actuator>
+    </transmission>
+    <gazebo>
+        <plugin name="gazebo_ros_control">
+            <robotNamespace>/</robotNamespace>
+        </plugin>
+    </gazebo>
+</robot>
+

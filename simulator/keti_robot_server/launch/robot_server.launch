@@ -1,0 +1,3 @@
+<launch>
+    <node pkg="keti_robot_server" type="robot_server" name="robot_server_node" output="screen" />
+</launch>
