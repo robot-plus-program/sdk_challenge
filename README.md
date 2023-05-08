@@ -1,72 +1,66 @@
 ***
 
-### Environment
+## Environment
 
-#### Linux Version : Ubuntu 20.04
-#### ROS version : noetic
+### Linux Version : Ubuntu 20.04
 
 ***
 
-<br />
+<br>
 
-### 1. Install ROS MoveIt
+## 1. 운영체제 업데이트
 ~~~
-sudo apt install ros-noetic-moveit*
+sudo apt-get update && sudo apt-get upgrade
 ~~~
 
-### 2. Download & Install [Doosan robot](http://wiki.ros.org/doosan-robotics) ROS package  
-<br />
-
-### 3. Download & Install Project
+## 2. Modbus library 설치
 ~~~
-cd ~/catkin_ws/src
+sudo apt-get install libmodbus*
+~~~
+
+## 2. KETI SDK 다운로드
+~~~
 git clone https://github.com/robot-plus-program/sdk_challenge.git
-cm
-~~~
-\* package의 종속성 문제로 에러 발생할 수 있음. 재빌드 실행 시 이상없이 빌드 됨.
-
-<br />
-
-# Simulation mode
-### 1. Run robot simulator
-~~~
-roslaunch keti_robot robot_control_sim.launch
-~~~
-![simulation_monitor](./imgs/simulation_monitor.png)
-
-### 2. Run simulator operating example
-~~~
-roslaunch keti_example example.launch mode:=virtual
-~~~
-![example_run](./imgs/example_run.png)
-
-<br />
-
-# Real mode
-### 1. Ready
-~~~
-(1) Robot & Control box power on.
-
-(2) Teaching Pendant(TP) power on. Long press power button.
-
-(3) Robot motor servo on.
-
-(4) Communication program run in TP.
-
-(5) Gripper & Gripper compute box power on.
-~~~
-### 2. Run robot controller
-~~~
-roslaunch keti_robot robot_control.launch robot_ip:=192.168.137.10x
-~~~
-x = 1 or 2
-
-### 3. Run example(c++)
-~~~
-roslaunch keti_example example.launch mode:=real
 ~~~
 
-### 4. Run example(python)
+## 3. Build & Run example
 ~~~
-rosrun keti_example example.py
+cd ${download sdk_challenge folder}
+mkdir build
+cd build
+cmake ..
+make
+./example xxx.xxx.xxx.xxx ooo.ooo.ooo.ooo
+~~~
+xxx.xxx.xxx.xxx : Robot IP address <br>
+ooo.ooo.ooo.ooo : Gripper IP address <br><br>
+
+***
+## 4. Simulator
+### 4.1 ROS noetic 설치<br>
+http://wiki.ros.org/noetic/Installation/Ubuntu 참고
+<br>
+
+### 4.2 ROS moveit 설치
+~~~
+sudo apt-get install ros-noetic-moveit*
+~~~
+
+### 4.3 Modbus library 설치
+~~~
+sudo apt-get install libmodbus*
+~~~
+\* SDK를 실행하는 PC와 시뮬레이터 PC가 동일 할 경우 한 번만 설치하면 됨.
+
+### 4.4 ROS workspace로 source code 복사 및 빌드
+~~~
+cd ${download sdk_challenge folder}
+cp -r simulator/ ~/{ros workspace}/src/
+cd ~/{ros workspace}/
+catkin_make
+~~~
+
+### 4.5 Simulator 실행
+~~~
+roslaunch keti_robot_control robot_control.launch
 ~~~
