@@ -55,7 +55,7 @@ sudo apt-get install libmodbus*
 ### 4.4 ROS workspace로 source code 복사 및 빌드
 ~~~
 cd ${download sdk_challenge folder}
-cp -r simulator/ ~/{ros workspace}/src/
+cp -r keti_sdk_simulator/ ~/{ros workspace}/src/
 cd ~/{ros workspace}/
 catkin_make
 ~~~
