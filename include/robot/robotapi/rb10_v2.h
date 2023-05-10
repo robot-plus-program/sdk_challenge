@@ -231,7 +231,7 @@ public:
     void ControlBoxDigitalOut(int d0=0, int d1=0, int d2=0, int d3=0, int d4=0, int d5=0, int d6=0, int d7=0, int d8=0, int d9=0, int d10=0, int d11=0, int d12=0, int d13=0, int d14=0, int d15=0);
 
 //    vector<bool> ControlBoxDigitalIn();
-//    int ControlBoxDigitalIn();
+    double ControlBoxDigitalIn();
 private :
 
 

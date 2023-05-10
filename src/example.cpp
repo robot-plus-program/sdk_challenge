@@ -79,7 +79,23 @@ static void* data_update_func(void* arg){
         }
 
         memcpy(current_joint, robotInfor.jnt, sizeof(double)*6);
-        memcpy(current_T_matrix, robotInfor.mat, sizeof(double)*6);
+        memcpy(current_T_matrix, robotInfor.mat, sizeof(double)*16);
+
+        // printf("current_state : %f", state);
+        // printf("current_joint : ");
+        // for(unsigned int i = 0; i < 6; i++){
+        //     printf("%f ", current_joint[i]);
+        // }
+        // printf("\n");
+
+        // printf("current_T_matrix : \n");
+        // for(unsigned int i = 1; i <= 16; i++){
+        //     printf("%f ", current_T_matrix[i-1]);
+        //     if(i%4 == 0){
+        //         printf("\n");
+        //     }
+        // }
+        // printf("\n");
 
         usleep(10000);
     }
@@ -135,18 +151,20 @@ int main(int argc, char **argv){
 
     pthread_create(&data_update_thread, NULL, data_update_func, NULL);
     
-    double cmd_joint[2][6] = {{0, 0, 0, 0, 0, 0},
-                            {0, 0, M_PI_2, 0, M_PI_2, 0}};
+    double cmd_joint[2][6] = {{M_PI_2*3, 0, M_PI_2, 0, M_PI_2, -M_PI},
+                            {M_PI_2*3, M_PI_4, M_PI_2, -M_PI_2, M_PI_2, 0}};
 
-    double cmd_rot[9] = {0, 0, 1, 1, 0, 0, 0, 1, 0};
-    double cmd_pos[5][3] = {{0.787323, -0.356279, 0.695886}, 
-                            {0.787323, -0.356279, 0.395886}, 
-                            {0.787323, 0.356279, 0.395886}, 
-                            {0.787323, 0.356279, 0.695886},
-                            {0.687323, -0.156279, 0.695886}};
+    double cmd_rot[9] = {-1, 0, 0, 0, 0, 1, 0, 1, 0};
+    double cmd_pos[5][3] = {{-0.394545, -0.688601, 0.510546}, 
+                            {-0.394545, -0.688601, 0.330724}, 
+                            {0.2159, -0.787392, 0.330724}, 
+                            {0.2159, -0.524593, 0.622947},
+                            {-0.1579, -0.688602, 0.695799}};
 
-    int cnt_joint = 1;
+    int cnt_joint = 0;
     int cnt_pose = 0;
+
+    SetVelocity(20);
 
     while(robot_connected && gripper_connected){
         // std::cout << "state : " << state << std::endl;
