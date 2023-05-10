@@ -6,7 +6,7 @@
 
 <br>
 
-## 1. 운영체제 업데이트 및 
+## 1. 운영체제 업데이트
 ~~~
 sudo apt-get update && sudo apt-get upgrade
 ~~~
