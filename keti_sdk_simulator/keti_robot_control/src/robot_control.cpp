@@ -39,59 +39,6 @@ RobotControl::RobotControl(ros::NodeHandle nh, std::string name1, std::string na
 
     asRobot.start();
     asGripper.start();
-    // usleep(5000000);
-
-    // std::vector<double> init_joint = {0, 0, 0, 0, 0, 0};
-    // movej(init_joint);
-    // usleep(3000000);
-
-    // std::vector<double> ready_joint = {0, 0, M_PI_2, 0, M_PI_2, 0};
-    // movej(ready_joint);
-    // usleep(3000000);
-
-    // current_joint = move_group_robot->getCurrentJointValues();
-    // ROS_INFO("current joint : %f, %f, %f, %f, %f, %f", current_joint[0], current_joint[1], current_joint[2], current_joint[3], current_joint[4], current_joint[5]);
-
-    // current_pose = move_group_robot->getCurrentPose().pose;
-    // ROS_INFO("current pose : %f, %f, %f, %f, %f, %f, %f", current_pose.position.x, current_pose.position.y, current_pose.position.z,
-    //                                                         current_pose.orientation.x, current_pose.orientation.y, current_pose.orientation.z, current_pose.orientation.w);
-
-    // current_grip = move_group_gripper->getCurrentJointValues();
-    // ROS_INFO("current grip size : %f, %f", current_grip[0], current_grip[1]);
-
-    // geometry_msgs::Pose target_pose;
-    // target_pose.orientation = current_pose.orientation;
-    // target_pose.position.x = 1.0;
-    // target_pose.position.y = -0.3;
-    // target_pose.position.z = 0.3;
-    // movel(target_pose);
-    // usleep(3000000);
-
-    // move_gripper(0.04);
-    // usleep(3000000);
-
-    // current_pose = move_group_robot->getCurrentPose().pose;
-    // geometry_msgs::Pose wp1, wp2, wp3;
-    // wp1 = current_pose;
-    // wp1.position.z = 0.8;
-
-    // wp2 = wp1;
-    // wp2.position.y = 0.3;
-
-    // wp3 = wp2;
-    // wp3.position.z = 0.3;
-
-    // std::vector<geometry_msgs::Pose> waypoints;
-    // waypoints.push_back(current_pose);
-    // waypoints.push_back(wp1);
-    // waypoints.push_back(wp2);
-    // waypoints.push_back(wp3);
-
-    // moveb(waypoints);
-    // usleep(10000000);
-
-    // move_gripper(0.0);
-    // usleep(3000000);
 }
 
 RobotControl::~RobotControl(){
@@ -190,40 +137,66 @@ void RobotControl::executeCBRobot(const keti_robot_control::RobotMoveGoalConstPt
         ROS_INFO("%f, %f, %f, %f", goal->value[8], goal->value[9], goal->value[10], goal->value[11]);
         ROS_INFO("%f, %f, %f, %f", goal->value[12], goal->value[13], goal->value[14], goal->value[15]);
 
-        double x, y, z, w;
-        w = sqrt(1.0 + goal->value[0*4 + 0] + goal->value[1*4 + 1] + goal->value[2*4 + 2])/2.0;
-        double w4 = 4.0*w;
-        x = (goal->value[2*4 + 1] - goal->value[1*4 + 2])/w4;
-        y = (goal->value[0*4 + 2] - goal->value[2*4 + 0])/w4;
-        z = (goal->value[1*4 + 0] - goal->value[0*4 + 1])/w4;
+        double tr = goal->value[0*4 + 0] + goal->value[1*4 + 1] + goal->value[2*4 + 2];
+        double m00, m01, m02, m10, m11, m12, m20, m21, m22;
+        double qw, qx, qy, qz;
+        m00 = goal->value[0*4 + 0]; m01 = goal->value[0*4 + 1]; m02 = goal->value[0*4 + 2];
+        m10 = goal->value[1*4 + 0]; m11 = goal->value[1*4 + 1]; m12 = goal->value[1*4 + 2];
+        m20 = goal->value[2*4 + 0]; m21 = goal->value[2*4 + 1]; m22 = goal->value[2*4 + 2];
 
+        if (tr > 0) {
+            double S = sqrt(tr + 1.0) * 2; // S=4*qw
+            qw = 0.25 * S;
+            qx = (m21 - m12) / S;
+            qy = (m02 - m20) / S;
+            qz = (m10 - m01) / S;
+        }
+        else if ((m00 > m11) & (m00 > m22)) {
+            double S = sqrt(1.0 + m00 - m11 - m22) * 2; // S=4*qx
+            qw = (m21 - m12) / S;
+            qx = 0.25 * S;
+            qy = (m01 + m10) / S;
+            qz = (m02 + m20) / S;
+        }
+        else if (m11 > m22) {
+            double S = sqrt(1.0 + m11 - m00 - m22) * 2; // S=4*qy
+            qw = (m02 - m20) / S;
+            qx = (m01 + m10) / S;
+            qy = 0.25 * S;
+            qz = (m12 + m21) / S;
+        }
+        else {
+            double S = sqrt(1.0 + m22 - m00 - m11) * 2; // S=4*qz
+            qw = (m10 - m01) / S;
+            qx = (m02 + m20) / S;
+            qy = (m12 + m21) / S;
+            qz = 0.25 * S;
+        }
+
+        geometry_msgs::Pose current_pose = move_group_robot->getCurrentPose().pose;
         geometry_msgs::Pose target_pose;
         target_pose.position.x = goal->value[3];
         target_pose.position.y = goal->value[7];
         target_pose.position.z = goal->value[11];
-        target_pose.orientation.x = x;
-        target_pose.orientation.y = y;
-        target_pose.orientation.z = z;
-        target_pose.orientation.w = w;
-
-        // ROS_INFO("target orientation : %f, %f, %f, %f\n\n", 
-        //     target_pose.orientation.w, target_pose.orientation.x, target_pose.orientation.y, target_pose.orientation.z);
-
-        geometry_msgs::Pose current_pose = move_group_robot->getCurrentPose().pose;
+        target_pose.orientation.x = qx;
+        target_pose.orientation.y = qy;
+        target_pose.orientation.z = qz;
+        target_pose.orientation.w = qw;
 
         std::vector<geometry_msgs::Pose> waypoints;
         waypoints.push_back(current_pose);
         waypoints.push_back(target_pose);
 
         moveit_msgs::RobotTrajectory trajectory;
-        double jump_threshold = 0.0;
+        double jump_threshold = 0;
         double eef_step = 0.01;
         double fraction = move_group_robot->computeCartesianPath(waypoints, eef_step, jump_threshold, trajectory);
         ROS_INFO_NAMED(PLANNING_GROUP_ROBOT, "Visualizing plan (Cartesian path) (%.2f%% achieved)", fraction * 100.0);
 
         bool success = false;
 
-        if(fraction >= 0.7){
+        if(fraction >= 0.7)
+        {
             move_group_robot->asyncExecute(trajectory);
             ros::Duration().sleep();
             success = true;
@@ -247,21 +220,51 @@ void RobotControl::executeCBRobot(const keti_robot_control::RobotMoveGoalConstPt
                 value[i] = goal->value[16*num + i];
             }
 
-            double x, y, z, w;
-            w = sqrt(1.0 + value[0*4 + 0] + value[1*4 + 1] + value[2*4 + 2])/2.0;
-            double w4 = 4.0*w;
-            x = (value[2*4 + 1] - value[1*4 + 2])/w4;
-            y = (value[0*4 + 2] - value[2*4 + 0])/w4;
-            z = (value[1*4 + 0] - value[0*4 + 1])/w4;
+            double tr = value[0*4 + 0] + value[1*4 + 1] + value[2*4 + 2];
+            double m00, m01, m02, m10, m11, m12, m20, m21, m22;
+            double qw, qx, qy, qz;
+            m00 = value[0*4 + 0]; m01 = value[0*4 + 1]; m02 = value[0*4 + 2];
+            m10 = value[1*4 + 0]; m11 = value[1*4 + 1]; m12 = value[1*4 + 2];
+            m20 = value[2*4 + 0]; m21 = value[2*4 + 1]; m22 = value[2*4 + 2];
+
+            if (tr > 0) {
+                double S = sqrt(tr + 1.0) * 2; // S=4*qw
+                qw = 0.25 * S;
+                qx = (m21 - m12) / S;
+                qy = (m02 - m20) / S;
+                qz = (m10 - m01) / S;
+            }
+            else if ((m00 > m11) & (m00 > m22)) {
+                double S = sqrt(1.0 + m00 - m11 - m22) * 2; // S=4*qx
+                qw = (m21 - m12) / S;
+                qx = 0.25 * S;
+                qy = (m01 + m10) / S;
+                qz = (m02 + m20) / S;
+            }
+            else if (m11 > m22) {
+                double S = sqrt(1.0 + m11 - m00 - m22) * 2; // S=4*qy
+                qw = (m02 - m20) / S;
+                qx = (m01 + m10) / S;
+                qy = 0.25 * S;
+                qz = (m12 + m21) / S;
+            }
+            else {
+                double S = sqrt(1.0 + m22 - m00 - m11) * 2; // S=4*qz
+                qw = (m10 - m01) / S;
+                qx = (m02 + m20) / S;
+                qy = (m12 + m21) / S;
+                qz = 0.25 * S;
+            }
 
             geometry_msgs::Pose target_pose;
             target_pose.position.x = value[3];
             target_pose.position.y = value[7];
             target_pose.position.z = value[11];
-            target_pose.orientation.x = x;
-            target_pose.orientation.y = y;
-            target_pose.orientation.z = z;
-            target_pose.orientation.w = w;
+            target_pose.orientation.x = qx;
+            target_pose.orientation.y = qy;
+            target_pose.orientation.z = qz;
+            target_pose.orientation.w = qw;
+            target_pose.orientation = current_pose.orientation;
             waypoints.push_back(target_pose);
         }
 
@@ -304,7 +307,7 @@ void RobotControl::executeCBRobot(const keti_robot_control::RobotMoveGoalConstPt
     else{
         resultRobot.sequence.push_back(0);
     }
-    ROS_INFO("%s : Succeeded", robot_action_name.c_str());
+    // ROS_INFO("%s : Succeeded", robot_action_name.c_str());
     // set the action state to succeeded
     asRobot.setSucceeded(resultRobot);
 }
@@ -372,6 +375,23 @@ void RobotControl::RobotMoveStateCallback(const moveit_msgs::ExecuteTrajectoryAc
         msgRobotState.state = 1;
         msgGripperState.state = 1;
     }
+}
+
+bool RobotControl::movej(std::vector<double> target_joint){
+    move_group_robot->setPlanningTime(2.0);
+    move_group_robot->setJointValueTarget(target_joint);
+
+    moveit::planning_interface::MoveGroupInterface::Plan plan;
+
+    bool success = (move_group_robot->plan(plan) == moveit::planning_interface::MoveItErrorCode::SUCCESS);
+    ROS_INFO_NAMED(PLANNING_GROUP_ROBOT, "Visualizing plan 1 (joint goal) %s", success ? "SUCCEED" : "FAILED");
+    if (success)
+    {
+        move_group_robot->asyncExecute(plan);
+        ros::Duration().sleep();
+    }
+
+    return success;
 }
 
 bool RobotControl::movel(geometry_msgs::Pose target_pose){

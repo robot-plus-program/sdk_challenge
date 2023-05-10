@@ -138,23 +138,24 @@ int main(int argc, char **argv){
 
     SetRobotConf(RB10, robot_ip.c_str(), 5000);
     robot_connected = RobotConnect();
-    // robot_connected = true;
 
     gripper.connect(gripper_ip.c_str(), gripper_port);
     gripper_connected = gripper.isConnected();
+    std::cout << "wait..." << std::endl;
     if(gripper_connected)
         gripper.gripper_init();
 
-    std::cout << "wait..." << std::endl;
 
     pthread_create(&key_input_thread, NULL, key_input_func, NULL);
 
     pthread_create(&data_update_thread, NULL, data_update_func, NULL);
     
-    double cmd_joint[2][6] = {{M_PI_2*3, 0, M_PI_2, 0, M_PI_2, -M_PI},
-                            {M_PI_2*3, M_PI_4, M_PI_2, -M_PI_2, M_PI_2, 0}};
+    double cmd_joint[2][6] = {{-M_PI_2, 0, M_PI_2, 0, M_PI_2, -M_PI},
+                            {-M_PI_2, M_PI_4, M_PI_2, -M_PI_2, M_PI_2, 0}};
 
-    double cmd_rot[9] = {-1, 0, 0, 0, 0, 1, 0, 1, 0};
+    double cmd_rot[9] = {-1, 0, 0, 
+                        0, 0, 1, 
+                        0, 1, 0};
     double cmd_pos[5][3] = {{-0.394545, -0.688601, 0.510546}, 
                             {-0.394545, -0.688601, 0.330724}, 
                             {0.2159, -0.787392, 0.330724}, 
@@ -167,8 +168,6 @@ int main(int argc, char **argv){
     SetVelocity(20);
 
     while(robot_connected && gripper_connected){
-        // std::cout << "state : " << state << std::endl;
-        // std::cout << "cnt : " << cnt_joint << std::endl;
         if(state == State::Wait)
         {
             switch(cmd)

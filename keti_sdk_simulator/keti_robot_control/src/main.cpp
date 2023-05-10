@@ -6,7 +6,7 @@ int main(int argc, char** argv){
 
     ros::NodeHandle nh;
 
-    ros::AsyncSpinner spinner(1);
+    ros::AsyncSpinner spinner(3);
     spinner.start();
 
     RobotControl robotControl(nh, "robot_move_action", "gripper_move_action");
