@@ -4,12 +4,6 @@
 ### Linux Version : Ubuntu 20.04
 ***
 
-***
-## Requirement
-
-### 
-***
-
 <br>
 
 ## 1. 운영체제 업데이트 및 
