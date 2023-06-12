@@ -19,8 +19,8 @@
 #include <keti_robot_control/RobotMoveAction.h>
 #include <keti_robot_control/GripperMoveAction.h>
 
-const std::string PLANNING_GROUP_ROBOT = "keti_robot";
-const std::string PLANNING_GROUP_GRIPPER = "keti_gripper";
+const std::string PLANNING_GROUP_ROBOT = "arm";
+const std::string PLANNING_GROUP_GRIPPER = "gripper";
 
 class RobotControl{
 public:

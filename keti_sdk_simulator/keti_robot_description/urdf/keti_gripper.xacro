@@ -1,0 +1,234 @@
+<?xml version="1.0"?>
+
+<robot
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <link name="gripper_body">
+        <inertial>
+            <origin
+                xyz="-3.45920909952668E-05 -0.0477817173459312 -0.00571131983067263"
+                rpy="0.0 0.0 0.0" />
+            <mass value="0.933264814357233" />
+            <inertia
+                ixx="0.000450791407921585"
+                ixy="4.50924518749628E-07"
+                ixz="-7.44739815604934E-07"
+                iyy="0.00142129108945366"
+                iyz="-3.93915847422977E-06"
+                izz="0.00128066984792434" />
+        </inertial>
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_body.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.898039215686275 0.917647058823529 0.929411764705882 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_body.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="gripper_tool1">
+        <inertial>
+            <origin
+                xyz="-0.0503901981194649 -0.00839540838169439 -0.000187095087317068"
+                rpy="0.0 0.0 0.0" />
+            <mass value="0.0524980209707729" />
+            <inertia
+                ixx="4.96961994940061E-06"
+                ixy="9.16328438600949E-07"
+                ixz="-9.29191075202697E-08"
+                iyy="5.26806301784339E-06"
+                iyz="3.76648518766332E-08"
+                izz="4.33143562379133E-06" />
+        </inertial>
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_tool1.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.650980392156863 0.619607843137255 0.588235294117647 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_tool1.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="gripper_finger1">
+        <inertial>
+            <origin
+                xyz="-0.047830477436016 -0.0616732966021152 -4.02028360380058E-07"
+                rpy="0.0 0.0 0.0" />
+            <mass value="0.0233180451311379" />
+            <inertia
+                ixx="2.40087905135542E-05"
+                ixy="3.97733646582783E-07"
+                ixz="-1.76194958848478E-12"
+                iyy="1.26145385442102E-06"
+                iyz="-3.65200575464404E-11"
+                izz="2.34253553003692E-05" />
+        </inertial>
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_finger1.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_finger1.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="gripper_tool2">
+        <inertial>
+            <origin
+                xyz="0.050390198119466 -0.00839540838169439 0.000187095087317957"
+                rpy="0.0 0.0 0.0" />
+            <mass value="0.052498020970773" />
+            <inertia
+                ixx="4.96961994940061E-06"
+                ixy="-9.1632843860095E-07"
+                ixz="-9.29191075202696E-08"
+                iyy="5.2680630178434E-06"
+                iyz="-3.76648518766344E-08"
+                izz="4.33143562379133E-06" />
+        </inertial>
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_tool2.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.650980392156863 0.619607843137255 0.588235294117647 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_tool2.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="gripper_finger2">
+        <inertial>
+            <origin
+                xyz="0.0478304774360172 -0.0616732966021147 4.02028361046192E-07"
+                rpy="0.0 0.0 0.0" />
+            <mass value="0.0233180451311379" />
+            <inertia
+                ixx="2.40087905135545E-05"
+                ixy="-3.97733646582811E-07"
+                ixz="-1.7619495854565E-12"
+                iyy="1.26145385442102E-06"
+                iyz="3.6520057602396E-11"
+                izz="2.34253553003694E-05" />
+        </inertial>
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_finger2.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/gripper_finger2.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="cam_body">
+        <inertial>
+            <origin
+                xyz="0.0014399625101349 -5.94806382812063E-05 -0.0144824351521329"
+                rpy="0 0 0" />
+            <mass value="0.0224324424296924" />
+            <inertia
+                ixx="1.5561270767764E-06"
+                ixy="-1.37007630764484E-09"
+                ixz="1.48641223628634E-07"
+                iyy="1.39866481202687E-05"
+                iyz="-2.3852444733374E-09"
+                izz="1.4977644157627E-05" />
+        </inertial>
+        <visual name="">
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/cam.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/cam.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="link6_gripper_fixed" type="fixed">
+        <origin xyz="0.0 0.0 -0.1148" rpy="1.5708 0.0 0.0" />
+        <parent link="link6" />
+        <child link="gripper_body" />
+    </joint>
+
+    <joint name="s1" type="prismatic">
+        <origin xyz="0.0 -0.0962 0.0" rpy="0.0 0.0 0.0" />
+        <parent link="gripper_body" />
+        <child link="gripper_tool1" />
+        <axis xyz="1.0 0.0 0.0" />
+        <limit lower="0.0" upper="0.04" effort="10" velocity="100" />
+        <dynamics damping="50" friction="1"/>
+    </joint>
+
+    <joint name="tool_finger1_fixed" type="fixed">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+        <parent link="gripper_tool1" />
+        <child link="gripper_finger1" />
+    </joint>
+
+    <joint name="s2" type="prismatic">
+        <origin xyz="0.0 -0.0962 0.0" rpy="0.0 0.0 0.0" />
+        <parent link="gripper_body" />
+        <child link="gripper_tool2" />
+        <axis xyz="-1.0 0.0 0.0" />
+        <limit lower="0.0" upper="0.04" effort="10" velocity="100" />
+        <dynamics damping="50" friction="1"/>
+    </joint>
+
+    <joint name="tool_finger2_fixed" type="fixed">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+        <parent link="gripper_tool2" />
+        <child link="gripper_finger2" />
+    </joint>
+
+    <joint name="gripper_cam_fixed" type="fixed">
+        <origin xyz="0 -0.13845 -0.0685" rpy="1.5708 0 0" />
+        <parent link="gripper_body" />
+        <child link="cam_body" />
+    </joint>
+
+</robot>

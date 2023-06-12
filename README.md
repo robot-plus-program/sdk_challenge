@@ -19,7 +19,6 @@ sudo apt-get install libmodbus*
 
 ## 2. KETI SDK 다운로드
 ~~~
-sudo apt-get install git
 git clone https://github.com/robot-plus-program/sdk_challenge.git
 ~~~
 

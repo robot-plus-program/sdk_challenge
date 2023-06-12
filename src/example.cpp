@@ -69,6 +69,15 @@ static void* key_input_func(void *arg){
 static void* data_update_func(void* arg){
     while(robot_connected){
         sdk_info robotInfor = RobotInfo();
+        // cout << "current_state : " << robotInfor.state << endl;;
+        // cout << "current joint : " << endl;
+        // cout << robotInfor.jnt[0] << ", " << robotInfor.jnt[1] << ", " << robotInfor.jnt[2] << ", " << robotInfor.jnt[3] << ", " << robotInfor.jnt[4] << ", " << robotInfor.jnt[5] << endl;
+
+        // cout << "current_T_matrix : " << endl;
+        // cout << robotInfor.mat[0] << ", " << robotInfor.mat[1] << ", " << robotInfor.mat[2] << ", " << robotInfor.mat[3] << endl;
+        // cout << robotInfor.mat[4] << ", " << robotInfor.mat[5] << ", " << robotInfor.mat[6] << ", " << robotInfor.mat[7] << endl;
+        // cout << robotInfor.mat[8] << ", " << robotInfor.mat[9] << ", " << robotInfor.mat[10] << ", " << robotInfor.mat[11] << endl;
+        // cout << robotInfor.mat[12] << ", " << robotInfor.mat[13] << ", " << robotInfor.mat[14] << ", " << robotInfor.mat[15] << endl;
 
         if(robotInfor.state == 2) {
             state = State::Moving;
@@ -79,7 +88,7 @@ static void* data_update_func(void* arg){
         }
 
         memcpy(current_joint, robotInfor.jnt, sizeof(double)*6);
-        memcpy(current_T_matrix, robotInfor.mat, sizeof(double)*16);
+        // memcpy(current_T_matrix, robotInfor.mat, sizeof(double)*16);
 
         // printf("current_state : %f", state);
         // printf("current_joint : ");
@@ -166,7 +175,7 @@ int main(int argc, char **argv){
     int cnt_pose = 0;
 
     SetVelocity(20);
-
+    
     while(robot_connected && gripper_connected){
         if(state == State::Wait)
         {
@@ -228,7 +237,7 @@ int main(int argc, char **argv){
                         std::cout << std::endl;
                     }
 
-                    moveb(base, 1.0, 5, cmd_mat[0], cmd_mat[1], cmd_mat[2], cmd_mat[3], cmd_mat[4]);
+                    moveb(base, 10, 5, cmd_mat[0], cmd_mat[1], cmd_mat[2], cmd_mat[3], cmd_mat[4]);
                     cmd = 0;
 
                     break;

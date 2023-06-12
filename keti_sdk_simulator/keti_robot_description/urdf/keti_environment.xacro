@@ -1,0 +1,380 @@
+<?xml version="1.0"?>
+
+<robot
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <link name="base">
+        <inertial>
+            <origin
+                xyz="-1.28688321068826E-06 0.000310942291804728 -0.323288844730514"
+                rpy="0.0 0.0 0.0" />
+            <mass value="838.015231637391" />
+            <inertia
+                ixx="54.3575108059622"
+                ixy="-3.81584107573326E-15"
+                ixz="6.11415690387546E-16"
+                iyy="74.0754281872674"
+                iyz="6.12342523382769E-17"
+                izz="69.561169810993" />
+        </inertial>
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/base.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.8 0.8 0.8 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/base.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="place">
+        <inertial>
+            <origin
+                xyz="-0.210001286883211 -0.749689057708196 -0.0805000000000003"
+                rpy="0 0 0" />
+            <mass value="0.785447283360145" />
+            <inertia
+                ixx="0.0132205587747909"
+                ixy="1.32472975100367E-18"
+                ixz="2.03192199097574E-21"
+                iyy="0.0080030601215886"
+                iyz="6.46234853556509E-24"
+                izz="0.0212203461993655" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/place.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.3 0.3 0.3 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/place.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="base_plate_fixed" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="place" />
+    </joint>
+
+    <link name="place_cross">
+        <inertial>
+            <origin
+                xyz="0 -2.22044604925031E-16 0.00632920795289479"
+                rpy="0 0 0" />
+            <mass value="0.0578280000000003" />
+            <inertia
+                ixx="3.42810502491726E-05"
+                ixy="1.78360819581747E-21"
+                ixz="3.18948076485842E-20"
+                iyy="3.42810502491724E-05"
+                iyz="9.25119797073764E-22"
+                izz="6.63513947000005E-05" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0.52" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/place_cross.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.1 0.1 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/place_cross.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="place_cross_fixed" type="fixed">
+        <origin xyz="-0.28511 -0.67677 -0.078" rpy="0 0 0" />
+        <parent link="place" />
+        <child link="place_cross" />
+    </joint>
+
+    <link name="place_circle">
+        <inertial>
+            <origin
+                xyz="-1.38777878078145E-17 0 0.00633087207893085"
+                rpy="0 0 0" />
+            <mass value="0.0577456825709279" />
+            <inertia
+                ixx="3.50125843490266E-05"
+                ixy="-1.75505226671088E-21"
+                ixz="3.33474887313518E-20"
+                iyy="3.50125843490264E-05"
+                iyz="4.75888101417994E-22"
+                izz="6.78100728333874E-05" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/place_circle.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.1 0.1 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/place_circle.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="place_circle_rixed" type="fixed">
+        <origin xyz="-0.16925 -0.84711 -0.078" rpy="0 0 0" />
+        <parent link="place" />
+        <child link="place_circle" />
+    </joint>
+
+    <link name="place_rectangle">
+        <inertial>
+            <origin
+                xyz="6.93889390390723E-18 0 0.00492506066510467"
+                rpy="0 0 0" />
+            <mass value="0.0418280000000002" />
+            <inertia
+                ixx="2.51335188313047E-05"
+                ixy="-4.78949338497427E-21"
+                ixz="-3.67398477789802E-22"
+                iyy="2.51335188313045E-05"
+                iyz="-7.51373122444433E-22"
+                izz="4.89191280333338E-05" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0.79" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/place_rectangle.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.1 0.1 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/place_rectangle.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="place_rectangle_fixed" type="fixed">
+        <origin xyz="-0.15072 -0.71284 -0.078" rpy="0 0 0" />
+        <parent link="place" />
+        <child link="place_rectangle" />
+        <axis xyz="0 0 0" />
+    </joint>
+
+    <link name="pick">
+        <inertial>
+            <origin
+                xyz="0.204998713116789 -0.749689057708195 -0.0428648648648652"
+                rpy="0 0 0" />
+            <mass value="4.07592" />
+            <inertia
+                ixx="0.0979734755675673"
+                ixy="-7.99274219726029E-18"
+                ixz="-1.12613192894528E-18"
+                iyy="0.0442374275675675"
+                iyz="-1.73250152083534E-17"
+                izz="0.13078746" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/pick.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.9 0.9 0.3 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/pick.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="base_pick_fixed" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="pick" />
+    </joint>
+
+    <!-- <link name="pick_cross">
+        <inertial>
+            <origin
+                xyz="0 0 0.01"
+                rpy="0 0 0" />
+            <mass value="0.0400000000000002" />
+            <inertia
+                ixx="9.06666666666675E-06"
+                ixy="-1.97213547269696E-20"
+                ixz="-6.47231336187252E-23"
+                iyy="9.06666666666671E-06"
+                iyz="-2.44695634235106E-22"
+                izz="1.54666666666668E-05" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/pick_cross.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/pick_cross.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="pick_cross_fixed" type="fixed">
+        <origin xyz="0.16702 -0.80412 -0.068" rpy="0 0 0" />
+        <parent link="pick" />
+        <child link="pick_cross" />
+    </joint>
+    
+    <link name="pick_circle">
+        <inertial>
+            <origin
+                xyz="0 0 0.0100000000000001"
+                rpy="0 0 0" />
+            <mass value="0.0441236688196687" />
+            <inertia
+                ixx="9.21725056780871E-06"
+                ixy="1.95876369052557E-21"
+                ixz="2.10582221076763E-37"
+                iyy="9.21725056780872E-06"
+                iyz="1.41172157875717E-22"
+                izz="1.54929232143062E-05" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/pick_circle.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/pick_circle.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="pick_circle_fixed" type="fixed">
+        <origin xyz="0.23709 -0.71828 -0.068" rpy="0 0 0" />
+        <parent link="pick" />
+        <child link="pick_circle" />
+        <axis xyz="0 0 0" />
+    </joint>
+
+    <link name="pick_rectangle">
+        <inertial>
+            <origin
+                xyz="5.55111512312578E-17 0 0.015"
+                rpy="0 0 0" />
+            <mass value="0.0442885009851994" />
+            <inertia
+                ixx="2.49543942403889E-05"
+                ixy="-6.57608586979657E-20"
+                ixz="-2.60137572529475E-22"
+                iyy="2.49543942403888E-05"
+                iyz="1.16380977668695E-21"
+                izz="4.32655133329977E-05" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/pick_rectangle.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/pick_rectangle.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="pick_rectangle_fixed" type="fixed">
+        <origin xyz="0.16748 -0.60831 -0.068" rpy="0 0 0" />
+        <parent link="pick" />
+        <child link="pick_rectangle" />
+    </joint> -->
+
+    <link name="table">
+        <inertial>
+            <origin
+                xyz="-1.28688321091031E-06 -0.724689057708195 -0.3655"
+                rpy="0 0 0" />
+            <mass value="361.6" />
+            <inertia
+                ixx="28.9046466666667"
+                ixy="-2.16393591768236E-15"
+                ixz="-1.46486195417846E-15"
+                iyy="28.9046466666667"
+                iyz="-1.48173644243146E-15"
+                izz="38.5706666666667" />
+        </inertial>
+        <visual>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/table.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0 0 0" rpy="0 0 0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/table.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="base_table_fixed" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="table" />
+    </joint>
+
+    <joint name="base_fixed" type="fixed">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+        <parent link="base_link" />
+        <child link="base" />
+        <axis xyz="0.0 0.0 0.0" />
+        <limit lower="0.0" upper="0.0" effort="0.0" velocity="0.0" />
+    </joint>
+
+</robot>

@@ -174,17 +174,30 @@ void RobotControl::executeCBRobot(const keti_robot_control::RobotMoveGoalConstPt
         }
 
         geometry_msgs::Pose current_pose = move_group_robot->getCurrentPose().pose;
+
+        // ROS_INFO("current position : %f, %f, %f\n", 
+        //     current_pose.position.x, current_pose.position.y, current_pose.position.z);
+        // ROS_INFO("current orientation : %f, %f, %f, %f\n", 
+        //     current_pose.orientation.w, current_pose.orientation.x, current_pose.orientation.y, current_pose.orientation.z);
+
         geometry_msgs::Pose target_pose;
         target_pose.position.x = goal->value[3];
         target_pose.position.y = goal->value[7];
-        target_pose.position.z = goal->value[11];
+        target_pose.position.z = goal->value[11] + 0.65;
         target_pose.orientation.x = qx;
         target_pose.orientation.y = qy;
         target_pose.orientation.z = qz;
         target_pose.orientation.w = qw;
+        // target_pose.orientation = current_pose.orientation;
+
+
+        // ROS_INFO("target position : %f, %f, %f\n", 
+        //     target_pose.position.x, target_pose.position.y, target_pose.position.z);
+        // ROS_INFO("target orientation : %f, %f, %f, %f\n", 
+        //     target_pose.orientation.w, target_pose.orientation.x, target_pose.orientation.y, target_pose.orientation.z);
 
         std::vector<geometry_msgs::Pose> waypoints;
-        waypoints.push_back(current_pose);
+        // waypoints.push_back(current_pose);
         waypoints.push_back(target_pose);
 
         moveit_msgs::RobotTrajectory trajectory;
@@ -207,13 +220,13 @@ void RobotControl::executeCBRobot(const keti_robot_control::RobotMoveGoalConstPt
         std::vector<geometry_msgs::Pose> waypoints;
 
         geometry_msgs::Pose current_pose = move_group_robot->getCurrentPose().pose;
-        waypoints.push_back(current_pose);
+        // waypoints.push_back(current_pose);
 
         for(unsigned int num = 0; num < goal->num; num++){
-            // ROS_INFO("%f, %f, %f, %f", goal->value[16*num + 0], goal->value[16*num + 1], goal->value[16*num + 2], goal->value[16*num + 3]);
-            // ROS_INFO("%f, %f, %f, %f", goal->value[16*num + 4], goal->value[16*num + 5], goal->value[16*num + 6], goal->value[16*num + 7]);
-            // ROS_INFO("%f, %f, %f, %f", goal->value[16*num + 8], goal->value[16*num + 9], goal->value[16*num + 10], goal->value[16*num + 11]);
-            // ROS_INFO("%f, %f, %f, %f", goal->value[16*num + 12], goal->value[16*num + 13], goal->value[16*num + 14], goal->value[16*num + 15]);
+            ROS_INFO("%f, %f, %f, %f", goal->value[16*num + 0], goal->value[16*num + 1], goal->value[16*num + 2], goal->value[16*num + 3]);
+            ROS_INFO("%f, %f, %f, %f", goal->value[16*num + 4], goal->value[16*num + 5], goal->value[16*num + 6], goal->value[16*num + 7]);
+            ROS_INFO("%f, %f, %f, %f", goal->value[16*num + 8], goal->value[16*num + 9], goal->value[16*num + 10], goal->value[16*num + 11]);
+            ROS_INFO("%f, %f, %f, %f", goal->value[16*num + 12], goal->value[16*num + 13], goal->value[16*num + 14], goal->value[16*num + 15]);
 
             double value[16];
             for(unsigned int i = 0; i < 16; i++){
@@ -259,12 +272,12 @@ void RobotControl::executeCBRobot(const keti_robot_control::RobotMoveGoalConstPt
             geometry_msgs::Pose target_pose;
             target_pose.position.x = value[3];
             target_pose.position.y = value[7];
-            target_pose.position.z = value[11];
+            target_pose.position.z = value[11] + 0.65;
             target_pose.orientation.x = qx;
             target_pose.orientation.y = qy;
             target_pose.orientation.z = qz;
             target_pose.orientation.w = qw;
-            target_pose.orientation = current_pose.orientation;
+            // target_pose.orientation = current_pose.orientation;
             waypoints.push_back(target_pose);
         }
 

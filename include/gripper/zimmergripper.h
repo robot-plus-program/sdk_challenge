@@ -58,6 +58,7 @@ public:
     void gripper_release(bool sync = true);
     void gripper_custom(uint16_t position, uint8_t velocity, uint8_t force, bool sync = true);
     void gripper_opt(uint8_t velocity, uint8_t force);
+    double gripper_cur_pos(){return gripper_pos;};
 
 private:
     modbus_t *mb;
@@ -70,6 +71,7 @@ private:
     bool grip_flag, init_flag;
     uint8_t gripper_velocity, gripper_force;
     bool debug;
+    double gripper_pos;
 };
 
 #endif // ZIMMERGRIPPER_H

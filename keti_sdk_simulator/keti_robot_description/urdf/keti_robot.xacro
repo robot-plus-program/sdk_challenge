@@ -1,0 +1,290 @@
+<?xml version="1.0"?>
+
+<robot
+    xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <xacro:property name="base_offset" value="0.6499999761581421"/>
+
+    <link name="world"></link>
+
+    <joint name="base_joint" type="fixed">
+        <origin xyz="0 0 ${base_offset}" rpy="0 0 0"/>
+        <parent link="world" />
+        <child link="base_link" />
+    </joint>
+
+    <link name="base_link">
+        <inertial>
+            <origin
+                xyz="-3.36084696400674E-05 0.00028713387556778 0.0438378186374772"
+                rpy="0.0 0.0 0.0" />
+            <mass value="2.25213983841171" />
+            <inertia
+                ixx="0.00610179267270193"
+                ixy="5.05489700638155E-06"
+                ixz="-2.06579420136556E-06"
+                iyy="0.00603383828429949"
+                iyz="-2.85750001496908E-06"
+                izz="0.00860649294977137" />
+        </inertial>
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/base_link.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.8 0.8 0.8 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/base_link.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="link1">
+        <inertial>
+            <origin
+                xyz="-0.000155596593394897 -0.0115300991030924 0.185903011387218"
+                rpy="0.0 0.0 0.0">
+            </origin>
+            <mass value="3.38716123949166" />
+            <inertia
+                ixx="0.00965712344078406"
+                ixy="2.56321142215039E-06"
+                ixz="-2.07213259316219E-06"
+                iyy="0.00999757711288239"
+                iyz="0.00227412846191921"
+                izz="0.00985394828837277" />
+        </inertial>
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link1.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link1.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="link2">
+        <inertial>
+            <origin
+                xyz="-5.04047652291201E-05 -0.255908501214572 -0.182094524542086"
+                rpy="0.0 0.0 0.0" />
+            <mass value="10.3635885023069" />
+            <inertia
+                ixx="0.120627099316039"
+                ixy="2.65066669408744E-06"
+                ixz="2.16897828737298E-06"
+                iyy="0.0227437773556374"
+                iyz="-0.0016029791309899"
+                izz="0.120841683724806" />
+        </inertial>
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link2.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.294117647058824 0.294117647058824 0.294117647058824 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link2.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="link3">
+        <inertial>
+            <origin
+                xyz="0.266215180264014 1.29712622268241E-07 0.143135404945513"
+                rpy="0.0 0.0 0.0" />
+            <mass value="5.05083741641896" />
+            <inertia
+                ixx="0.00628902623789062"
+                ixy="9.1337717733775E-09"
+                ixz="-0.000370519945348952"
+                iyy="0.061756757690725"
+                iyz="-1.56347717729795E-09"
+                izz="0.0618362170084191" />
+        </inertial>
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link3.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.294117647058824 0.294117647058824 0.294117647058824 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link3.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="link4">
+        <inertial>
+            <origin
+                xyz="0.00564731690989118 -2.03600273793181E-07 -0.111294177443476"
+                rpy="0.0 0.0 0.0" />
+            <mass value="0.809634247265308" />
+            <inertia
+                ixx="0.000806283674225212"
+                ixy="-1.71998154303632E-08"
+                ixz="0.000215199499704635"
+                iyy="0.000838076862135837"
+                iyz="-7.62439682589746E-09"
+                izz="0.00088136714943862" />
+        </inertial>
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link4.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+                <texture filename="" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link4.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="link5">
+        <inertial>
+            <origin
+                xyz="3.79221289037446E-07 -0.0065154111458714 0.111384778201544"
+                rpy="0.0 0.0 0.0" />
+            <mass value="0.822358399005338" />
+            <inertia
+                ixx="0.00086697648332544"
+                ixy="-4.3209208438896E-09"
+                ixz="-3.43499554605311E-09"
+                iyy="0.00082200885145279"
+                iyz="0.000222523008866456"
+                izz="0.000907682647219081" />
+        </inertial>
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link5.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+                <texture filename="" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link5.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="link6">
+        <inertial>
+            <origin
+                xyz="-2.74288486201701E-07 -0.000235269428608742 -0.0906803365828259"
+                rpy="0.0 0.0 0.0" />
+            <mass value="0.237678022472349" />
+            <inertia
+                ixx="0.000145950216129124"
+                ixy="-1.23036106344042E-09"
+                ixz="-7.04161447052051E-10"
+                iyy="0.000148314461323765"
+                iyz="5.7765854614293E-07"
+                izz="0.000234953691644831" />
+        </inertial>
+        <visual name="">
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link6.STL" />
+            </geometry>
+            <material name="">
+                <color rgba="0.792156862745098 0.819607843137255 0.933333333333333 1" />
+            </material>
+        </visual>
+        <collision>
+            <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+            <geometry>
+                <mesh filename="package://keti_robot_description/meshes/link6.STL" />
+            </geometry>
+        </collision>
+    </link>
+
+    <joint name="q1" type="revolute">
+        <origin xyz="0.0 0.0 0.0" rpy="0.0 0.0 0.0" />
+        <parent link="base_link" />
+        <child link="link1" />
+        <axis xyz="0.0 0.0 1.0" />
+        <limit lower="-6.3" upper="6.3" effort="10" velocity="100" />
+        <dynamics damping="50" friction="1"/>
+    </joint>
+
+    <joint name="q2" type="revolute">
+        <origin xyz="0.0 0.0 0.198" rpy="-1.5708 0.0 0.0" />
+        <parent link="link1" />
+        <child link="link2" />
+        <axis xyz="0.0 0.0 1.0" />
+        <limit lower="-6.3" upper="6.3" effort="10" velocity="100" />
+        <dynamics damping="50" friction="1"/>
+    </joint>
+
+    <joint name="q3" type="revolute">
+        <origin xyz="0.0 -0.6127 -0.1875" rpy="0.0 0.0 -1.5708" />
+        <parent link="link2" />
+        <child link="link3" />
+        <axis xyz="0.0 0.0 1.0" />
+        <limit lower="-6.3" upper="6.3" effort="10" velocity="100" />
+        <dynamics damping="50" friction="1"/>
+    </joint>
+
+    <joint name="q4" type="revolute">
+        <origin xyz="0.57015 0 0.1484" rpy="0.0 0.0 0.0" />
+        <parent link="link3" />
+        <child link="link4" />
+        <axis xyz="0.0 0.0 1.0" />
+        <limit lower="-6.3" upper="6.3" effort="10" velocity="100" />
+        <dynamics damping="50" friction="1"/>
+    </joint>
+
+    <joint name="q5" type="revolute">
+        <origin xyz="0 0 -0.11715" rpy="1.5708 0 1.5708" />
+        <parent link="link4" />
+        <child link="link5" />
+        <axis xyz="0.0 0.0 1.0" />
+        <limit lower="-6.3" upper="6.3" effort="10" velocity="100" />
+        <dynamics damping="50" friction="1"/>
+    </joint>
+
+    <joint name="q6" type="revolute">
+        <origin xyz="0 0 0.11715" rpy="-1.5708 0 0" />
+        <parent link="link5" />
+        <child link="link6" />
+        <axis xyz="0.0 0.0 1.0" />
+        <limit lower="-6.3" upper="6.3" effort="10" velocity="100" />
+        <dynamics damping="50" friction="1"/>
+    </joint>
+
+</robot>
