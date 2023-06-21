@@ -83,3 +83,4 @@ catkin_make
 ~~~
 roslaunch keti_robot_control robot_control.launch
 ~~~
+![simulator_run](./imgs/simulator_run.png)
