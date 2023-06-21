@@ -18,7 +18,8 @@ void RobotServer::start(){
 
         ROS_INFO("wait robot action server...");
         
-        if(acRobot->waitForServer()){
+        if(acRobot->waitForServer())
+        {
             ROS_INFO("connected robot action server");
         }
         else{
@@ -30,7 +31,8 @@ void RobotServer::start(){
 
         ROS_INFO("wait gripper action server...");
 
-        if(acGripper->waitForServer()){
+        if(acGripper->waitForServer())
+        {
             ROS_INFO("connected gripper action server");
         }
         else{
@@ -47,7 +49,7 @@ void RobotServer::start(){
         pthread_create(&data_thread, NULL, data_func, this);
     }
     else if(port == 5002){
-        pthread_create(&gripper_thread, NULL, gripper_func, this);
+        pthread_create(&gripper_thread, NULL, gripper_func2, this);
     }
 }
 
@@ -326,6 +328,11 @@ void *RobotServer::data_func(void *arg){
             if(lenRecv > 0){
                 robotServer->strRecv.resize(lenRecv);
                 std::copy(robotServer->bufRecv, robotServer->bufRecv + lenRecv, begin(robotServer->strRecv));
+//                ROS_INFO("%ld", lenRecv);
+//                ROS_INFO("%s", robotServer->strRecv.c_str());
+//                for(unsigned int i = 0; i < lenRecv; i++){
+//                  ROS_INFO("%d", robotServer->strRecv.at(i));
+//                }
                 if(robotServer->strRecv.compare("reqdata") == 0){
                     robotServer->systemStat.sdata.header[0] = 0x24;
                     robotServer->systemStat.sdata.header[1] = 116;
@@ -359,6 +366,147 @@ void *RobotServer::data_func(void *arg){
     return nullptr;
 }
 
+void *RobotServer::gripper_func2(void *arg){
+  RobotServer *robotServer = static_cast<RobotServer*>(arg);
+
+  uint16_t StatusWord, Diagnosis, Position;
+  uint16_t ControlWord, BasePosition, ShiftPosition, TeachPosition, WorkPosition;
+  uint8_t DeviceMode, GripForce, DriveVelocity;
+
+  robotServer->initSocket();
+
+  while(ros::ok()){
+    robotServer->connectSocket();
+
+    StatusWord = Error|PLCActive|MovementComplete|MotorON|HomingPositionOK|AtBaseposition;
+    Diagnosis = 774;
+    Position = 100;
+    ControlWord = 4;
+
+    while(robotServer->connected){
+      memset(robotServer->bufRecv, 0, MAXRECEIVEBUFSIZE);
+      unsigned long lenRecv = recv(robotServer->clientSockFD, robotServer->bufRecv, MAXRECEIVEBUFSIZE, 0);
+      if(lenRecv > 0){
+        robotServer->strRecv.resize(lenRecv);
+        std::copy(robotServer->bufRecv, robotServer->bufRecv + lenRecv, begin(robotServer->strRecv));
+//        ROS_INFO("lenRecv : %ld", lenRecv);
+//        for(unsigned int i = 0; i < lenRecv; i++){
+//          ROS_INFO("%d", robotServer->strRecv.at(i));
+//        }
+
+        Position = robotServer->gripperState.width*4000/(0.04) + 1000;
+//        ROS_INFO("gripper width : %d", Position);
+
+        if(robotServer->gripperState.state == 1){
+            StatusWord &= ~InMotion;
+            StatusWord |= MovementComplete;
+            if(Position < 300){
+                StatusWord |= AtBaseposition;
+                StatusWord &= ~AtWorkposition;
+            }
+            else{
+                StatusWord |= AtWorkposition;
+                StatusWord &= ~AtBaseposition;
+            }
+        }
+        else if(robotServer->gripperState.state == 2){
+            StatusWord |= InMotion;
+            StatusWord &= ~MovementComplete;
+            StatusWord &= ~AtBaseposition;
+            StatusWord &= ~AtWorkposition;
+        }
+
+//        ROS_INFO("StatusWord : %d", StatusWord);
+
+        if(robotServer->bufRecv[7] == 0x03){
+          robotServer->bufRecv[5] = 0x09;
+          robotServer->bufRecv[8] = 0x06;
+
+          robotServer->bufRecv[9] = StatusWord >> 8;
+          robotServer->bufRecv[10] = (uint8_t)StatusWord;
+
+          robotServer->bufRecv[11] = Diagnosis >> 8;
+          robotServer->bufRecv[12] = (uint8_t)Diagnosis;
+
+          robotServer->bufRecv[13] = Position >> 8;
+          robotServer->bufRecv[14] = (uint8_t)Position;
+
+          unsigned long lenSend = send(robotServer->clientSockFD, robotServer->bufRecv, 15, 0);
+        }
+        else if(robotServer->bufRecv[7] == 0x10){
+            int indx = 7 + 6;
+
+            ControlWord = robotServer->bufRecv[indx++]*256;
+            ControlWord += robotServer->bufRecv[indx++];
+
+            DeviceMode = robotServer->bufRecv[indx++];
+            indx += 3;
+
+            GripForce = robotServer->bufRecv[indx++];
+            DriveVelocity = robotServer->bufRecv[indx++];
+
+            BasePosition = robotServer->bufRecv[indx++]*256;
+            BasePosition += robotServer->bufRecv[indx++];
+
+            ShiftPosition = robotServer->bufRecv[indx++]*256;
+            ShiftPosition += robotServer->bufRecv[indx++];
+
+            TeachPosition = robotServer->bufRecv[indx++]*256;
+            TeachPosition += robotServer->bufRecv[indx++];
+
+            WorkPosition = robotServer->bufRecv[indx++]*256;
+            WorkPosition += robotServer->bufRecv[indx++];
+
+//             std::cout << "ControlWord : " << ControlWord << std::endl;
+//             std::cout << "DeviceMode : " << (int)DeviceMode << std::endl;
+//             std::cout << "GripForce : " << (int)GripForce << std::endl;
+//             std::cout << "DriveVelocity : " << (int)DriveVelocity << std::endl;
+//             std::cout << "BasePosition : " << BasePosition << std::endl;
+//             std::cout << "ShiftPosition : " << ShiftPosition << std::endl;
+//             std::cout << "TeachPosition : " << TeachPosition << std::endl;
+//             std::cout << "WorkPosition : " << WorkPosition << std::endl;
+
+            if(ControlWord == 1){
+                StatusWord |= DataTransferOK;
+                StatusWord &= ~Error;
+                Diagnosis = 0;
+            }
+            else if(ControlWord == 0){
+                StatusWord &= ~DataTransferOK;
+            }
+            else if(ControlWord == 512){
+                robotServer->goalGripper.cmd = 1;
+                robotServer->acGripper->sendGoal(robotServer->goalGripper,
+                    boost::bind(&RobotServer::GripperMoveResultCallback, robotServer, _1, _2),
+                    boost::bind(&RobotServer::GripperMoveActiveCallback, robotServer),
+                    boost::bind(&RobotServer::GripperMoveFeedbackCallback, robotServer, _1));
+                // robotServer->acGripper->waitForResult();
+            }
+            else if(ControlWord == 256){
+                robotServer->goalGripper.cmd = 2;
+                robotServer->acGripper->sendGoal(robotServer->goalGripper,
+                    boost::bind(&RobotServer::GripperMoveResultCallback, robotServer, _1, _2),
+                    boost::bind(&RobotServer::GripperMoveActiveCallback, robotServer),
+                    boost::bind(&RobotServer::GripperMoveFeedbackCallback, robotServer, _1));
+                // robotServer->acGripper->waitForResult();
+            }
+            else if(ControlWord == 4){
+                StatusWord &= ~MoveWorkpositionFlag;
+                StatusWord &= ~MoveBasepositionFlag;
+            }
+        }
+        usleep(1000);
+
+      }
+      else{
+        robotServer->connected = false;
+      }
+    }
+  }
+
+  return nullptr;
+}
+
 void *RobotServer::gripper_func(void *arg){
     RobotServer *robotServer = static_cast<RobotServer*>(arg);
 
@@ -374,16 +522,17 @@ void *RobotServer::gripper_func(void *arg){
     ctx = modbus_new_tcp(ip_or_device.c_str(), robotServer->port);
 
     header_length = modbus_get_header_length(ctx);
-//    std::cout << "header_length : " << header_length << std::endl;
+
+    std::cout << "header_length : " << header_length << std::endl;
 
     uint16_t StatusWord, Diagnosis, Position;
     uint16_t ControlWord, BasePosition, ShiftPosition, TeachPosition, WorkPosition;
     uint8_t DeviceMode, GripForce, DriveVelocity;
 
     while(ros::ok()){
-        // ROS_INFO("modbus server running waiting. waiting client...");
+
+        ROS_INFO("modbus server running waiting. waiting client...");
         s = modbus_tcp_listen(ctx, 1);
-        // ROS_INFO("s : %d", s);
         modbus_tcp_accept(ctx, &s);
         StatusWord = Error|PLCActive|MovementComplete|MotorON|HomingPositionOK|AtBaseposition;
         Diagnosis = 774;
@@ -504,6 +653,7 @@ void *RobotServer::gripper_func(void *arg){
 
             usleep(10000);
         }
+        ROS_INFO("modbus disconnected");
 
         modbus_close(ctx);
         modbus_free(ctx);

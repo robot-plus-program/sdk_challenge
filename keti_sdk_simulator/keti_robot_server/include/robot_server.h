@@ -78,6 +78,7 @@ private:
     static void* cmd_func(void *arg);
     static void* data_func(void *arg);
     static void* gripper_func(void *arg);
+    static void* gripper_func2(void *arg);
 
     void initSocket();
     void connectSocket();
