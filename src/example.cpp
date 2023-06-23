@@ -14,7 +14,7 @@ static struct sigaction sigIntHandler;
 static int sig = 0;
 
 enum State{Wait=1, Moving};
-enum Cmd{RobotMoveJ = 1, RobotMoveL, RobotMoveB, GripperMoveGrip, GripperMoveRelease, RobotStop, GripperStop};
+enum Cmd{RobotMoveJ = 1, RobotMoveL, RobotMoveB, GripperMoveGrip, GripperMoveRelease};
 static bool robot_connected = false;
 static int state = 0;
 static int cmd = 0;
@@ -70,7 +70,7 @@ static void* data_update_func(void* arg){
     while(robot_connected){
         sdk_info robotInfor = RobotInfo();
         // cout << "current_state : " << robotInfor.state << endl;;
-        // cout << "current joint : " << endl;
+        // cout << "current_joint : " << endl;
         // cout << robotInfor.jnt[0] << ", " << robotInfor.jnt[1] << ", " << robotInfor.jnt[2] << ", " << robotInfor.jnt[3] << ", " << robotInfor.jnt[4] << ", " << robotInfor.jnt[5] << endl;
 
         // cout << "current_T_matrix : " << endl;

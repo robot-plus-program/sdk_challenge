@@ -23,6 +23,7 @@ git clone https://github.com/robot-plus-program/sdk_challenge.git
 ~~~
 
 ## 3. Build & Run example
+### 3.1 C++
 ~~~
 cd ${download sdk_challenge folder}
 mkdir build
@@ -31,10 +32,13 @@ cmake ..
 make
 ./example xxx.xxx.xxx.xxx ooo.ooo.ooo.ooo port_num
 ~~~
+### 3.1 Python
+~~~
+
+~~~
 xxx.xxx.xxx.xxx : Robot IP address<br>
 ooo.ooo.ooo.ooo : Gripper IP address<br>
-port_num : Gripper port number
-<br><br>
+port_num : Gripper port number<br>
 
 ***
 ## 4. Simulator
@@ -57,7 +61,6 @@ sudo apt-get install ros-noetic-joint-trajectory-controller
 ### 4.4 library 설치
 ~~~
 sudo apt-get install cmake build-essential git 
-sudo apt-get install libmodbus*
 ~~~
 \* SDK를 실행하는 PC와 시뮬레이터 PC가 동일 할 경우 한 번만 설치하면 됨.
 
