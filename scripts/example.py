@@ -1,7 +1,13 @@
+#!/usr/bin/env python3
+
+import sys
+sys.path.append("../ketirobotsdk")
 from ketirobotsdk.sdk import *
 from time import *
 import threading
 import math
+sys.path.append("../include/gripper")
+from keti_zimmer_gripper import KetiZimmer
 
 class State:
 	Wait = 1
@@ -19,6 +25,7 @@ state = 0
 cmd = 0
 current_joint = []
 current_T_matrix = []
+gripper = KetiZimmer()
 
 def key_input_func():
 	global cmd
@@ -81,8 +88,11 @@ if __name__ == '__main__':
 	robot_connected = RobotConnect()
 	robot_connected = True
 	
-	if robot_connected is False:
-		exit(1)
+	gripper.connect('192.168.0.253', 502)
+	gripper_connected = gripper.isConnected()
+	print("wait...")
+	if gripper_connected is True:
+		gripper.gripper_init()
   
 	key_input_thraed = threading.Thread(target=key_input_func, daemon=True)
 	key_input_thraed.start()
@@ -131,7 +141,7 @@ if __name__ == '__main__':
 					cmd = 0
 				elif cmd == Cmd.RobotMoveB:
 					zero_mat = [0]*16
-					cmd_mat = [zero_mat,zero_mat,zero_mat,zero_mat,zero_mat]
+					cmd_mat = [[0 for col in range(16)] for row in range(5)]
 					for num in range(0, 5):
 						for i in range(0, 3):
 							for j in range(0, 3):
@@ -139,20 +149,21 @@ if __name__ == '__main__':
 						cmd_mat[num][3] = cmd_pos[num][0]
 						cmd_mat[num][7] = cmd_pos[num][1]
 						cmd_mat[num][11] = cmd_pos[num][2]
-						cmd_mat[num][16] = 1
+						cmd_mat[num][15] = 1
 
 						print("cmd_mat {0}: ".format(num))
-						print(cmd_mat[0:4])
-						print(cmd_mat[4:8])
-						print(cmd_mat[8:12])
-						print(cmd_mat[12:16])
+						print(cmd_mat[num][0:4])
+						print(cmd_mat[num][4:8])
+						print(cmd_mat[num][8:12])
+						print(cmd_mat[num][12:16])
 
 					moveb(Base, 10, 5, cmd_mat[0], cmd_mat[1], cmd_mat[2], cmd_mat[3], cmd_mat[4])
 					cmd = 0
 				elif cmd == Cmd.GripperMoveGrip:
-					pass
+					gripper.gripper_grip()
+					cmd = 0
 				elif cmd == Cmd.GripperMoveRelease:
-					pass
+					gripper.gripper_release()
 
 			sleep(0.001)
 	except KeyboardInterrupt:

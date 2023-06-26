@@ -21,3 +21,4 @@ build/*
 
 ketirobotsdk
 ketirobotsdk/*
+**/__pycache__

@@ -7,7 +7,6 @@
 #include <signal.h>
 
 #include "sdk.h"
-
 #include "zimmergripper.h"
 
 static struct sigaction sigIntHandler;

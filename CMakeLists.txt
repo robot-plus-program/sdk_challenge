@@ -7,12 +7,11 @@ include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_SOURCE_DIR}/include/robot
     ${CMAKE_CURRENT_SOURCE_DIR}/include/gripper
-    # ${CMAKE_CURRENT_SOURCE_DIR}/ketirobotsdk
+    ${CMAKE_CURRENT_SOURCE_DIR}/ketirobotsdk/ketirobotsdk
 )
 
 link_directories(
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/robot
-    # ${CMAKE_CURRENT_SOURCE_DIR}/ketirobotsdk
+    ${CMAKE_CURRENT_SOURCE_DIR}/ketirobotsdk/ketirobotsdk
 )
 
 set(TARGET_EXAMPLE example)
