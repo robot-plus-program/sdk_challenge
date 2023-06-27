@@ -32,7 +32,7 @@ cmake ..
 make
 ./example xxx.xxx.xxx.xxx ooo.ooo.ooo.ooo port_num
 ~~~
-### 3.1 Python
+### 3.2 Python
 ~~~
 cd ${download sdk_challenge folder}/scripts
 chmod +x example.py
