@@ -32,7 +32,7 @@ def key_input_func():
 	key_value = 0
 
 	while robot_connected is True:
-		print("\n Endter character and press \"Enter\"")
+		print("\n Enter character and press \"Enter\"")
 		print(" 1 : Robot move joint motion")
 		print(" 2 : Robot move Cartesian motion")
 		print(" 3 : Robot move Cartesian motion with blend")
@@ -84,11 +84,19 @@ def data_update_func():
 		sleep(0.01)
 
 if __name__ == '__main__':
-	SetRobotConf(RB10, '192.168.0.7',5000)
+	if len(sys.argv) != 4:
+		print("\n\nPlease check the input arguments!!\n\n")
+		exit(1)
+
+	robot_ip = sys.argv[1]
+	gripper_ip = sys.argv[2]
+	gripper_port = sys.argv[3]
+
+	SetRobotConf(RB10, robot_ip,5000)
 	robot_connected = RobotConnect()
 	robot_connected = True
 	
-	gripper.connect('192.168.0.253', 502)
+	gripper.connect(gripper_ip, gripper_port)
 	gripper_connected = gripper.isConnected()
 	print("wait...")
 	if gripper_connected is True:
@@ -140,7 +148,6 @@ if __name__ == '__main__':
 					cnt_pose = cnt_pose + 1
 					cmd = 0
 				elif cmd == Cmd.RobotMoveB:
-					zero_mat = [0]*16
 					cmd_mat = [[0 for col in range(16)] for row in range(5)]
 					for num in range(0, 5):
 						for i in range(0, 3):
@@ -156,7 +163,7 @@ if __name__ == '__main__':
 						print(cmd_mat[num][4:8])
 						print(cmd_mat[num][8:12])
 						print(cmd_mat[num][12:16])
-
+    
 					moveb(Base, 10, 5, cmd_mat[0], cmd_mat[1], cmd_mat[2], cmd_mat[3], cmd_mat[4])
 					cmd = 0
 				elif cmd == Cmd.GripperMoveGrip:

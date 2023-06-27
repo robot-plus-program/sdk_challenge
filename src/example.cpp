@@ -30,7 +30,7 @@ static void* key_input_func(void *arg){
     char key_value = 0;
 
     while(robot_connected && gripper_connected){
-        std::cout << "\n Endter character and press \"Enter\"" << std::endl;
+        std::cout << "\n Enter character and press \"Enter\"" << std::endl;
         std::cout << " 1 : Robot move joint motion" << std::endl;
         std::cout << " 2 : Robot move Cartesian motion" << std::endl;
         std::cout << " 3 : Robot move Cartesian motion with blend" << std::endl;

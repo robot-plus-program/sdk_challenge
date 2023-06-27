@@ -34,7 +34,9 @@ make
 ~~~
 ### 3.1 Python
 ~~~
-
+cd ${download sdk_challenge folder}/scripts
+chmod +x example.py
+python3 example.py xxx.xxx.xxx.xxx ooo.ooo.ooo.ooo port_num
 ~~~
 xxx.xxx.xxx.xxx : Robot IP address<br>
 ooo.ooo.ooo.ooo : Gripper IP address<br>
