@@ -88,6 +88,8 @@ if __name__ == '__main__':
 		print("\n\nPlease check the input arguments!!\n\n")
 		exit(1)
 
+	setLibPath(f'{os.getcwd()}/../ketirobotsdk/ketirobotsdk/librobotsdkv2.so')
+
 	robot_ip = sys.argv[1]
 	gripper_ip = sys.argv[2]
 	gripper_port = sys.argv[3]
@@ -164,7 +166,7 @@ if __name__ == '__main__':
 						print(cmd_mat[num][8:12])
 						print(cmd_mat[num][12:16])
     
-					moveb(Base, 10, 5, cmd_mat[0], cmd_mat[1], cmd_mat[2], cmd_mat[3], cmd_mat[4])
+					moveb(Base, 0.02, 5, cmd_mat[0], cmd_mat[1], cmd_mat[2], cmd_mat[3], cmd_mat[4])
 					cmd = 0
 				elif cmd == Cmd.GripperMoveGrip:
 					gripper.gripper_grip()

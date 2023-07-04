@@ -236,7 +236,7 @@ int main(int argc, char **argv){
                         std::cout << std::endl;
                     }
 
-                    moveb(base, 10, 5, cmd_mat[0], cmd_mat[1], cmd_mat[2], cmd_mat[3], cmd_mat[4]);
+                    moveb(base, 0.02, 5, cmd_mat[0], cmd_mat[1], cmd_mat[2], cmd_mat[3], cmd_mat[4]);
                     cmd = 0;
 
                     break;
