@@ -26,6 +26,7 @@ git clone https://github.com/robot-plus-program/sdk_challenge.git
 ### 3.1 C++
 ~~~
 cd ${download sdk_challenge folder}
+git clone https://github.com/robot-plus-program/ketirobotsdk.git
 mkdir build
 cd build
 cmake ..
