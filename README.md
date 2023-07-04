@@ -65,18 +65,18 @@ sudo apt-get install ros-noetic-joint-trajectory-controller
 ~~~
 sudo apt-get install cmake build-essential git 
 ~~~
-\* SDK를 실행하는 PC와 시뮬레이터 PC가 동일 할 경우 한 번만 설치하면 됨.
+\# SDK를 실행하는 PC와 시뮬레이터 PC가 동일 할 경우 한 번만 설치하면 됨.
 
 ### 4.5 ROS 환경 설정
-터미널 접속 후 "gedit ~/.bashrc" 명령어 실행, 아래 내용 추가
+터미널 접속 후 **gedit ~/.bashrc** 명령어 실행, 아래 내용 추가  
 ~~~
 source ~/catkin_ws/devel/setup.bash
 alias cw='cd ~/catkin_ws'
 alias cs='cd ~/catkin_ws/src'
 alias cm='cd ~/catkin_ws && catkin_make'
 ~~~
-bashrc 편집 후 터미널에서 "source ~/.bashrc" 명령어 실행 <br><br>
-\* "~/catkin_ws/"는 ROS 설치 시 설정에 따라 변경 될 수 있음 <br>
+bashrc 편집 후 터미널에서 **source ~/.bashrc** 명령어 실행  
+\# **~/catkin_ws**는 ROS 설치 시 설정에 따라 변경 될 수 있음  
 ex<br>
 ![ros_environment_example](./imgs/ros_environment_example.png)
 
