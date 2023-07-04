@@ -75,7 +75,7 @@ alias cw='cd ~/catkin_ws'
 alias cs='cd ~/catkin_ws/src'
 alias cm='cd ~/catkin_ws && catkin_make'
 ~~~
-bashrc 편집 후 터미널에서 "source ~/.bashrc" 명령어 실행<br><br>
+bashrc 편집 후 터미널에서 "source ~/.bashrc" 명령어 실행
 \* "~/catkin_ws/"는 ROS 설치 시 설정에 따라 변경 될 수 있음<br>
 ex<br>
 ![ros_environment_example](./imgs/ros_environment_example.png)
