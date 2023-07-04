@@ -48,8 +48,7 @@ port_num : Gripper port number<br>
 ## 4. Simulator
 ### 4.1 ROS noetic 설치<br>
 http://wiki.ros.org/noetic/Installation/Ubuntu<br>
-http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment 참고
-<br>
+http://wiki.ros.org/ROS/Tutorials/InstallingandConfiguringROSEnvironment<br>
 
 ### 4.2 ROS moveit 설치
 ~~~
@@ -71,18 +70,21 @@ sudo apt-get install cmake build-essential git
 ### 4.5 ROS 환경 설정
 터미널 접속 후 gedit ~/.bashrc 명령어 실행, 아래 내용 추가
 ~~~
-source ${ros workspace}/devel/setup.bash
-alias cw='cd ${ros workspace}'
-alias cs='cd ${ros workspace}/src'
-alias cm='cd ${ros workspace} && catkin_make'
+source ~/catkin_ws/devel/setup.bash
+alias cw='cd ~/catkin_ws'
+alias cs='cd ~/catkin_ws/src'
+alias cm='cd ~/catkin_ws && catkin_make'
 ~~~
-bashrc 편집 후 터미널에서 source ~/.bashrc 명령어 실행
+bashrc 편집 후 터미널에서 source ~/.bashrc 명령어 실행<br><br>
+\* "~/catkin_ws/"는 ROS 설치 시 설정에 따라 변경 될 수 있음<br>
+ex<br>
+![ros_environment_example](./imgs/ros_environment_example.png)
 
 ### 4.6 ROS workspace로 source code 복사 및 빌드
 ~~~
 cd ${download sdk_challenge folder}
-cp -r keti_sdk_simulator/ ${ros workspace}/src/
-cd ${ros workspace}/
+cp -r keti_sdk_simulator/ ~/catkin_ws/src/
+cd ~/catkin_ws/
 catkin_make
 ~~~
 
