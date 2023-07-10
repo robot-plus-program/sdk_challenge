@@ -22,3 +22,5 @@ build/*
 **/__pycache__
 
 ketirobotsdk/*
+
+.idea/
