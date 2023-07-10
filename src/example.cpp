@@ -13,7 +13,7 @@ static struct sigaction sigIntHandler;
 static int sig = 0;
 
 enum State{Wait=1, Moving};
-enum Cmd{RobotMoveJ = 1, RobotMoveL, RobotMoveB, GripperMoveGrip, GripperMoveRelease};
+enum Cmd{RecvRobotState = 1, RecvGripperWidth, RobotMoveJ, RobotMoveL, RobotMoveB, GripperMoveGrip, GripperMoveRelease};
 static bool robot_connected = false;
 static int state = 0;
 static int cmd = 0;
@@ -31,28 +31,36 @@ static void* key_input_func(void *arg){
 
     while(robot_connected && gripper_connected){
         std::cout << "\n Enter character and press \"Enter\"" << std::endl;
-        std::cout << " 1 : Robot move joint motion" << std::endl;
-        std::cout << " 2 : Robot move Cartesian motion" << std::endl;
-        std::cout << " 3 : Robot move Cartesian motion with blend" << std::endl;
-        std::cout << " 4 : Gripper move(grip)" << std::endl;
-        std::cout << " 5 : Gripper move(release)" << std::endl;
+        std::cout << " 1 : Receive robot current state" << std::endl;
+        std::cout << " 2 : Receive gripper current width" << std::endl;
+        std::cout << " 3 : Robot move joint motion" << std::endl;
+        std::cout << " 4 : Robot move Cartesian motion" << std::endl;
+        std::cout << " 5 : Robot move Cartesian motion with blend" << std::endl;
+        std::cout << " 6 : Gripper move(grip)" << std::endl;
+        std::cout << " 7 : Gripper move(release)" << std::endl;
 
         std::cin >> key_value;
 
         switch(key_value){
             case '1':
-                cmd = Cmd::RobotMoveJ;
+                cmd = Cmd::RecvRobotState;
                 break;
             case '2':
-                cmd = Cmd::RobotMoveL;
+                cmd = Cmd::RecvGripperWidth;
                 break;
             case '3':
-                cmd = Cmd::RobotMoveB;
+                cmd = Cmd::RobotMoveJ;
                 break;
             case '4':
-                cmd = Cmd::GripperMoveGrip;
+                cmd = Cmd::RobotMoveL;
                 break;
             case '5':
+                cmd = Cmd::RobotMoveB;
+                break;
+            case '6':
+                cmd = Cmd::GripperMoveGrip;
+                break;
+            case '7':
                 cmd = Cmd::GripperMoveRelease;
                 break;
             default :
@@ -68,15 +76,6 @@ static void* key_input_func(void *arg){
 static void* data_update_func(void* arg){
     while(robot_connected){
         sdk_info robotInfor = RobotInfo();
-        // cout << "current_state : " << robotInfor.state << endl;;
-        // cout << "current_joint : " << endl;
-        // cout << robotInfor.jnt[0] << ", " << robotInfor.jnt[1] << ", " << robotInfor.jnt[2] << ", " << robotInfor.jnt[3] << ", " << robotInfor.jnt[4] << ", " << robotInfor.jnt[5] << endl;
-
-        // cout << "current_T_matrix : " << endl;
-        // cout << robotInfor.mat[0] << ", " << robotInfor.mat[1] << ", " << robotInfor.mat[2] << ", " << robotInfor.mat[3] << endl;
-        // cout << robotInfor.mat[4] << ", " << robotInfor.mat[5] << ", " << robotInfor.mat[6] << ", " << robotInfor.mat[7] << endl;
-        // cout << robotInfor.mat[8] << ", " << robotInfor.mat[9] << ", " << robotInfor.mat[10] << ", " << robotInfor.mat[11] << endl;
-        // cout << robotInfor.mat[12] << ", " << robotInfor.mat[13] << ", " << robotInfor.mat[14] << ", " << robotInfor.mat[15] << endl;
 
         if(robotInfor.state == 2) {
             state = State::Moving;
@@ -87,23 +86,7 @@ static void* data_update_func(void* arg){
         }
 
         memcpy(current_joint, robotInfor.jnt, sizeof(double)*6);
-        // memcpy(current_T_matrix, robotInfor.mat, sizeof(double)*16);
-
-        // printf("current_state : %f", state);
-        // printf("current_joint : ");
-        // for(unsigned int i = 0; i < 6; i++){
-        //     printf("%f ", current_joint[i]);
-        // }
-        // printf("\n");
-
-        // printf("current_T_matrix : \n");
-        // for(unsigned int i = 1; i <= 16; i++){
-        //     printf("%f ", current_T_matrix[i-1]);
-        //     if(i%4 == 0){
-        //         printf("\n");
-        //     }
-        // }
-        // printf("\n");
+        memcpy(current_T_matrix, robotInfor.mat, sizeof(double)*16);
 
         usleep(10000);
     }
@@ -180,6 +163,28 @@ int main(int argc, char **argv){
         {
             switch(cmd)
             {
+                case Cmd::RecvRobotState:
+                {
+                    sdk_info robotInfor = RobotInfo();
+
+                    std::cout << "current_state : " << robotInfor.state << std::endl;
+                    std::cout << "current_joint : " << std::endl;
+                    std::cout << robotInfor.jnt[0] << ", " << robotInfor.jnt[1] << ", " << robotInfor.jnt[2] << ", " << robotInfor.jnt[3] << ", " << robotInfor.jnt[4] << ", " << robotInfor.jnt[5] << std::endl;
+
+                    std::cout << "current_T_matrix : " << std::endl;
+                    std::cout << robotInfor.mat[0] << ", " << robotInfor.mat[1] << ", " << robotInfor.mat[2] << ", " << robotInfor.mat[3] << std::endl;
+                    std::cout << robotInfor.mat[4] << ", " << robotInfor.mat[5] << ", " << robotInfor.mat[6] << ", " << robotInfor.mat[7] << std::endl;
+                    std::cout << robotInfor.mat[8] << ", " << robotInfor.mat[9] << ", " << robotInfor.mat[10] << ", " << robotInfor.mat[11] << std::endl;
+                    std::cout << robotInfor.mat[12] << ", " << robotInfor.mat[13] << ", " << robotInfor.mat[14] << ", " << robotInfor.mat[15] << std::endl;
+                    cmd = 0;
+                    break;
+                }
+                case Cmd::RecvGripperWidth:
+                {
+                    std::cout << "current width : " << gripper.gripper_cur_pos() << std::endl;
+                    cmd = 0;
+                    break;
+                }
                 case Cmd::RobotMoveJ:
                 {
                     movej(cmd_joint[cnt_joint%2]);

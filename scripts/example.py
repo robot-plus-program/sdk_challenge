@@ -14,11 +14,13 @@ class State:
 	Moving = 2
 
 class Cmd:
-    RobotMoveJ = 1
-    RobotMoveL = 2
-    RobotMoveB = 3
-    GripperMoveGrip = 4
-    GripperMoveRelease = 5
+	RecvRobotState = 1
+	RecvGripperWidth = 2
+	RobotMoveJ = 3
+	RobotMoveL = 4
+	RobotMoveB = 5
+	GripperMoveGrip = 6
+	GripperMoveRelease = 7
 
 robot_connected = False
 state = 0
@@ -33,23 +35,29 @@ def key_input_func():
 
 	while robot_connected is True:
 		print("\n Enter character and press \"Enter\"")
-		print(" 1 : Robot move joint motion")
-		print(" 2 : Robot move Cartesian motion")
-		print(" 3 : Robot move Cartesian motion with blend")
-		print(" 4 : Gripper move(grip)")
-		print(" 5 : Gripper move(release)")
+		print(" 1 : Receive robot current state")
+		print(" 2 : Receive gripper current width")
+		print(" 3 : Robot move joint motion")
+		print(" 4 : Robot move Cartesian motion")
+		print(" 5 : Robot move Cartesian motion with blend")
+		print(" 6 : Gripper move(grip)")
+		print(" 7 : Gripper move(release)")
 
 		key_value = input()
 
 		if key_value == '1':
-			cmd = Cmd.RobotMoveJ
+			cmd = Cmd.RecvRobotState
 		elif key_value == '2':
-			cmd = Cmd.RobotMoveL
+			cmd = Cmd.RecvGripperWidth
 		elif key_value == '3':
-			cmd = Cmd.RobotMoveB
+			cmd = Cmd.RobotMoveJ
 		elif key_value == '4':
-			cmd = Cmd.GripperMoveGrip
+			cmd = Cmd.RobotMoveL
 		elif key_value == '5':
+			cmd = Cmd.RobotMoveB
+		elif key_value == '6':
+			cmd = Cmd.GripperMoveGrip
+		elif key_value == '7':
 			cmd = Cmd.GripperMoveRelease
 
 		while cmd != 0:
@@ -66,14 +74,6 @@ def data_update_func():
                       robotInfor.Mat[4], robotInfor.Mat[5], robotInfor.Mat[6], robotInfor.Mat[7],
                       robotInfor.Mat[8], robotInfor.Mat[9], robotInfor.Mat[10], robotInfor.Mat[11],
                       robotInfor.Mat[12], robotInfor.Mat[13], robotInfor.Mat[14], robotInfor.Mat[15]]
-
-		# print("current_state : {0}".format(robotInfor.State))
-		# print("current_joint : {0}".format(current_joint))
-		# print("current_T_matrix : ")
-		# print(current_T_matrix[0:4])
-		# print(current_T_matrix[4:8])
-		# print(current_T_matrix[8:12])
-		# print(current_T_matrix[12:16])
 
 		if robotInfor.State == 2:
 			state = State.Moving
@@ -96,7 +96,6 @@ if __name__ == '__main__':
 
 	SetRobotConf(RB10, robot_ip,5000)
 	robot_connected = RobotConnect()
-	robot_connected = True
 	
 	gripper.connect(gripper_ip, gripper_port)
 	gripper_connected = gripper.isConnected()
@@ -125,8 +124,21 @@ if __name__ == '__main__':
 
 	try:
 		while robot_connected is True:
-			if(state == State.Wait):
-				if cmd == Cmd.RobotMoveJ:
+			if state == State.Wait:
+				if cmd == Cmd.RecvRobotState:
+					robotInfor = RobotInfo()
+					print("current_state : {0}".format(robotInfor.State))
+					print("current_joint : {0}".format(current_joint))
+					print("current_T_matrix : ")
+					print(current_T_matrix[0:4])
+					print(current_T_matrix[4:8])
+					print(current_T_matrix[8:12])
+					print(current_T_matrix[12:16])
+					cmd = 0
+				elif cmd == Cmd.RecvGripperWidth:
+					print("current width : {0}".format(gripper.grip_get_pos()))
+					cmd = 0
+				elif cmd == Cmd.RobotMoveJ:
 					movej(cmd_joint[cnt_joint%2])
 					cnt_joint = cnt_joint + 1
 					cmd = 0
