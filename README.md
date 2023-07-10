@@ -15,6 +15,9 @@ sudo apt-get update && sudo apt-get upgrade
 ~~~
 sudo apt-get install cmake build-essential git 
 sudo apt-get install libmodbus*
+
+sudo apt install python3-pip
+pip3 install pymodbus
 ~~~
 
 ## 2. KETI SDK 다운로드
