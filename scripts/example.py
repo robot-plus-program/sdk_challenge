@@ -97,11 +97,12 @@ if __name__ == '__main__':
 	SetRobotConf(RB10, robot_ip,5000)
 	robot_connected = RobotConnect()
 	
-	gripper.connect(gripper_ip, gripper_port)
-	gripper_connected = gripper.isConnected()
-	print("wait...")
-	if gripper_connected is True:
-		gripper.gripper_init()
+	if gripper_port == 502:
+		gripper.connect(gripper_ip, gripper_port)
+		gripper_connected = gripper.isConnected()
+		print("wait...")
+		if gripper_connected is True:
+			gripper.gripper_init()
   
 	key_input_thraed = threading.Thread(target=key_input_func, daemon=True)
 	key_input_thraed.start()
@@ -181,10 +182,13 @@ if __name__ == '__main__':
 					moveb(Base, 0.02, 5, cmd_mat[0], cmd_mat[1], cmd_mat[2], cmd_mat[3], cmd_mat[4])
 					cmd = 0
 				elif cmd == Cmd.GripperMoveGrip:
-					gripper.gripper_grip()
+					if gripper_port == 502:
+						gripper.gripper_grip()
 					cmd = 0
 				elif cmd == Cmd.GripperMoveRelease:
-					gripper.gripper_release()
+					if gripper_port == 502:
+						gripper.gripper_release()
+					cmd = 0
 
 			sleep(0.001)
 	except KeyboardInterrupt:
