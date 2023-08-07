@@ -133,6 +133,7 @@ int main(int argc, char **argv){
     gripper.connect(gripper_ip.c_str(), gripper_port);
     gripper_connected = gripper.isConnected();
     std::cout << "wait..." << std::endl;
+    
     if(gripper_connected)
         gripper.gripper_init();
 

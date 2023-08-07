@@ -92,7 +92,7 @@ if __name__ == '__main__':
 
 	robot_ip = sys.argv[1]
 	gripper_ip = sys.argv[2]
-	gripper_port = sys.argv[3]
+	gripper_port = int(sys.argv[3])
 
 	SetRobotConf(RB10, robot_ip,5000)
 	robot_connected = RobotConnect()
