@@ -3,7 +3,7 @@
   <name>keti_robot_moveit_config</name>
   <version>0.3.0</version>
   <description>
-     An automatically generated package with all the configuration and launch files for using the keti_robot_arm with the MoveIt Motion Planning Framework
+     An automatically generated package with all the configuration and launch files for using the keti_robot_description with the MoveIt Motion Planning Framework
   </description>
   <author email="hajunsong90@keti.re.kr">HajunSong</author>
   <maintainer email="hajunsong90@keti.re.kr">HajunSong</maintainer>
@@ -11,8 +11,8 @@
   <license>BSD</license>
 
   <url type="website">http://moveit.ros.org/</url>
-  <url type="bugtracker">https://github.com/ros-planning/moveit/issues</url>
-  <url type="repository">https://github.com/ros-planning/moveit</url>
+  <url type="bugtracker">https://github.com/moveit/moveit/issues</url>
+  <url type="repository">https://github.com/moveit/moveit</url>
 
   <buildtool_depend>catkin</buildtool_depend>
 

@@ -42,8 +42,10 @@ const int MAXWAITBUFSIZE = 4096;
 const int MAXRECEIVEBUFSIZE = 4096;
 const int MAXSENDBUFSIZE = 120*8 + 4;
 
-const float RAD2DEG = 180.0/M_PI;
-const float DEG2RAD = M_PI/180.0;
+const double RAD2DEG = 180.0/M_PI;
+const double DEG2RAD = M_PI/180.0;
+
+const double offset[6] = {M_PI_2, 0, -M_PI_2, 0, -M_PI_2, 0};
 
 class RobotServer{
 public:

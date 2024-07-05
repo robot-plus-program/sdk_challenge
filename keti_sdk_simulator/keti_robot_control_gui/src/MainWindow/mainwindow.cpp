@@ -30,12 +30,12 @@ void MainWindow::RobotStateCallback(const keti_robot_control::RobotState &msg)
 {
   ui->txtRobotState->setNum(msg.state);
 
-  ui->txtJoint1->setText(QString::number(msg.current_joint[0]));
-  ui->txtJoint2->setText(QString::number(msg.current_joint[1]));
-  ui->txtJoint3->setText(QString::number(msg.current_joint[2]));
-  ui->txtJoint4->setText(QString::number(msg.current_joint[3]));
-  ui->txtJoint5->setText(QString::number(msg.current_joint[4]));
-  ui->txtJoint6->setText(QString::number(msg.current_joint[5]));
+  ui->txtJoint1->setText(QString::number(msg.current_joint[0] - offset[0]));
+  ui->txtJoint2->setText(QString::number(msg.current_joint[1] - offset[1]));
+  ui->txtJoint3->setText(QString::number(msg.current_joint[2] - offset[2]));
+  ui->txtJoint4->setText(QString::number(msg.current_joint[3] - offset[3]));
+  ui->txtJoint5->setText(QString::number(msg.current_joint[4] - offset[4]));
+  ui->txtJoint6->setText(QString::number(msg.current_joint[5] - offset[5]));
 
   ui->txtMatrix1->setText(QString::number(msg.current_T_matrix[0]));
   ui->txtMatrix2->setText(QString::number(msg.current_T_matrix[1]));

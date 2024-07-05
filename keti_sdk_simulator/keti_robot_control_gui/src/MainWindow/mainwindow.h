@@ -16,6 +16,8 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
 
+const double offset[6] = {M_PI_2, 0, -M_PI_2, 0, -M_PI_2, 0};
+
 class MainWindow : public QMainWindow
 {
     Q_OBJECT

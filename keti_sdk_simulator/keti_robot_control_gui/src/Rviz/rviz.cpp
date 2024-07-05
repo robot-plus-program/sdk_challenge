@@ -29,7 +29,7 @@ void Rviz::initRvizCameraView(void *_layout)
 
 void Rviz::setTopicRobot()
 {
-	m_RvizManager->setFixedFrame("world");
+	m_RvizManager->setFixedFrame("base_link");
 
 	m_RvizGrid = m_RvizManager->createDisplay("rviz/Grid", "adjustable grid", true);
 	m_RvizGrid->subProp("Line Style")->setValue("Billboards");

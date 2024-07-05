@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="keti_robot_description">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="arm">
+        <link name="base"/>
+        <link name="link1"/>
+        <link name="link2"/>
+        <link name="link3"/>
+        <link name="link4"/>
+        <link name="link5"/>
+        <link name="link6"/>
+        <link name="end"/>
+        <joint name="q1"/>
+        <joint name="q2"/>
+        <joint name="q3"/>
+        <joint name="q4"/>
+        <joint name="q5"/>
+        <joint name="q6"/>
+    </group>
+    <group name="gripper">
+        <link name="tooltip1"/>
+        <link name="tooltip2"/>
+        <joint name="s1"/>
+        <joint name="s2"/>
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="robot_init" group="arm">
+        <joint name="q1" value="0"/>
+        <joint name="q2" value="0"/>
+        <joint name="q3" value="0"/>
+        <joint name="q4" value="0"/>
+        <joint name="q5" value="0"/>
+        <joint name="q6" value="0.6458"/>
+    </group_state>
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="base" link2="base_link" reason="Adjacent"/>
+    <disable_collisions link1="base" link2="cage" reason="Never"/>
+    <disable_collisions link1="base" link2="link1" reason="Adjacent"/>
+    <disable_collisions link1="base" link2="link2" reason="Never"/>
+    <disable_collisions link1="base" link2="link4" reason="Never"/>
+    <disable_collisions link1="base" link2="table" reason="Never"/>
+    <disable_collisions link1="base_link" link2="cage" reason="Never"/>
+    <disable_collisions link1="base_link" link2="link1" reason="Never"/>
+    <disable_collisions link1="base_link" link2="table" reason="Adjacent"/>
+    <disable_collisions link1="cage" link2="link1" reason="Never"/>
+    <disable_collisions link1="cage" link2="table" reason="Adjacent"/>
+    <disable_collisions link1="cam" link2="gripper" reason="Never"/>
+    <disable_collisions link1="cam" link2="gripper_cam_jig" reason="Adjacent"/>
+    <disable_collisions link1="cam" link2="link4" reason="Never"/>
+    <disable_collisions link1="cam" link2="link5" reason="Never"/>
+    <disable_collisions link1="cam" link2="link6" reason="Never"/>
+    <disable_collisions link1="cam" link2="tooltip1" reason="Never"/>
+    <disable_collisions link1="cam" link2="tooltip2" reason="Never"/>
+    <disable_collisions link1="gripper" link2="gripper_cam_jig" reason="Adjacent"/>
+    <disable_collisions link1="gripper" link2="link4" reason="Never"/>
+    <disable_collisions link1="gripper" link2="link5" reason="Never"/>
+    <disable_collisions link1="gripper" link2="link6" reason="Never"/>
+    <disable_collisions link1="gripper" link2="tooltip1" reason="Adjacent"/>
+    <disable_collisions link1="gripper" link2="tooltip2" reason="Adjacent"/>
+    <disable_collisions link1="gripper_cam_jig" link2="link4" reason="Never"/>
+    <disable_collisions link1="gripper_cam_jig" link2="link5" reason="Never"/>
+    <disable_collisions link1="gripper_cam_jig" link2="link6" reason="Adjacent"/>
+    <disable_collisions link1="gripper_cam_jig" link2="tooltip1" reason="Never"/>
+    <disable_collisions link1="gripper_cam_jig" link2="tooltip2" reason="Never"/>
+    <disable_collisions link1="link1" link2="link2" reason="Adjacent"/>
+    <disable_collisions link1="link1" link2="link4" reason="Never"/>
+    <disable_collisions link1="link1" link2="table" reason="Never"/>
+    <disable_collisions link1="link2" link2="link3" reason="Adjacent"/>
+    <disable_collisions link1="link3" link2="link4" reason="Adjacent"/>
+    <disable_collisions link1="link4" link2="link5" reason="Adjacent"/>
+    <disable_collisions link1="link4" link2="link6" reason="Never"/>
+    <disable_collisions link1="link4" link2="tooltip1" reason="Never"/>
+    <disable_collisions link1="link4" link2="tooltip2" reason="Never"/>
+    <disable_collisions link1="link5" link2="link6" reason="Adjacent"/>
+    <disable_collisions link1="link5" link2="tooltip1" reason="Never"/>
+    <disable_collisions link1="link5" link2="tooltip2" reason="Never"/>
+    <disable_collisions link1="link6" link2="tooltip1" reason="Never"/>
+    <disable_collisions link1="link6" link2="tooltip2" reason="Never"/>
+    <disable_collisions link1="tooltip1" link2="tooltip2" reason="Never"/>
+</robot>

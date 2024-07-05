@@ -73,14 +73,18 @@ void *RobotServer::cmd_func(void *arg){
                 if(strCmd.compare("halt") == 0){
                     ROS_INFO("cmd stop!");
                     robotServer->robotCmd.cmd = 0;
+                    // robotServer->acRobot->cancelGoal();
+                    // robotServer->acRobot->sendGoal(robotServer->goalRobot, 
+                    //     boost::bind(&RobotServer::RobotMoveResultCallback, robotServer, _1, _2),
+                    //     boost::bind(&RobotServer::RobotMoveActiveCallback, robotServer),
+                    //     boost::bind(&RobotServer::RobotMoveFeedbackCallback, robotServer, _1));
                     // robot_func();
-                    pthread_cancel(robotServer->robot_thread);
                     pthread_create(&robotServer->robot_thread, NULL, robot_func, robotServer);
                 }
 
-                std::string strCmd1(robotServer->strRecv.substr(0, 8));
-                if(strCmd1.compare("jointall") == 0){
-                    std::istringstream iss(robotServer->strRecv);
+                std::string strCmd1(robotServer->strRecv.substr(0, 6));
+                if(strCmd1.compare("move_j") == 0){
+                    std::istringstream iss(robotServer->strRecv.substr(11, robotServer->strRecv.find(']')));
                     std::string buffer;
                     std::vector<std::string> result;
                     while(getline(iss, buffer, ',')){
@@ -88,8 +92,9 @@ void *RobotServer::cmd_func(void *arg){
                     }
 
                     for(unsigned int i = 0; i < 6; i++){
-                        robotServer->robotCmd.joint[i] = atof(result[i + 2].c_str());
+                        robotServer->robotCmd.joint[i] = atof(result[i].c_str());
                         robotServer->robotCmd.joint[i] *= DEG2RAD;
+                        robotServer->robotCmd.joint[i] += offset[i];
                     }
 
                     ROS_INFO("cmd joint : %f, %f, %f, %f, %f, %f", robotServer->robotCmd.joint[0], robotServer->robotCmd.joint[1], robotServer->robotCmd.joint[2], robotServer->robotCmd.joint[3], robotServer->robotCmd.joint[4], robotServer->robotCmd.joint[5]);
@@ -308,7 +313,7 @@ void* RobotServer::robot_func(void *arg){
         boost::bind(&RobotServer::RobotMoveResultCallback, robotServer, _1, _2),
         boost::bind(&RobotServer::RobotMoveActiveCallback, robotServer),
         boost::bind(&RobotServer::RobotMoveFeedbackCallback, robotServer, _1));
-    robotServer->acRobot->waitForResult();
+    // robotServer->acRobot->waitForResult();
     robotServer->robotCmd.cmd = -1;
 
     return nullptr;
@@ -344,11 +349,14 @@ void *RobotServer::data_func(void *arg){
                     robotServer->systemStat.sdata.init_state_info = 6;
 
                     for(unsigned int i = 0; i < 6; i++){
-                        robotServer->systemStat.sdata.jnt_ang[i] = static_cast<float>(robotServer->robotState.current_joint[i]);
+                        robotServer->systemStat.sdata.jnt_ang[i] = static_cast<float>(robotServer->robotState.current_joint[i]*RAD2DEG);
                     }
+                    // ROS_INFO("current joint1 : %f, %f, %f, %f, %f, %f", robotServer->robotState.current_joint[0], robotServer->robotState.current_joint[1], robotServer->robotState.current_joint[2], robotServer->robotState.current_joint[3], robotServer->robotState.current_joint[4], robotServer->robotState.current_joint[5]);
+                    // ROS_INFO("current joint2 : %f, %f, %f, %f, %f, %f", robotServer->systemStat.sdata.jnt_ang[0], robotServer->systemStat.sdata.jnt_ang[1], robotServer->systemStat.sdata.jnt_ang[2], robotServer->systemStat.sdata.jnt_ang[3], robotServer->systemStat.sdata.jnt_ang[4], robotServer->systemStat.sdata.jnt_ang[5]);
+
                     robotServer->systemStat.sdata.tcp_pos[0] = static_cast<float>(robotServer->robotState.current_T_matrix[3])*1000;
                     robotServer->systemStat.sdata.tcp_pos[1] = static_cast<float>(robotServer->robotState.current_T_matrix[7])*1000;
-                    robotServer->systemStat.sdata.tcp_pos[2] = static_cast<float>(robotServer->robotState.current_T_matrix[11] - 0.65)*1000;
+                    robotServer->systemStat.sdata.tcp_pos[2] = static_cast<float>(robotServer->robotState.current_T_matrix[11])*1000;
 
                     robotServer->systemStat.sdata.tcp_pos[3] = static_cast<float>(atan2(robotServer->robotState.current_T_matrix[2 * 4 + 1], robotServer->robotState.current_T_matrix[2 * 4 + 2])*RAD2DEG);
                     robotServer->systemStat.sdata.tcp_pos[4] = static_cast<float>(asin(-robotServer->robotState.current_T_matrix[2 * 4 + 0])*RAD2DEG);
@@ -394,7 +402,7 @@ void *RobotServer::gripper_func2(void *arg){
 //          ROS_INFO("%d", robotServer->strRecv.at(i));
 //        }
 
-        Position = robotServer->gripperState.width*4000/(0.04) + 1000;
+        Position = robotServer->gripperState.width*4000/(0.04);
 //        ROS_INFO("gripper width : %d", Position);
 
         if(robotServer->gripperState.state == 1){
@@ -692,7 +700,7 @@ void RobotServer::GripperMoveActiveCallback()
 
 void RobotServer::RobotStateCallback(const keti_robot_control::RobotState &msg){
     // ROS_INFO("robot_state : %d", msg.state);
-    // ROS_INFO("current joint : %f, %f, %f, %f, %f, %f", msg.current_joint[0], msg.current_joint[1], msg.current_joint[2], msg.current_joint[3], msg.current_joint[4], msg.current_joint[5]);
+    // ROS_INFO("current joint(before) : %f, %f, %f, %f, %f, %f", msg.current_joint[0], msg.current_joint[1], msg.current_joint[2], msg.current_joint[3], msg.current_joint[4], msg.current_joint[5]);
     // ROS_INFO("current T matrix : ");
     // ROS_INFO("%f, %f, %f, %f", msg.current_T_matrix[0], msg.current_T_matrix[1], msg.current_T_matrix[2], msg.current_T_matrix[3]);
     // ROS_INFO("%f, %f, %f, %f", msg.current_T_matrix[4], msg.current_T_matrix[5], msg.current_T_matrix[6], msg.current_T_matrix[7]);
@@ -700,8 +708,13 @@ void RobotServer::RobotStateCallback(const keti_robot_control::RobotState &msg){
     // ROS_INFO("%f, %f, %f, %f", msg.current_T_matrix[12], msg.current_T_matrix[13], msg.current_T_matrix[14], msg.current_T_matrix[15]);
 
     robotState.state = msg.state;
-    memcpy(robotState.current_joint.data(), msg.current_joint.data(), sizeof(double)*6);
+    for(unsigned int i = 0; i < 6; i++){
+        robotState.current_joint[i] = msg.current_joint[i] - offset[i];
+    }
+    // memcpy(robotState.current_joint.data(), msg.current_joint.data(), sizeof(double)*6);
     memcpy(robotState.current_T_matrix.data(), msg.current_T_matrix.data(), sizeof(double)*16);
+
+    // ROS_INFO("current joint(after) : %f, %f, %f, %f, %f, %f", robotState.current_joint[0], robotState.current_joint[1], robotState.current_joint[2], robotState.current_joint[3], robotState.current_joint[4], robotState.current_joint[5]);
 }
 
 void RobotServer::GripperStateCallback(const keti_robot_control::GripperState &msg){
