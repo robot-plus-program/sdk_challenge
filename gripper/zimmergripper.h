@@ -49,7 +49,6 @@ public:
     void connect(std::string ip, int port);
     void disconnect();
     bool isConnected(){return connected;}
-    void setDebug(bool arg){debug = arg;}
     static void *comm_func(void *arg);
     void get_write_reg(uint16_t reg[NUM_SEND_REG]);
     void get_read_reg(uint16_t reg[NUM_RECV_REG]);
@@ -57,8 +56,14 @@ public:
     void gripper_grip(bool sync = true);
     void gripper_release(bool sync = true);
     void gripper_custom(uint16_t position, uint8_t velocity, uint8_t force, bool sync = true);
-    void gripper_opt(uint8_t velocity, uint8_t force);
-    double gripper_cur_pos(){return gripper_pos;};
+	void gripper_opt(uint8_t velocity, uint8_t force);
+	void gripper_jog_enable();
+	void gripper_jog_plus();
+	void gripper_jog_minus();
+	void gripper_homing();
+	void gripper_stop();
+	void set_inner();
+	void set_outer();
 
 private:
     modbus_t *mb;
@@ -70,8 +75,8 @@ private:
     int comm_step;
     bool grip_flag, init_flag;
     uint8_t gripper_velocity, gripper_force;
-    bool debug;
-    double gripper_pos;
+	int mode_indx = 0;
+	int mode[2] = {85, 95};
 };
 
 #endif // ZIMMERGRIPPER_H
