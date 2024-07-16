@@ -58,6 +58,9 @@ class KetiZimmer:
         self.init_flag = False
         self.grip_flag = False
         self.release_flag = True
+        
+        self.mode = [85, 95]
+        self.mode_indx = 0
     
         self.debug = False
 
@@ -115,7 +118,7 @@ class KetiZimmer:
                         if self.debug is True:
                             print('Handshake is done')
                         self.reg_write[0] = 1
-                        self.reg_write[1] = 85*256 + 0
+                        self.reg_write[1] = self.mode[self.mode_indx]*256 + 0
                         self.mb.write_registers(self.ADDR_SEND, self.reg_write)
                         self.comm_step = self.comm_step + 1
 
@@ -129,17 +132,50 @@ class KetiZimmer:
                         self.init_flag = True
 
                 elif self.comm_step == 4:
+                    # if bool(self.reg_read.registers[0]&self.DataTransferOK) is not True:
+                    #     if self.grip_flag is True:
+                    #         if self.debug is True:
+                    #             print('grip move to workposition')
+                    #         self.reg_write[0] = 512
+                    #     else:
+                    #         if bool(self.reg_read.registers[0]&self.AtBaseposition) is not True:
+                    #             if self.debug is True:
+                    #                 print('grip move to baseposition')
+                    #             self.reg_write[0] = 256
+
                     if bool(self.reg_read.registers[0]&self.DataTransferOK) is not True:
                         if self.grip_flag is True:
-                            if self.debug is True:
-                                print('grip move to workposition')
-                            self.reg_write[0] = 512
-                        else:
-                            if bool(self.reg_read.registers[0]&self.AtBaseposition) is not True:
-                                if self.debug is True:
+                            if self.mode_indx == 0:
+                                if bool(self.reg_read[0]&self.AtWorkposition) is not True:
+                                    print('grip move to workposition')
+                                    self.reg_write[0] = 512
+                                else:
+                                    print('grip position is workposition')
+                                    self.send_flag = False
+                            elif self.mode_indx == 1:
+                                if bool(self.reg_read[0]&self.AtBaseposition) is not True:
                                     print('grip move to baseposition')
-                                self.reg_write[0] = 256
-
+                                    self.reg_write[0] = 256
+                                else:
+                                    print('grip position is baseposition')
+                                    self.send_flag = False
+                        else:
+                            if self.mode_indx == 0:
+                                if bool(self.reg_read[0]&self.AtBaseposition) is not True:
+                                    print('grip move to baseposition')
+                                    self.reg_write[0] = 256
+                                else:
+                                    print('grip position is baseposition')
+                                    self.send_flag = False
+                            elif self.mode_indx == 1:
+                                if bool(self.reg_read[0]&self.AtWorkposition) is not True:
+                                    print('grip move to workposition')
+                                    self.reg_write[0] = 512
+                                else:
+                                    print('grip position is workposition')
+                                    self.send_flag = False
+                                
+                        
                         self.mb.write_registers(self.ADDR_SEND, self.reg_write)
                         self.comm_step = self.comm_step + 1
 
@@ -267,6 +303,67 @@ class KetiZimmer:
     
     def isConnected(self):
         return self.connected
+    
+    def gripper_jog_enable(self):
+        self.reg_write[0] = 1
+        self.reg_write[1] = 11*256 + 0
+        self.reg_write[2] = 50
+        self.reg_write[3] = self.gripper_force*256 + self.gripper_velocity
+        self.reg_write[4] = 100
+        self.reg_write[5] = 3000
+        self.reg_write[7] = 4000
+
+        self.mb.write_registers(self.ADDR_SEND, self.reg_write)
+        
+    def gripper_jog_plus(self):
+        self.reg_write[0] = 1024
+        self.reg_write[1] = 11*256 + 0
+        self.reg_write[2] = 50
+        self.reg_write[3] = self.gripper_force*256 + self.gripper_velocity
+        self.reg_write[4] = 100
+        self.reg_write[5] = 3000
+        self.reg_write[7] = 4000
+
+        self.mb.write_registers(self.ADDR_SEND, self.reg_write)
+        
+    def gripper_jog_minus(self):
+        self.reg_write[0] = 2048
+        self.reg_write[1] = 11*256 + 0
+        self.reg_write[2] = 50
+        self.reg_write[3] = self.gripper_force*256 + self.gripper_velocity
+        self.reg_write[4] = 100
+        self.reg_write[5] = 3000
+        self.reg_write[7] = 4000
+
+        self.mb.write_registers(self.ADDR_SEND, self.reg_write)
+        
+    def gripper_homing(self):
+        self.reg_write[0] = 1
+        self.reg_write[1] = 10*256 + 0
+        self.reg_write[2] = 50
+        self.reg_write[3] = self.gripper_force*256 + self.gripper_velocity
+        self.reg_write[4] = 100
+        self.reg_write[5] = 3000
+        self.reg_write[7] = 4000
+
+        self.mb.write_registers(self.ADDR_SEND, self.reg_write)
+        
+    def gripper_stop(self):
+        self.reg_write[0] = 0
+        self.reg_write[1] = 10*256 + 0
+        self.reg_write[2] = 50
+        self.reg_write[3] = self.gripper_force*256 + self.gripper_velocity
+        self.reg_write[4] = 100
+        self.reg_write[5] = 3000
+        self.reg_write[7] = 4000
+
+        self.mb.write_registers(self.ADDR_SEND, self.reg_write)
+        
+    def set_inner(self):
+        self.mode_indx = 1
+        
+    def set_outer(self):
+        self.mode_indx = 0
 
 
 if __name__ == '__main__':
