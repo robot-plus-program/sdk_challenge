@@ -1,13 +1,14 @@
 #!/usr/bin/env python3
-
 import sys
 sys.path.append("../ketirobotsdk")
-from ketirobotsdk.sdk import *
+from sdk import *
 from time import *
 import threading
 import math
-sys.path.append("../include/gripper")
+sys.path.append("../gripper")
 from keti_zimmer_gripper import KetiZimmer
+
+rob = Robot()
 
 class State:
 	Wait = 1
@@ -66,7 +67,7 @@ def key_input_func():
 def data_update_func():
 	global robot_connected, state, cmd, current_joint, current_T_matrix
 	while robot_connected is True:
-		robotInfor = RobotInfo()
+		robotInfor = rob.RobotInfo()
 
 		current_joint = [robotInfor.Jnt[0], robotInfor.Jnt[1], robotInfor.Jnt[2], robotInfor.Jnt[3], robotInfor.Jnt[4], robotInfor.Jnt[5]]
 
@@ -87,15 +88,15 @@ if __name__ == '__main__':
 	if len(sys.argv) != 4:
 		print("\n\nPlease check the input arguments!!\n\n")
 		exit(1)
-
-	setLibPath(f'{os.getcwd()}/../ketirobotsdk/ketirobotsdk/librobotsdkv2.so')
-
+	
+	setLibPath(f'{os.getcwd()}/../ketirobotsdk/librobotsdk.so')
+ 
 	robot_ip = sys.argv[1]
 	gripper_ip = sys.argv[2]
 	gripper_port = int(sys.argv[3])
 
-	SetRobotConf(RB10, robot_ip,5000)
-	robot_connected = RobotConnect()
+	rob.SetRobotConf(M1013, robot_ip, 12345)
+	robot_connected = rob.RobotConnect()
 	
 	if gripper_port == 502:
 		gripper.connect(gripper_ip, gripper_port)
@@ -110,7 +111,8 @@ if __name__ == '__main__':
 	data_update_thread.start()
 
 	cmd_joint = [[-math.pi/2.0, 0, math.pi/2.0, 0, math.pi/2.0, -math.pi],
-              [-math.pi/2.0, math.pi/4.0, math.pi/2.0, -math.pi/2.0, math.pi/2.0, 0]]
+              [-math.pi/2.0, math.pi/6.0, math.pi/2.0, -math.pi/2.0, math.pi/2.0, 0]]
+ 
 	cmd_rot = [-1, 0, 0, 0, 0, 1, 0, 1, 0]
 	cmd_pos = [[-0.394545, -0.688601, 0.510546],
 				[-0.394545, -0.688601, 0.330724],
@@ -118,16 +120,16 @@ if __name__ == '__main__':
 				[0.2159, -0.524593, 0.622947],
 				[-0.1579, -0.688602, 0.695799]]
 
-	cnt_joint = 0
-	cnt_pose = 0
+	cnt_joint = 1
+	cnt_pose = 1
 
-	SetVelocity(20)
+	rob.SetVelocity(100)
 
 	try:
 		while robot_connected is True:
-			if state == State.Wait:
+			if state == State.Wait | True:
 				if cmd == Cmd.RecvRobotState:
-					robotInfor = RobotInfo()
+					robotInfor = rob.RobotInfo()
 					print("current_state : {0}".format(robotInfor.State))
 					print("current_joint : {0}".format(current_joint))
 					print("current_T_matrix : ")
@@ -140,7 +142,7 @@ if __name__ == '__main__':
 					print("current width : {0}".format(gripper.grip_get_pos()))
 					cmd = 0
 				elif cmd == Cmd.RobotMoveJ:
-					movej(cmd_joint[cnt_joint%2])
+					rob.movej(cmd_joint[cnt_joint%2])
 					cnt_joint = cnt_joint + 1
 					cmd = 0
 				elif cmd == Cmd.RobotMoveL:
@@ -159,7 +161,7 @@ if __name__ == '__main__':
 					print(cmd_mat[8:12])
 					print(cmd_mat[12:16])
 
-					movel(Base, cmd_mat)
+					rob.movel(0, cmd_mat)
 					cnt_pose = cnt_pose + 1
 					cmd = 0
 				elif cmd == Cmd.RobotMoveB:
@@ -179,7 +181,7 @@ if __name__ == '__main__':
 						print(cmd_mat[num][8:12])
 						print(cmd_mat[num][12:16])
     
-					moveb(Base, 0.02, 5, cmd_mat[0], cmd_mat[1], cmd_mat[2], cmd_mat[3], cmd_mat[4])
+					rob.moveb(0, 0.02, 5, cmd_mat[0], cmd_mat[1], cmd_mat[2], cmd_mat[3], cmd_mat[4])
 					cmd = 0
 				elif cmd == Cmd.GripperMoveGrip:
 					if gripper_port == 502:
@@ -192,6 +194,6 @@ if __name__ == '__main__':
 
 			sleep(0.001)
 	except KeyboardInterrupt:
-		RobotDisconnect()
+		rob.RobotDisconnect()
 
 	print("finish")

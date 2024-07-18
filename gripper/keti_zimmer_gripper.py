@@ -95,6 +95,7 @@ class KetiZimmer:
             #               self.reg_read.registers[0]&0x0020, self.reg_read.registers[0]&0x0010,
             #               self.reg_read.registers[0]&0x0008, self.reg_read.registers[0]&0x0004,
             #               self.reg_read.registers[0]&0x0002, self.reg_read.registers[0]&0x0001))
+            # print(self.grip_distance)
 
             if self.send_flag is True:
                 if self.comm_step == 0:
@@ -146,14 +147,14 @@ class KetiZimmer:
                     if bool(self.reg_read.registers[0]&self.DataTransferOK) is not True:
                         if self.grip_flag is True:
                             if self.mode_indx == 0:
-                                if bool(self.reg_read[0]&self.AtWorkposition) is not True:
+                                if bool(self.reg_read.registers[0]&self.AtWorkposition) is not True:
                                     print('grip move to workposition')
                                     self.reg_write[0] = 512
                                 else:
                                     print('grip position is workposition')
                                     self.send_flag = False
                             elif self.mode_indx == 1:
-                                if bool(self.reg_read[0]&self.AtBaseposition) is not True:
+                                if bool(self.reg_read.registers[0]&self.AtBaseposition) is not True:
                                     print('grip move to baseposition')
                                     self.reg_write[0] = 256
                                 else:
@@ -161,14 +162,14 @@ class KetiZimmer:
                                     self.send_flag = False
                         else:
                             if self.mode_indx == 0:
-                                if bool(self.reg_read[0]&self.AtBaseposition) is not True:
+                                if bool(self.reg_read.registers[0]&self.AtBaseposition) is not True:
                                     print('grip move to baseposition')
                                     self.reg_write[0] = 256
                                 else:
                                     print('grip position is baseposition')
                                     self.send_flag = False
                             elif self.mode_indx == 1:
-                                if bool(self.reg_read[0]&self.AtWorkposition) is not True:
+                                if bool(self.reg_read.registers[0]&self.AtWorkposition) is not True:
                                     print('grip move to workposition')
                                     self.reg_write[0] = 512
                                 else:
@@ -200,6 +201,7 @@ class KetiZimmer:
                         self.send_flag = False
 
             time.sleep(0.01)
+            # print(self.comm_step)
 
         self.reg_read.registers[0] = 0
         self.reg_read.registers[1] = 0
@@ -212,7 +214,7 @@ class KetiZimmer:
         self.reg_write[2] = 50
         self.reg_write[3] = self.gripper_force*256 + self.gripper_velocity
         self.reg_write[4] = 100
-        self.reg_write[5] = 2000
+        self.reg_write[5] = self.max_distance-500
         self.reg_write[7] = self.max_distance
 
         self.init_flag = False
@@ -252,7 +254,7 @@ class KetiZimmer:
             self.reg_write[2] = 50
             self.reg_write[3] = self.gripper_force*256 + self.gripper_velocity
             self.reg_write[4] = 100
-            self.reg_write[5] = 2000
+            self.reg_write[5] = self.max_distance - 100
             self.reg_write[7] = self.max_distance
 
             self.comm_step = 0
@@ -368,21 +370,33 @@ class KetiZimmer:
 
 if __name__ == '__main__':
     gripper = KetiZimmer()
-    gripper.connect('192.168.0.253', 502)
+    gripper.connect('172.20.1.226', 502)
 
-    gripper.init()
+    gripper.gripper_init()
+    
+    gripper.gripper_grip()
     time.sleep(1)
-    while True:
-        try:
-            time.sleep(3)
-            gripper.grip(sync=True)
-            print('grip')
-            print('pos : {0}'.format(gripper.grip_get_pos()))
-            grip_success = gripper.grip_get_success()
-            print('grip : {0}'.format(grip_success))
-            gripper.grip_release(sync=False)
-            print('release')
-        except KeyboardInterrupt:
-            break
-    print('good bye')
-    time.sleep(5)
+    # print(gripper.grip_distance)
+    
+    gripper.gripper_release()
+    time.sleep(1)
+    # print(gripper.grip_distance)
+    
+    gripper.gripper_jog_enable()
+    time.sleep(0.5)
+    
+    gripper.gripper_jog_in()
+    while gripper.grip_distance <= 1000:
+        time.sleep(0.01)
+    
+    gripper.gripper_jog_stop()
+    
+    gripper.gripper_jog_out()
+    while gripper.grip_distance  >= 100:
+        time.sleep(0.01)
+    
+    gripper.gripper_jog_stop()
+    
+    gripper.gripper_grip()
+    
+    gripper.gripper_release()

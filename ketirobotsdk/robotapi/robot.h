@@ -39,6 +39,8 @@ public:
     virtual void RobotInfo();
     virtual void settcp(bool on);
     virtual bool IsConnected();
+    virtual void Pause();
+    virtual void Resume();
 //    virtual void SetTCP();
 
 

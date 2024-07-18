@@ -186,20 +186,6 @@ extern systemPOPUP  *sys_custom_alarm;
 
 using namespace  std;
 
-void mat3333(double mat1[], double mat2[], double mat[]);
-void mat3331(double mat1[], double vec1[], double vec[]);
-void ang2mat(double psi, double theta, double phi, double mat[]);
-class Body{
-public:
-    Body();
-    ~Body();
-    double qi;
-    double ri[3], sijp[3], sicp[3];
-    double Ai[9], Cij[9], Cic[9], Ai_Cij[9];
-    double box[3][2];
-    double sij[3], sic[3], ri_col[3], ri_box[8][3];
-};
-
 class rb10 : public robot
 {
     TCPClient *cmdSocket;
@@ -214,18 +200,13 @@ class rb10 : public robot
 
     int RecvSkipCnt=0;
 
-    Body body[7];
-    bool collision_flag;
-    void WorkspaceCheck(float cmd[6]);
-    int delay_cnt;
-
 
 public:
     rb10();
     ~rb10();
 
-    double vel_l=1000,vel_j=200;
-    double acc_j=500,acc_l=1;
+    double vel_l=1000,vel_j=50;
+    double acc_j=0.5;
     bool movestate=0;
     void InitSocket(TCPClient *sock1,TCPClient *sock2,ReciveData *Info,int cord_type);
 //    void InitSocket(TCPClient *sock1,TCPClient *sock2);
@@ -255,6 +236,9 @@ public:
 //    vector<bool> ControlBoxDigitalIn();
     int ControlBoxDigitalIn();
     bool IsConnected();
+
+    void Pause();
+    void Resume();
 
     void set_speed_acc_j(double v, double a);
 private :

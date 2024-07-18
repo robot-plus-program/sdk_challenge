@@ -25,6 +25,8 @@ struct sdk_info{
     double error;
 };
 
+
+
 class sdk
 {
     int robot_id;
@@ -55,11 +57,6 @@ class sdk
 
     timer testimer;
 
-    double ux=0,  lx=0;
-    double uy=0,  ly=0;
-    double uz=0,  lz=0;
-    bool  AreaX=false,AreaY=false,AreaZ=false;
-
 public:
 
     sdk();
@@ -88,7 +85,8 @@ public:
     void WaitMove();
     void set_speed_acc_j(double v,double a);
 
-    void SetTCPArea(double x1, double x2, double y1, double y2, double z1, double z2);
+    void Resume();
+    void Pause();
 };
 
 //sdk *sys;
@@ -116,6 +114,8 @@ extern "C"{
     void WaitMove(int robot_id);
     void set_speed_acc_j(int robot_id,double v,double a);
 
+    void Pause(int robot_id);
+    void Resume(int robot_id);
 }
 
 #endif // SKD_H
