@@ -154,7 +154,7 @@ int main(int argc, char **argv)
 
     sigaction(SIGINT, &sigIntHandler, NULL);
 
-    robot.SetRobotConf(RB10, robot_ip.c_str(), 5000);
+    robot.SetRobotConf(M1013, "172.20.1.223", 12345);
     robot_connected = robot.RobotConnect();
 
     gripper.connect(gripper_ip.c_str(), gripper_port);
@@ -217,7 +217,7 @@ int main(int argc, char **argv)
             }
             case Cmd::RecvGripperWidth:
             {
-                std::cout << "current width : " << gripper.gripper_cur_pos() << std::endl;
+                // std::cout << "current width : " << gripper.gripper_cur_pos() << std::endl;
                 cmd = 0;
                 break;
             }

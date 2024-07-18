@@ -57,7 +57,7 @@ public:
     ReciveData *sdata;
     WayPoints pos={};
 	double vel_l=50, vel_j=120.0f;
-    double acc_l=0,acc_j=0;
+    double acc_l=75,acc_j=180;
 
     void InitSocket(TCPClient *sock1,TCPClient *sock2,ReciveData *Info,int cord_type);
     void MoveL(WayPoints *data);

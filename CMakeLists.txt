@@ -5,13 +5,13 @@ add_compile_options(-std=c++11)
 
 include_directories(
     ${CMAKE_CURRENT_SOURCE_DIR}/gripper
-    # ${CMAKE_CURRENT_SOURCE_DIR}/ketirobotsdk
-    /home/keti/Project/4_SDK_challenge/2024/temp/ketirobotsdk
+    ${CMAKE_CURRENT_SOURCE_DIR}/ketirobotsdk
+    # /home/keti/Project/4_SDK_challenge/2024/temp/ketirobotsdk
 )
 
 link_directories(
-    # ${CMAKE_CURRENT_SOURCE_DIR}/ketirobotsdk
-    /home/keti/Project/4_SDK_challenge/2024/temp/ketirobotsdk
+    ${CMAKE_CURRENT_SOURCE_DIR}/ketirobotsdk
+    # /home/keti/Project/4_SDK_challenge/2024/temp/ketirobotsdk
 )
 
 set(TARGET_EXAMPLE example)

@@ -148,32 +148,40 @@ class KetiZimmer:
                         if self.grip_flag is True:
                             if self.mode_indx == 0:
                                 if bool(self.reg_read.registers[0]&self.AtWorkposition) is not True:
-                                    print('grip move to workposition')
+                                    if self.debug is True:
+                                        print('grip move to workposition')
                                     self.reg_write[0] = 512
                                 else:
-                                    print('grip position is workposition')
+                                    if self.debug is True:
+                                        print('grip position is workposition')
                                     self.send_flag = False
                             elif self.mode_indx == 1:
                                 if bool(self.reg_read.registers[0]&self.AtBaseposition) is not True:
-                                    print('grip move to baseposition')
+                                    if self.debug is True:
+                                        print('grip move to baseposition')
                                     self.reg_write[0] = 256
                                 else:
-                                    print('grip position is baseposition')
+                                    if self.debug is True:
+                                        print('grip position is baseposition')
                                     self.send_flag = False
                         else:
                             if self.mode_indx == 0:
                                 if bool(self.reg_read.registers[0]&self.AtBaseposition) is not True:
-                                    print('grip move to baseposition')
+                                    if self.debug is True:
+                                        print('grip move to baseposition')
                                     self.reg_write[0] = 256
                                 else:
-                                    print('grip position is baseposition')
+                                    if self.debug is True:
+                                        print('grip position is baseposition')
                                     self.send_flag = False
                             elif self.mode_indx == 1:
                                 if bool(self.reg_read.registers[0]&self.AtWorkposition) is not True:
-                                    print('grip move to workposition')
+                                    if self.debug is True:
+                                        print('grip move to workposition')
                                     self.reg_write[0] = 512
                                 else:
-                                    print('grip position is workposition')
+                                    if self.debug is True:
+                                        print('grip position is workposition')
                                     self.send_flag = False
                                 
                         
