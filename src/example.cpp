@@ -217,7 +217,7 @@ int main(int argc, char **argv)
             }
             case Cmd::RecvGripperWidth:
             {
-                // std::cout << "current width : " << gripper.gripper_cur_pos() << std::endl;
+                std::cout << "current width : " << gripper.gripper_cur_pos() << std::endl;
                 cmd = 0;
                 break;
             }

@@ -64,6 +64,7 @@ public:
 	void gripper_stop();
 	void set_inner();
 	void set_outer();
+    double gripper_cur_pos(){return grip_distance;};
 
 private:
     modbus_t *mb;
@@ -77,6 +78,7 @@ private:
     uint8_t gripper_velocity, gripper_force;
 	int mode_indx = 0;
 	int mode[2] = {85, 95};
+    double grip_distance;
 };
 
 #endif // ZIMMERGRIPPER_H

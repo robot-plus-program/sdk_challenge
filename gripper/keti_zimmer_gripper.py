@@ -378,7 +378,7 @@ class KetiZimmer:
 
 if __name__ == '__main__':
     gripper = KetiZimmer()
-    gripper.connect('172.20.1.226', 502)
+    gripper.connect('192.168.137.200', 502)
 
     gripper.gripper_init()
     

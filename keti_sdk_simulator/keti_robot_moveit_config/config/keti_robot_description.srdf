@@ -10,7 +10,7 @@
     <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
     <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
     <group name="arm">
-        <link name="base"/>
+        <link name="base_link"/>
         <link name="link1"/>
         <link name="link2"/>
         <link name="link3"/>
@@ -43,14 +43,26 @@
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="base" link2="base_link" reason="Adjacent"/>
     <disable_collisions link1="base" link2="cage" reason="Never"/>
-    <disable_collisions link1="base" link2="link1" reason="Adjacent"/>
-    <disable_collisions link1="base" link2="link2" reason="Never"/>
-    <disable_collisions link1="base" link2="link4" reason="Never"/>
-    <disable_collisions link1="base" link2="table" reason="Never"/>
+    <disable_collisions link1="base" link2="guide" reason="Never"/>
+    <disable_collisions link1="base" link2="guide_plate" reason="Never"/>
+    <disable_collisions link1="base" link2="link1" reason="Never"/>
+    <disable_collisions link1="base" link2="sample" reason="Never"/>
+    <disable_collisions link1="base" link2="sample_box" reason="Never"/>
+    <disable_collisions link1="base" link2="table" reason="Adjacent"/>
     <disable_collisions link1="base_link" link2="cage" reason="Never"/>
-    <disable_collisions link1="base_link" link2="link1" reason="Never"/>
-    <disable_collisions link1="base_link" link2="table" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="guide" reason="Never"/>
+    <disable_collisions link1="base_link" link2="guide_plate" reason="Never"/>
+    <disable_collisions link1="base_link" link2="link1" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="link2" reason="Never"/>
+    <disable_collisions link1="base_link" link2="link4" reason="Never"/>
+    <disable_collisions link1="base_link" link2="sample" reason="Never"/>
+    <disable_collisions link1="base_link" link2="sample_box" reason="Never"/>
+    <disable_collisions link1="base_link" link2="table" reason="Never"/>
+    <disable_collisions link1="cage" link2="guide" reason="Never"/>
+    <disable_collisions link1="cage" link2="guide_plate" reason="Adjacent"/>
     <disable_collisions link1="cage" link2="link1" reason="Never"/>
+    <disable_collisions link1="cage" link2="sample" reason="Never"/>
+    <disable_collisions link1="cage" link2="sample_box" reason="Adjacent"/>
     <disable_collisions link1="cage" link2="table" reason="Adjacent"/>
     <disable_collisions link1="cam" link2="gripper" reason="Never"/>
     <disable_collisions link1="cam" link2="gripper_cam_jig" reason="Adjacent"/>
@@ -70,8 +82,19 @@
     <disable_collisions link1="gripper_cam_jig" link2="link6" reason="Adjacent"/>
     <disable_collisions link1="gripper_cam_jig" link2="tooltip1" reason="Never"/>
     <disable_collisions link1="gripper_cam_jig" link2="tooltip2" reason="Never"/>
+    <disable_collisions link1="guide" link2="guide_plate" reason="Adjacent"/>
+    <disable_collisions link1="guide" link2="link1" reason="Never"/>
+    <disable_collisions link1="guide" link2="sample" reason="Never"/>
+    <disable_collisions link1="guide" link2="sample_box" reason="Never"/>
+    <disable_collisions link1="guide" link2="table" reason="Never"/>
+    <disable_collisions link1="guide_plate" link2="link1" reason="Never"/>
+    <disable_collisions link1="guide_plate" link2="sample" reason="Never"/>
+    <disable_collisions link1="guide_plate" link2="sample_box" reason="Never"/>
+    <disable_collisions link1="guide_plate" link2="table" reason="Default"/>
     <disable_collisions link1="link1" link2="link2" reason="Adjacent"/>
     <disable_collisions link1="link1" link2="link4" reason="Never"/>
+    <disable_collisions link1="link1" link2="sample" reason="Never"/>
+    <disable_collisions link1="link1" link2="sample_box" reason="Never"/>
     <disable_collisions link1="link1" link2="table" reason="Never"/>
     <disable_collisions link1="link2" link2="link3" reason="Adjacent"/>
     <disable_collisions link1="link3" link2="link4" reason="Adjacent"/>
@@ -84,5 +107,7 @@
     <disable_collisions link1="link5" link2="tooltip2" reason="Never"/>
     <disable_collisions link1="link6" link2="tooltip1" reason="Never"/>
     <disable_collisions link1="link6" link2="tooltip2" reason="Never"/>
-    <disable_collisions link1="tooltip1" link2="tooltip2" reason="Never"/>
+    <disable_collisions link1="sample" link2="sample_box" reason="Adjacent"/>
+    <disable_collisions link1="sample" link2="table" reason="Never"/>
+    <disable_collisions link1="sample_box" link2="table" reason="Never"/>
 </robot>

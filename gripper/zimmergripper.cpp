@@ -79,6 +79,7 @@ void *ZimmerGripper::comm_func(void *arg){
 //        cout << bool(gripper->reg_read[0]&0x0001) << endl;
 
         // cout << gripper->reg_read[0] << ", " << gripper->reg_read[1] << ", " << gripper->reg_read[2] << endl;
+        gripper->grip_distance = gripper->reg_read[2];
 
         if(gripper->send_flag){
             switch(gripper->comm_step){

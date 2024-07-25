@@ -6,12 +6,12 @@ Stephen Brawner (brawner@gmail.com)
 <robot name="keti_robot_description">
 	<link name="world" />
 	<joint name="world_base" type="fixed">
-		<origin xyz="0 0 0" rpy="0 0 0" />
+		<origin xyz="0 0 0.803" rpy="0 0 0" />
 		<parent link="world" />
 		<child link="base_link" />
 		<axis xyz="0 0 0" />
 	</joint>
-	<link name="base_link">
+	<link name="base">
 		<inertial>
 			<origin xyz="-3.0420543732843E-06 -0.000310266853479853 0.472198524600166" rpy="0 0 0" />
 			<mass value="856.710523085829" />
@@ -34,7 +34,7 @@ Stephen Brawner (brawner@gmail.com)
 			</geometry>
 		</collision>
 	</link>
-	<link name="base">
+	<link name="base_link">
 		<inertial>
 			<origin xyz="-3.33346887438442E-05 0.000285564928122946 0.0441636819540465" rpy="0 0 0" />
 			<mass value="2.2652251953819" />
@@ -48,7 +48,7 @@ Stephen Brawner (brawner@gmail.com)
 				<mesh filename="package://keti_robot_description/meshes/base.STL" />
 			</geometry>
 			<material name="">
-				<color rgba="0.294117647058824 0.294117647058824 0.294117647058824 1" />
+				<color rgba="0.594117647058824 0.594117647058824 0.594117647058824 1" />
 			</material>
 		</visual>
 		<collision>
@@ -59,7 +59,7 @@ Stephen Brawner (brawner@gmail.com)
 		</collision>
 	</link>
 	<joint name="base_fixed" type="fixed">
-		<origin xyz="0 0 0.803" rpy="0 0 0" />
+		<origin xyz="0 0 -0.803" rpy="0 0 0" />
 		<parent link="base_link" />
 		<child link="base" />
 		<axis xyz="0 0 0" />
@@ -90,7 +90,7 @@ Stephen Brawner (brawner@gmail.com)
 	</link>
 	<joint name="q1" type="revolute">
 		<origin xyz="0 0 0" rpy="0 0 -1.5708" />
-		<parent link="base" />
+		<parent link="base_link" />
 		<child link="link1" />
 		<axis xyz="0 0 1" />
 		<limit lower="-6.28" upper="6.28" effort="100" velocity="10" />
@@ -436,7 +436,7 @@ Stephen Brawner (brawner@gmail.com)
 	</link>
 	<joint name="base_table" type="fixed">
 		<origin xyz="-0.018106 -0.73131 0.017" rpy="0 0 -2.1411E-05" />
-		<parent link="base_link" />
+		<parent link="base" />
 		<child link="table" />
 		<axis xyz="0 0 0" />
 	</joint>
@@ -469,6 +469,124 @@ Stephen Brawner (brawner@gmail.com)
 		<child link="cage" />
 		<axis xyz="0 0 0" />
 	</joint>
+
+	<link name="sample_box">
+		<inertial>
+			<origin xyz="0.0 0.0 0.04294" rpy="0 0 0"/>
+			<mass value="3.96050"/>
+			<inertia ixx="0.10637" ixy="0.0" ixz="0.0"
+				iyy="0.05286" iyz="0.0" izz="0.13493"/>
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://keti_robot_description/meshes/sample_box.STL"/>
+			</geometry>
+			<material name="">
+				<color rgba="0.580392156 0.580392156 0.0 1"/>
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://keti_robot_description/meshes/sample_box.STL" />
+			</geometry>
+		</collision>
+	</link>
+	<joint name="cage_box" type="fixed">
+		<origin xyz="0.21961 0.01 0" rpy="0 0 0"/>
+		<parent link="cage"/>
+		<child link="sample_box"/>
+		<axis xyz="0 0 0"/>
+	</joint>
+	<link name="sample">
+		<inertial>
+			<origin xyz="-0.02906 0.01418 0.00939"/>
+			<mass value="0.21697"/>
+			<inertia ixx="0.00173" ixy="-0.00010" ixz="0.00007"
+				iyy="0.00210" iyz="0.00002" izz="0.00053"/>
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://keti_robot_description/meshes/sample.STL"/>
+			</geometry>
+			<material name="">
+				<color rgba="0.509803 0.509803 0.509803 1"/>
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://keti_robot_description/meshes/sample.STL" />
+			</geometry>
+		</collision>
+	</link>
+	<joint name="box_sample" type="fixed">
+		<origin xyz="0.03961 0.04829 0.010" rpy="1.5708 0 0"/>
+		<parent link="sample_box"/>
+		<child link="sample"/>
+		<axis xyz="0 0 0"/>
+	</joint>
+	<link name="guide_plate">
+		<inertial>
+			<origin xyz="0.0 0.009 0.0" rpy="0 0 0"/>
+			<mass value="2.83099"/>
+			<inertia ixx="0.04799" ixy="0.0" ixz="0.0"
+				iyy="0.07653" iyz="0.0" izz="0.02914"/>
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://keti_robot_description/meshes/guide_plate.STL"/>
+			</geometry>
+			<material name="">
+				<color rgba="0.4980392 0.4980392 1.0 1"/>
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://keti_robot_description/meshes/guide_plate.STL" />
+			</geometry>
+		</collision>
+	</link>
+	<joint name="cage_plate" type="fixed">
+		<origin xyz="-0.18189 0.025 0" rpy="1.5708 0 0"/>
+		<parent link="cage"/>
+		<child link="guide_plate"/>
+		<axis xyz="0 0 0"/>
+	</joint>
+	<link name="guide">
+		<inertial>
+			<origin xyz="-0.03871 0.01388 0.05706" rpy="0 0 0"/>
+			<mass value="0.78172"/>
+			<inertia ixx="0.01274" ixy="-0.00101" ixz="-0.00389"
+				iyy="0.01991" iyz="0.00123" izz="0.00813"/>
+		</inertial>
+		<visual>
+			<origin xyz="0 0 0" rpy="0 0 0"/>
+			<geometry>
+				<mesh filename="package://keti_robot_description/meshes/guide.STL"/>
+			</geometry>
+			<material name="">
+				<color rgba="0.580392156 0.580392156 0.580392156 1"/>
+			</material>
+		</visual>
+		<collision>
+			<origin xyz="0 0 0" rpy="0 0 0" />
+			<geometry>
+				<mesh filename="package://keti_robot_description/meshes/guide.STL" />
+			</geometry>
+		</collision>
+	</link>
+	<joint name="plate_guide" type="fixed">
+		<origin xyz="0.01888 0.018 -0.02292" rpy="0 0 0"/>
+		<parent link="guide_plate"/>
+		<child link="guide"/>
+		<axis xyz="0 0 0"/>
+	</joint>
+
 	<transmission name="trans_q1">
 		<type>transmission_interface/SimpleTransmission</type>
 		<joint name="q1">
@@ -594,4 +712,21 @@ Stephen Brawner (brawner@gmail.com)
 			</plugin>
 		</sensor>
 	</gazebo>
+
+	<gazebo reference="cage">
+		<material>Gazebo/GreyTransparent</material>
+	</gazebo>
+	<gazebo reference="guide">
+		<material>Gazebo/Gray</material>
+	</gazebo>
+	<gazebo reference="guide_plate">
+		<material>Gazebo/BlueTransparent</material>
+	</gazebo>
+	<gazebo reference="sample_box">
+		<material>Gazebo/DarkYellow</material>
+	</gazebo>
+	<gazebo reference="sample">
+		<material>Gazebo/Gray</material>
+	</gazebo>
+
 </robot>
