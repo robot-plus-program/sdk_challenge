@@ -26,3 +26,5 @@ build/*
 
 gripper/*.txt
 gripper/**
+
+**/.vscode
