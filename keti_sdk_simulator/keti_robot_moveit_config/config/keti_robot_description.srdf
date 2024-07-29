@@ -32,14 +32,16 @@
         <joint name="s2"/>
     </group>
     <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
-    <group_state name="robot_init" group="arm">
+    <group_state name="arm_init" group="arm">
         <joint name="q1" value="0"/>
         <joint name="q2" value="0"/>
         <joint name="q3" value="0"/>
         <joint name="q4" value="0"/>
         <joint name="q5" value="0"/>
-        <joint name="q6" value="0.6458"/>
+        <joint name="q6" value="0"/>
     </group_state>
+    <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
+    <end_effector name="gripper" parent_link="end" group="gripper"/>
     <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
     <disable_collisions link1="base" link2="base_link" reason="Adjacent"/>
     <disable_collisions link1="base" link2="cage" reason="Never"/>
@@ -90,7 +92,6 @@
     <disable_collisions link1="guide_plate" link2="link1" reason="Never"/>
     <disable_collisions link1="guide_plate" link2="sample" reason="Never"/>
     <disable_collisions link1="guide_plate" link2="sample_box" reason="Never"/>
-    <disable_collisions link1="guide_plate" link2="table" reason="Default"/>
     <disable_collisions link1="link1" link2="link2" reason="Adjacent"/>
     <disable_collisions link1="link1" link2="link4" reason="Never"/>
     <disable_collisions link1="link1" link2="sample" reason="Never"/>

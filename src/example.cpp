@@ -154,7 +154,7 @@ int main(int argc, char **argv)
 
     sigaction(SIGINT, &sigIntHandler, NULL);
 
-    robot.SetRobotConf(M1013, "172.20.1.223", 12345);
+    robot.SetRobotConf(RB10, robot_ip.c_str(), 5000);
     robot_connected = robot.RobotConnect();
 
     gripper.connect(gripper_ip.c_str(), gripper_port);
@@ -169,24 +169,16 @@ int main(int argc, char **argv)
     pthread_create(&data_update_thread, NULL, data_update_func, NULL);
 
     double cmd_joint[2][6] = {{-M_PI_2, 0, M_PI_2, 0, M_PI_2, 37 * M_PI / 180.0},
-                            //   {0,0,0,0,0,0}};
                               {-M_PI_2, -30*M_PI/180.0, 120*M_PI/180.0, -M_PI_2, M_PI_2, -M_PI + 37*M_PI/180.0}};
-                            //   {-M_PI_2, 0, M_PI_2, 0, M_PI_2, 53 * M_PI / 180.0}};
-    // {-M_PI_2, 0, M_PI_2, 0, M_PI_2, M_PI_4}};
-    double cmd_rot[9] = {0.799191, 0, 0.601077,
-                         0.601077, 0, -0.799191,
-                         0, 1, 0};
-    double cmd_pos[6][3] = {{-0.15761, -0.688601, 0.694795},
-                            {0.441814, -0.96386, 0.479953},
-                            {-0.446809, -0.96386, 0.479953},
+    double cmd_rot[9] = {-0.0016844, -0.601306, -0.799017,
+                        -0.00179647, 0.799019, -0.601304,
+                        0.999997, 0.000422577, -0.0024261,};
+    double cmd_pos[5][3] = {{-0.15761, -0.688601, 0.694795},
+                            {0.441814, -0.96386, 0.579953},
+                            {-0.446809, -0.96386, 0.579953},
                             {-0.446809, -0.492616, 0.901642},
                             {0.433264, -0.492616, 0.901642},
-                            {-0.15761, -0.688601, 0.694795}};
-
-    // 0.799191, 0.00104724, 0.601077, -0.157609
-    // 0.601077, 6.53915e-06, -0.799191, -0.688039
-    // -0.000840873, 0.999999, -0.000624245, 0.694795
-    // 0, 0, 0, 1
+                            };
 
     int cnt_joint = 1;
     int cnt_pose = 1;
@@ -241,9 +233,9 @@ int main(int argc, char **argv)
                         cmd_mat[i * 4 + j] = cmd_rot[i * 3 + j];
                     }
                 }
-                cmd_mat[3] = cmd_pos[cnt_pose % 6][0];
-                cmd_mat[7] = cmd_pos[cnt_pose % 6][1];
-                cmd_mat[11] = cmd_pos[cnt_pose % 6][2];
+                cmd_mat[3] = cmd_pos[cnt_pose % 5][0];
+                cmd_mat[7] = cmd_pos[cnt_pose % 5][1];
+                cmd_mat[11] = cmd_pos[cnt_pose % 5][2];
                 cmd_mat[15] = 1;
 
                 std::cout << "cmd T matrix : " << std::endl;
@@ -261,9 +253,7 @@ int main(int argc, char **argv)
             }
             case Cmd::RobotMoveB:
             {
-                double cmd_mat[5][16] = {
-                    0,
-                };
+                double cmd_mat[5][16] = {0,};
 
                 for (unsigned int num = 0; num < 5; num++)
                 {

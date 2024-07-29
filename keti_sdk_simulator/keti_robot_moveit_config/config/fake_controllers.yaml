@@ -15,4 +15,4 @@ controller_list:
       - s2
 initial:  # Define initial robot poses per group
   - group: arm
-    pose: robot_init
+    pose: arm_init

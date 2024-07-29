@@ -79,6 +79,20 @@ private:
 	int mode_indx = 0;
 	int mode[2] = {85, 95};
     double grip_distance;
+    bool debug;
+    int m_port;
 };
+
+// extern "C"{
+//     ZimmerGripper* SetGripper();
+//     void connect(ZimmerGripper* pthis, const char * ip, int port);
+//     void disconnect(ZimmerGripper* pthis);
+//     void gripper_init(ZimmerGripper* pthis);
+//     void gripper_grip(ZimmerGripper* pthis);
+//     void gripper_release(ZimmerGripper* pthis);
+//     double gripper_cur_pos(ZimmerGripper* pthis);
+//     // void gripper_set_inner(ZimmerGripper* pthis);
+//     // void gripper_set_outer(ZimmerGripper* pthis);
+// }
 
 #endif // ZIMMERGRIPPER_H

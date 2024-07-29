@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.13)
+cmake_minimum_required(VERSION 3.1.3)
 project(keti_robot_moveit_config)
 
 find_package(catkin REQUIRED)

@@ -7,50 +7,43 @@ arm_controller:
     - q4
     - q5
     - q6
+  constraints:
+    goal_time: 0.6
+    # vel_tolerance is 0 for due to the movegroup/follow_joint_trajectory/goal tolerance is empty
+    stopped_velocity_tolerance: 0
+    q1: {trajectory: 0.1, goal: 0}
+    q2: {trajectory: 0.1, goal: 0}
+    q3: {trajectory: 0.1, goal: 0}
+    q4: {trajectory: 0.1, goal: 0}
+    q5: {trajectory: 0.1, goal: 0}
+    q6: {trajectory: 0.1, goal: 0}
   gains:
-    q1:
-      p: 100
-      d: 1
-      i: 1
-      i_clamp: 1
-    q2:
-      p: 100
-      d: 1
-      i: 1
-      i_clamp: 1
-    q3:
-      p: 100
-      d: 1
-      i: 1
-      i_clamp: 1
-    q4:
-      p: 100
-      d: 1
-      i: 1
-      i_clamp: 1
-    q5:
-      p: 100
-      d: 1
-      i: 1
-      i_clamp: 1
-    q6:
-      p: 100
-      d: 1
-      i: 1
-      i_clamp: 1
+    q1: {p : 100, d : 1, i : 1, i_clamp : 1}
+    q2: {p : 100, d : 1, i : 1, i_clamp : 1}
+    q3: {p : 100, d : 1, i : 1, i_clamp : 1}
+    q4: {p : 100, d : 1, i : 1, i_clamp : 1}
+    q5: {p : 100, d : 1, i : 1, i_clamp : 1}
+    q6: {p : 100, d : 1, i : 1, i_clamp : 1}
+
+  stop_trajectory_duration: 0.5
+  state_publish_rate:  25
+  action_monitor_rate: 10
+
 gripper_controller:
   type: position_controllers/JointTrajectoryController
   joints:
     - s1
     - s2
+  constraints:
+    goal_time: 0.6
+    # vel_tolerance is 0 for due to the movegroup/follow_joint_trajectory/goal tolerance is empty
+    stopped_velocity_tolerance: 0
+    s2: {trajectory: 0.1, goal: 0}
+    s1: {trajectory: 0.1, goal: 0}
   gains:
-    s1:
-      p: 100
-      d: 1
-      i: 1
-      i_clamp: 1
-    s2:
-      p: 100
-      d: 1
-      i: 1
-      i_clamp: 1
+    s1: {p : 100, d : 1, i : 1, i_clamp : 1}
+    s2: {p : 100, d : 1, i : 1, i_clamp : 1}
+
+  stop_trajectory_duration: 0.5
+  state_publish_rate:  25
+  action_monitor_rate: 10

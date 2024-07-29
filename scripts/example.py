@@ -95,7 +95,7 @@ if __name__ == '__main__':
 	gripper_ip = sys.argv[2]
 	gripper_port = int(sys.argv[3])
 
-	rob.SetRobotConf(M1013, robot_ip, 12345)
+	rob.SetRobotConf(RB10, robot_ip, 5000)
 	robot_connected = rob.RobotConnect()
 	
 	if gripper_port == 502:

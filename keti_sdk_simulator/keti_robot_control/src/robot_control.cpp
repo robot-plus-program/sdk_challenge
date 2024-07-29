@@ -47,7 +47,7 @@ RobotControl::~RobotControl(){
 
 void RobotControl::start(){
 
-    ros::Rate loop_rate(5);
+    ros::Rate loop_rate(10);
 
     while(ros::ok()){
         current_joint = move_group_robot->getCurrentJointValues();
@@ -85,8 +85,6 @@ void RobotControl::start(){
 
         memcpy(msgRobotState.current_joint.data(), current_joint.data(), sizeof(double)*6);
         memcpy(msgRobotState.current_T_matrix.data(), current_T_matrix.data(), sizeof(double)*16);
-
-        // ROS_INFO("current joint : %f, %f, %f, %f, %f, %f", current_joint[0], current_joint[1], current_joint[2], current_joint[3], current_joint[4], current_joint[5]);
 
         // ROS_INFO("%f, %f, %f, %f", current_T_matrix[0], current_T_matrix[1], current_T_matrix[2], current_T_matrix[3]);
         // ROS_INFO("%f, %f, %f, %f", current_T_matrix[4], current_T_matrix[5], current_T_matrix[6], current_T_matrix[7]);
@@ -185,7 +183,7 @@ void RobotControl::executeCBRobot(const keti_robot_control::RobotMoveGoalConstPt
         geometry_msgs::Pose target_pose;
         target_pose.position.x = goal->value[3];
         target_pose.position.y = goal->value[7];
-        target_pose.position.z = goal->value[11];
+        target_pose.position.z = goal->value[11] + 0.65;
         target_pose.orientation.x = qx;
         target_pose.orientation.y = qy;
         target_pose.orientation.z = qz;
@@ -274,7 +272,7 @@ void RobotControl::executeCBRobot(const keti_robot_control::RobotMoveGoalConstPt
             geometry_msgs::Pose target_pose;
             target_pose.position.x = value[3];
             target_pose.position.y = value[7];
-            target_pose.position.z = value[11];
+            target_pose.position.z = value[11] + 0.65;
             target_pose.orientation.x = qx;
             target_pose.orientation.y = qy;
             target_pose.orientation.z = qz;
@@ -298,33 +296,32 @@ void RobotControl::executeCBRobot(const keti_robot_control::RobotMoveGoalConstPt
         }
     }
 
-    // while(ros::ok())
-    // {
-    //     loop_rate.sleep();
+    while(ros::ok())
+    {
+        loop_rate.sleep();
 
-    //     if(asRobot.isPreemptRequested() || !ros::ok){
-    //         ROS_INFO("%s: Preempted", robot_action_name.c_str());
-    //         // set the action state to preempted
-    //         asRobot.setPreempted();
-    //         success = false;
-    //         break;
-    //     }
+        if(asRobot.isPreemptRequested() || !ros::ok){
+            ROS_INFO("%s: Preempted", robot_action_name.c_str());
+            // set the action state to preempted
+            asRobot.setPreempted();
+            success = false;
+            break;
+        }
 
-    //     feedbackRobot.sequence.push_back(msgRobotState.state);
-    //     asRobot.publishFeedback(feedbackRobot);
+        feedbackRobot.sequence.push_back(msgRobotState.state);
+        asRobot.publishFeedback(feedbackRobot);
 
-    //     if(move_finish) break;
-    // }
+        if(move_finish) break;
+    }
 
-    // if(success){
-    //     resultRobot.sequence.push_back(1);
-    // }
-    // else{
-    //     resultRobot.sequence.push_back(0);
-    // }
-    // // ROS_INFO("%s : Succeeded", robot_action_name.c_str());
-    // // set the action state to succeeded
-    asRobot.setPreempted();
+    if(success){
+        resultRobot.sequence.push_back(1);
+    }
+    else{
+        resultRobot.sequence.push_back(0);
+    }
+    // ROS_INFO("%s : Succeeded", robot_action_name.c_str());
+    // set the action state to succeeded
     asRobot.setSucceeded(resultRobot);
 }
 
@@ -339,7 +336,7 @@ void RobotControl::executeCBGripper(const keti_robot_control::GripperMoveGoalCon
     ROS_INFO("%s : Executing, creating robot move sequence, cmd : %d", gripper_action_name.c_str(), goal->cmd);
 
     if(goal->cmd == 1){
-        move_gripper(0.04);
+        move_gripper(0.035);
     }
     else if(goal->cmd == 2){
         move_gripper(0.0);
@@ -358,7 +355,7 @@ void RobotControl::executeCBGripper(const keti_robot_control::GripperMoveGoalCon
         }
 
         feedbackGripper.sequence.push_back(msgGripperState.state);
-        // feedbackGripper.width.push_back(msgGripperState.width);
+        feedbackGripper.width.push_back(msgGripperState.width);
         asGripper.publishFeedback(feedbackGripper);
 
         if(move_finish) break;

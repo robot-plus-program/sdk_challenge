@@ -6,7 +6,7 @@ Stephen Brawner (brawner@gmail.com)
 <robot name="keti_robot_description">
     <link name="world" />
     <joint name="world_base" type="fixed">
-        <origin xyz="0 0 0" rpy="0 0 0" />
+        <origin xyz="0 0 0.803" rpy="0 0 0" />
         <parent link="world" />
         <child link="base_link" />
         <axis xyz="0 0 0" />
@@ -508,7 +508,7 @@ Stephen Brawner (brawner@gmail.com)
                 <mesh filename="package://keti_robot_description/meshes/guide_plate.STL" />
             </geometry>
             <material name="">
-                <color rgba="0.580392156 0.180392156 0.380392156 1" />
+                <color rgba="0.4980392 0.4980392 1.0 1" />
             </material>
         </visual>
         <collision>
@@ -675,6 +675,21 @@ Stephen Brawner (brawner@gmail.com)
                 <distortionT2>0.0</distortionT2>
             </plugin>
         </sensor>
+    </gazebo>
+    <gazebo reference="cage">
+        <material>Gazebo/GreyTransparent</material>
+    </gazebo>
+    <gazebo reference="guide">
+        <material>Gazebo/Gray</material>
+    </gazebo>
+    <gazebo reference="guide_plate">
+        <material>Gazebo/BlueTransparent</material>
+    </gazebo>
+    <gazebo reference="sample_box">
+        <material>Gazebo/DarkYellow</material>
+    </gazebo>
+    <gazebo reference="sample">
+        <material>Gazebo/Gray</material>
     </gazebo>
 </robot>
 
