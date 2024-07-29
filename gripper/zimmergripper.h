@@ -40,6 +40,7 @@ const uint16_t HomingPositionOK = 0x0001;
 
 using namespace std;
 
+namespace Gripper{
 class ZimmerGripper
 {
 public:
@@ -83,16 +84,18 @@ private:
     int m_port;
 };
 
-// extern "C"{
-//     ZimmerGripper* SetGripper();
-//     void connect(ZimmerGripper* pthis, const char * ip, int port);
-//     void disconnect(ZimmerGripper* pthis);
-//     void gripper_init(ZimmerGripper* pthis);
-//     void gripper_grip(ZimmerGripper* pthis);
-//     void gripper_release(ZimmerGripper* pthis);
-//     double gripper_cur_pos(ZimmerGripper* pthis);
-//     // void gripper_set_inner(ZimmerGripper* pthis);
-//     // void gripper_set_outer(ZimmerGripper* pthis);
-// }
+extern "C"{
+    ZimmerGripper* SetGripper();
+    void connect(ZimmerGripper* pthis, const char * ip, int port);
+    void disconnect(ZimmerGripper* pthis);
+    void gripper_init(ZimmerGripper* pthis);
+    void gripper_grip(ZimmerGripper* pthis);
+    void gripper_release(ZimmerGripper* pthis);
+    double gripper_cur_pos(ZimmerGripper* pthis);
+    void set_inner(ZimmerGripper* pthis);
+    void set_outer(ZimmerGripper* pthis);
+    bool isConnected(ZimmerGripper* pthis);
+}
+}
 
 #endif // ZIMMERGRIPPER_H

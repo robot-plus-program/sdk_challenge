@@ -33,7 +33,7 @@ static int cmd = 0;
 static double current_joint[6] = {0,};
 static double current_T_matrix[16] = {0,};
 
-static ZimmerGripper gripper;
+static Gripper::ZimmerGripper gripper;
 static bool gripper_connected = false;
 
 static pthread_t key_input_thread;

@@ -1,5 +1,5 @@
 #include "zimmergripper.h"
-
+using namespace Gripper;
 ZimmerGripper::ZimmerGripper()
 {
     connected = false;
@@ -426,43 +426,58 @@ void ZimmerGripper::set_outer()
 }
 
 
-// ZimmerGripper* SetGripper(){
-//     return new ZimmerGripper();
-// }
+ZimmerGripper* SetGripper(){
+    return new ZimmerGripper();
+}
 
-// void connect(ZimmerGripper *pthis, const char *ip, int port)
-// {
-//     std::cout << pthis << std::endl;
-//     std::cout << ip << ", " << port << std::endl;
-//     pthis->connect(ip, port);
-// }
+void connect(ZimmerGripper *pthis, const char *ip, int port)
+{
+    std::cout << pthis << std::endl;
+    std::cout << ip << ", " << port << std::endl;
+    pthis->connect(ip, port);
+}
 
-// void disconnect(ZimmerGripper *pthis)
-// {
-//     if(pthis->isConnected()){
-//         pthis->disconnect();
-//     }
-//     else{
-//         printf("not connected gripper\n");
-//     }
-// }
+void disconnect(ZimmerGripper *pthis)
+{
+    if(pthis->isConnected()){
+        pthis->disconnect();
+    }
+    else{
+        printf("not connected gripper\n");
+    }
+}
 
-// void gripper_init(ZimmerGripper *pthis)
-// {
-//     pthis->gripper_init();
-// }
+void gripper_init(ZimmerGripper *pthis)
+{
+    pthis->gripper_init();
+}
 
-// double gripper_cur_pos(ZimmerGripper *pthis)
-// {
-//     return pthis->gripper_cur_pos();
-// }
+double gripper_cur_pos(ZimmerGripper *pthis)
+{
+    return pthis->gripper_cur_pos();
+}
 
-// void gripper_release(ZimmerGripper *pthis)
-// {
-//     pthis->gripper_release();
-// }
+void gripper_release(ZimmerGripper *pthis)
+{
+    pthis->gripper_release();
+}
 
-// void gripper_grip(ZimmerGripper *pthis)
-// {
-//     pthis->gripper_grip();
-// }
+void gripper_grip(ZimmerGripper *pthis)
+{
+    pthis->gripper_grip();
+}
+
+void set_inner(ZimmerGripper *pthis)
+{
+    pthis->set_inner();
+}
+
+void set_outer(ZimmerGripper *pthis)
+{
+    pthis->set_outer();
+}
+
+bool isConnected(ZimmerGripper *pthis)
+{
+    return pthis->isConnected();
+}

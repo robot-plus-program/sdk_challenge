@@ -9,10 +9,11 @@ include_directories(
 )
 
 link_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/gripper
     ${CMAKE_CURRENT_SOURCE_DIR}/ketirobotsdk
 )
 
 set(TARGET_EXAMPLE example)
-add_executable(${TARGET_EXAMPLE} src/example.cpp gripper/zimmergripper.cpp)
-target_link_libraries(${TARGET_EXAMPLE} robotsdk pthread modbus)
+add_executable(${TARGET_EXAMPLE} src/example.cpp)
+target_link_libraries(${TARGET_EXAMPLE} robotsdk pthread modbus zimmergripper)
 

@@ -25,6 +25,10 @@ build/*
 .idea/
 
 gripper/*.txt
-gripper/**
+gripper/__pycache__
+gripper/build
+gripper/test.py
+gripper/zimmergripper.cpp
+gripper/keti_zimmer_gripper.py
 
 **/.vscode
