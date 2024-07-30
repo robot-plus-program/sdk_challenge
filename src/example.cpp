@@ -33,7 +33,7 @@ static int cmd = 0;
 static double current_joint[6] = {0,};
 static double current_T_matrix[16] = {0,};
 
-static Gripper::ZimmerGripper gripper;
+static ZimmerGripper gripper;
 static bool gripper_connected = false;
 
 static pthread_t key_input_thread;
@@ -126,7 +126,7 @@ void my_handler(int s)
         sig = s;
 
         gripper_connected = false;
-        gripper.disconnect();
+        gripper.Disconnect();
 
         robot_connected = false;
         pthread_cancel(key_input_thread);
@@ -157,12 +157,12 @@ int main(int argc, char **argv)
     robot.SetRobotConf(RB10, robot_ip.c_str(), 5000);
     robot_connected = robot.RobotConnect();
 
-    gripper.connect(gripper_ip.c_str(), gripper_port);
-    gripper_connected = gripper.isConnected();
+    gripper.Connect(gripper_ip.c_str(), gripper_port);
+    gripper_connected = gripper.IsAlive();
     std::cout << "wait..." << std::endl;
 
     if (gripper_connected)
-        gripper.gripper_init();
+        gripper.Init();
 
     pthread_create(&key_input_thread, NULL, key_input_func, NULL);
 
@@ -209,7 +209,7 @@ int main(int argc, char **argv)
             }
             case Cmd::RecvGripperWidth:
             {
-                std::cout << "current width : " << gripper.gripper_cur_pos() << std::endl;
+                std::cout << "current width : " << gripper.CurPos() << std::endl;
                 cmd = 0;
                 break;
             }
@@ -285,13 +285,13 @@ int main(int argc, char **argv)
             }
             case Cmd::GripperMoveGrip:
             {
-                gripper.gripper_grip();
+                gripper.Grip();
                 cmd = 0;
                 break;
             }
             case Cmd::GripperMoveRelease:
             {
-                gripper.gripper_release();
+                gripper.Release();
                 cmd = 0;
                 break;
             }

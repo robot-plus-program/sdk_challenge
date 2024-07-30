@@ -40,32 +40,31 @@ const uint16_t HomingPositionOK = 0x0001;
 
 using namespace std;
 
-namespace Gripper{
 class ZimmerGripper
 {
 public:
     ZimmerGripper();
     ~ZimmerGripper();
 
-    void connect(std::string ip, int port);
-    void disconnect();
-    bool isConnected(){return connected;}
+    void Connect(std::string ip, int port);
+    void Disconnect();
+    bool IsAlive(){return connected;}
     static void *comm_func(void *arg);
     void get_write_reg(uint16_t reg[NUM_SEND_REG]);
     void get_read_reg(uint16_t reg[NUM_RECV_REG]);
-    void gripper_init();
-    void gripper_grip(bool sync = true);
-    void gripper_release(bool sync = true);
-    void gripper_custom(uint16_t position, uint8_t velocity, uint8_t force, bool sync = true);
-	void gripper_opt(uint8_t velocity, uint8_t force);
-	void gripper_jog_enable();
-	void gripper_jog_plus();
-	void gripper_jog_minus();
-	void gripper_homing();
-	void gripper_stop();
-	void set_inner();
-	void set_outer();
-    double gripper_cur_pos(){return grip_distance;};
+    void Init();
+    void Grip(bool sync = true);
+    void Release(bool sync = true);
+    void Custom(uint16_t position, uint8_t velocity, uint8_t force, bool sync = true);
+	void SetOpt(uint8_t velocity, uint8_t force);
+	void jog_enable();
+	void jog_plus();
+	void jog_minus();
+	void homing();
+	void stop();
+	void SetInner();
+	void SetOuter();
+    double CurPos(){return grip_distance;};
 
 private:
     modbus_t *mb;
@@ -86,16 +85,15 @@ private:
 
 extern "C"{
     ZimmerGripper* SetGripper();
-    void connect(ZimmerGripper* pthis, const char * ip, int port);
-    void disconnect(ZimmerGripper* pthis);
-    void gripper_init(ZimmerGripper* pthis);
-    void gripper_grip(ZimmerGripper* pthis);
-    void gripper_release(ZimmerGripper* pthis);
-    double gripper_cur_pos(ZimmerGripper* pthis);
-    void set_inner(ZimmerGripper* pthis);
-    void set_outer(ZimmerGripper* pthis);
-    bool isConnected(ZimmerGripper* pthis);
-}
+    void Connect(ZimmerGripper* pthis, const char * ip, int port);
+    void Disconnect(ZimmerGripper* pthis);
+    void Init(ZimmerGripper* pthis);
+    void Grip(ZimmerGripper* pthis);
+    void Release(ZimmerGripper* pthis);
+    double CurPos(ZimmerGripper* pthis);
+    void SetInner(ZimmerGripper* pthis);
+    void SetOuter(ZimmerGripper* pthis);
+    bool IsAlive(ZimmerGripper* pthis);
 }
 
 #endif // ZIMMERGRIPPER_H

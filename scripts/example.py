@@ -6,7 +6,7 @@ from time import *
 import threading
 import math
 sys.path.append("../gripper")
-from keti_zimmer_gripper import KetiZimmer
+from zimmergripper import KetiZimmer
 
 rob = Robot()
 
@@ -28,7 +28,9 @@ state = 0
 cmd = 0
 current_joint = []
 current_T_matrix = []
-gripper = KetiZimmer()
+
+
+gripper = KetiZimmer(f'{os.getcwd()}/../gripper/libzimmergripper.so')
 
 def key_input_func():
 	global cmd
@@ -98,12 +100,12 @@ if __name__ == '__main__':
 	rob.SetRobotConf(RB10, robot_ip, 5000)
 	robot_connected = rob.RobotConnect()
 	
-	if gripper_port == 502:
-		gripper.connect(gripper_ip, gripper_port)
-		gripper_connected = gripper.isConnected()
-		print("wait...")
-		if gripper_connected is True:
-			gripper.gripper_init()
+	# if gripper_port == 502:
+	gripper.Connect(gripper_ip, gripper_port)
+	gripper_connected = gripper.IsAlive()
+	print("wait...")
+	if gripper_connected is True:
+		gripper.Init()
   
 	key_input_thraed = threading.Thread(target=key_input_func, daemon=True)
 	key_input_thraed.start()
@@ -111,7 +113,7 @@ if __name__ == '__main__':
 	data_update_thread.start()
 
 	cmd_joint = [[-math.pi/2.0, 0.0, math.pi/2.0, 0.0, math.pi/2.0, 37.0*math.pi/180.0],
-              [-math.pi/2.0, -30.0*math.pi/180.0, 120.0*math.pi/180.0, -math.pi/2.0, math.pi, -math.pi + 37.0*math.pi/180.0]]
+              [-math.pi/2.0, -30.0*math.pi/180.0, 120.0*math.pi/180.0, -math.pi/2.0, math.pi/2.0, -math.pi + 37.0*math.pi/180.0]]
  
 	cmd_rot = [-0.0016844, -0.601306, -0.799017,
     			-0.00179647, 0.799019, -0.601304,
@@ -142,7 +144,7 @@ if __name__ == '__main__':
 					print(current_T_matrix[12:16])
 					cmd = 0
 				elif cmd == Cmd.RecvGripperWidth:
-					print("current width : {0}".format(gripper.grip_get_pos()))
+					print("current width : {0}".format(gripper.CurPos()))
 					cmd = 0
 				elif cmd == Cmd.RobotMoveJ:
 					print(cmd_joint[cnt_joint%2])
@@ -188,16 +190,17 @@ if __name__ == '__main__':
 					rob.moveb(0, 0.02, 5, cmd_mat[0], cmd_mat[1], cmd_mat[2], cmd_mat[3], cmd_mat[4])
 					cmd = 0
 				elif cmd == Cmd.GripperMoveGrip:
-					if gripper_port == 502:
-						gripper.gripper_grip()
+					# if gripper_port == 502:
+					gripper.Grip()
 					cmd = 0
 				elif cmd == Cmd.GripperMoveRelease:
-					if gripper_port == 502:
-						gripper.gripper_release()
+					# if gripper_port == 502:
+					gripper.Release()
 					cmd = 0
 
 			sleep(0.001)
 	except KeyboardInterrupt:
 		rob.RobotDisconnect()
+		gripper.Disconnect()
 
 	print("finish")

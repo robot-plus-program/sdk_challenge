@@ -1,5 +1,5 @@
 #include "zimmergripper.h"
-using namespace Gripper;
+
 ZimmerGripper::ZimmerGripper()
 {
     connected = false;
@@ -25,7 +25,7 @@ ZimmerGripper::~ZimmerGripper()
     cout << "Gripper destruct complete" << endl;
 }
 
-void ZimmerGripper::connect(std::string ip, int port)
+void ZimmerGripper::Connect(std::string ip, int port)
 {
 //    cout << "ip : " << ip << ", port : " << port << endl;
     mb = modbus_new_tcp(ip.c_str(), port);
@@ -42,7 +42,7 @@ void ZimmerGripper::connect(std::string ip, int port)
     }
 }
 
-void ZimmerGripper::disconnect(){
+void ZimmerGripper::Disconnect(){
     comm_thread_run = false;
     pthread_join(comm_thread, nullptr);
 
@@ -245,7 +245,7 @@ void ZimmerGripper::get_read_reg(uint16_t reg[])
     memcpy(reg, reg_read, sizeof(uint16_t)*NUM_RECV_REG);
 }
 
-void ZimmerGripper::gripper_init()
+void ZimmerGripper::Init()
 {
     reg_write[0] = 1;
     reg_write[1] = 3*256 + 0;
@@ -263,7 +263,7 @@ void ZimmerGripper::gripper_init()
 	}
 }
 
-void ZimmerGripper::gripper_grip(bool sync)
+void ZimmerGripper::Grip(bool sync)
 {
 	if(init_flag){
 		reg_write[0] = 1;
@@ -285,7 +285,7 @@ void ZimmerGripper::gripper_grip(bool sync)
     }
 }
 
-void ZimmerGripper::gripper_release(bool sync)
+void ZimmerGripper::Release(bool sync)
 {
     if(init_flag){
         reg_write[0] = 1;
@@ -307,7 +307,7 @@ void ZimmerGripper::gripper_release(bool sync)
     }
 }
 
-void ZimmerGripper::gripper_custom(uint16_t position, uint8_t velocity, uint8_t force, bool sync)
+void ZimmerGripper::Custom(uint16_t position, uint8_t velocity, uint8_t force, bool sync)
 {
     if(init_flag){
         reg_write[0] = 1;
@@ -344,13 +344,13 @@ void ZimmerGripper::gripper_custom(uint16_t position, uint8_t velocity, uint8_t 
     }
 }
 
-void ZimmerGripper::gripper_opt(uint8_t velocity, uint8_t force)
+void ZimmerGripper::SetOpt(uint8_t velocity, uint8_t force)
 {
     gripper_velocity = velocity;
 	gripper_force = force;
 }
 
-void ZimmerGripper::gripper_jog_enable()
+void ZimmerGripper::jog_enable()
 {
 	reg_write[0] = 1;
 	reg_write[1] = 11*256 + 0;
@@ -363,7 +363,7 @@ void ZimmerGripper::gripper_jog_enable()
 	modbus_write_registers(mb, ADDR_SEND, NUM_SEND_REG, reg_write);
 }
 
-void ZimmerGripper::gripper_jog_plus()
+void ZimmerGripper::jog_plus()
 {
 	reg_write[0] = 1024;
 	reg_write[1] = 11*256 + 0;
@@ -376,7 +376,7 @@ void ZimmerGripper::gripper_jog_plus()
 	modbus_write_registers(mb, ADDR_SEND, NUM_SEND_REG, reg_write);
 }
 
-void ZimmerGripper::gripper_jog_minus()
+void ZimmerGripper::jog_minus()
 {
 	reg_write[0] = 2048;
 	reg_write[1] = 11*256 + 0;
@@ -389,7 +389,7 @@ void ZimmerGripper::gripper_jog_minus()
 	modbus_write_registers(mb, ADDR_SEND, NUM_SEND_REG, reg_write);
 }
 
-void ZimmerGripper::gripper_homing()
+void ZimmerGripper::homing()
 {
 	reg_write[0] = 1;
 	reg_write[1] = 10*256 + 0;
@@ -402,7 +402,7 @@ void ZimmerGripper::gripper_homing()
 	modbus_write_registers(mb, ADDR_SEND, NUM_SEND_REG, reg_write);
 }
 
-void ZimmerGripper::gripper_stop()
+void ZimmerGripper::stop()
 {
 	reg_write[0] = 0;
 	reg_write[1] = 11*256 + 0;
@@ -415,12 +415,12 @@ void ZimmerGripper::gripper_stop()
 	modbus_write_registers(mb, ADDR_SEND, NUM_SEND_REG, reg_write);
 }
 
-void ZimmerGripper::set_inner()
+void ZimmerGripper::SetInner()
 {
 	mode_indx = 1;
 }
 
-void ZimmerGripper::set_outer()
+void ZimmerGripper::SetOuter()
 {
 	mode_indx = 0;
 }
@@ -430,54 +430,54 @@ ZimmerGripper* SetGripper(){
     return new ZimmerGripper();
 }
 
-void connect(ZimmerGripper *pthis, const char *ip, int port)
+void Connect(ZimmerGripper *pthis, const char *ip, int port)
 {
     std::cout << pthis << std::endl;
     std::cout << ip << ", " << port << std::endl;
-    pthis->connect(ip, port);
+    pthis->Connect(ip, port);
 }
 
-void disconnect(ZimmerGripper *pthis)
+void Disconnect(ZimmerGripper *pthis)
 {
-    if(pthis->isConnected()){
-        pthis->disconnect();
+    if(pthis->IsAlive()){
+        pthis->Disconnect();
     }
     else{
         printf("not connected gripper\n");
     }
 }
 
-void gripper_init(ZimmerGripper *pthis)
+void Init(ZimmerGripper *pthis)
 {
-    pthis->gripper_init();
+    pthis->Init();
 }
 
-double gripper_cur_pos(ZimmerGripper *pthis)
+double CurPos(ZimmerGripper *pthis)
 {
-    return pthis->gripper_cur_pos();
+    return pthis->CurPos();
 }
 
-void gripper_release(ZimmerGripper *pthis)
+void Release(ZimmerGripper *pthis)
 {
-    pthis->gripper_release();
+    pthis->Release();
 }
 
-void gripper_grip(ZimmerGripper *pthis)
+void Grip(ZimmerGripper *pthis)
 {
-    pthis->gripper_grip();
+    pthis->Grip();
 }
 
-void set_inner(ZimmerGripper *pthis)
+void SetInner(ZimmerGripper *pthis)
 {
-    pthis->set_inner();
+    pthis->SetInner();
 }
 
-void set_outer(ZimmerGripper *pthis)
+void SetOuter(ZimmerGripper *pthis)
 {
-    pthis->set_outer();
+    pthis->SetOuter();
 }
 
-bool isConnected(ZimmerGripper *pthis)
+bool IsAlive(ZimmerGripper *pthis)
 {
-    return pthis->isConnected();
+    return pthis->IsAlive();
 }
