@@ -100,7 +100,6 @@ if __name__ == '__main__':
 	rob.SetRobotConf(RB10, robot_ip, 5000)
 	robot_connected = rob.RobotConnect()
 	
-	# if gripper_port == 502:
 	gripper.Connect(gripper_ip, gripper_port)
 	gripper_connected = gripper.IsAlive()
 	print("wait...")
@@ -190,11 +189,9 @@ if __name__ == '__main__':
 					rob.moveb(0, 0.02, 5, cmd_mat[0], cmd_mat[1], cmd_mat[2], cmd_mat[3], cmd_mat[4])
 					cmd = 0
 				elif cmd == Cmd.GripperMoveGrip:
-					# if gripper_port == 502:
 					gripper.Grip()
 					cmd = 0
 				elif cmd == Cmd.GripperMoveRelease:
-					# if gripper_port == 502:
 					gripper.Release()
 					cmd = 0
 
