@@ -12,7 +12,7 @@ class KetiZimmer:
 
     def Connect(self, ip='192.168.0.253', port=502):        
         self.lib.Connect.argtypes = [ctypes.c_void_p, ctypes.c_char_p, ctypes.c_int]
-        self.lib.Connect(self.module, '127.0.0.1'.encode('utf-8'), 5002)
+        self.lib.Connect(self.module, ip.encode('utf-8'), port)
 
     def Disconnect(self):
         self.lib.Disconnect.argtypes = [ctypes.c_void_p]
