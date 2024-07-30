@@ -379,7 +379,7 @@ Stephen Brawner (brawner@gmail.com)
     </joint>
     <link name="end" />
     <joint name="link6_end" type="fixed">
-        <origin xyz="0 0 -0.1153" rpy="1.5708 -1.5708 0" />
+        <origin xyz="0 0 -0.1153" rpy="1.5708 0 1.5708" />
         <parent link="link6" />
         <child link="end" />
         <axis xyz="0 0 0" />
@@ -692,4 +692,3 @@ Stephen Brawner (brawner@gmail.com)
         <material>Gazebo/Gray</material>
     </gazebo>
 </robot>
-

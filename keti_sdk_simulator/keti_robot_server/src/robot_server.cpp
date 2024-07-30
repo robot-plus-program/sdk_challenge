@@ -434,11 +434,11 @@ void *RobotServer::data_func(void *arg)
 
 					for (unsigned int i = 0; i < 6; i++)
 					{
-						robotServer->systemStat.sdata.jnt_ang[i] = static_cast<float>(robotServer->robotState.current_joint[i]);
+						robotServer->systemStat.sdata.jnt_ang[i] = static_cast<float>(robotServer->robotState.current_joint[i] + offset[i]*RAD2DEG);
 					}
 					robotServer->systemStat.sdata.tcp_pos[0] = static_cast<float>(robotServer->robotState.current_T_matrix[3]) * 1000;
 					robotServer->systemStat.sdata.tcp_pos[1] = static_cast<float>(robotServer->robotState.current_T_matrix[7]) * 1000;
-					robotServer->systemStat.sdata.tcp_pos[2] = static_cast<float>(robotServer->robotState.current_T_matrix[11] - 0.65) * 1000;
+					robotServer->systemStat.sdata.tcp_pos[2] = static_cast<float>(robotServer->robotState.current_T_matrix[11]) * 1000;
 
 					robotServer->systemStat.sdata.tcp_pos[3] = static_cast<float>(atan2(robotServer->robotState.current_T_matrix[2 * 4 + 1], robotServer->robotState.current_T_matrix[2 * 4 + 2]) * RAD2DEG);
 					robotServer->systemStat.sdata.tcp_pos[4] = static_cast<float>(asin(-robotServer->robotState.current_T_matrix[2 * 4 + 0]) * RAD2DEG);
