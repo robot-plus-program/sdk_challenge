@@ -44,6 +44,13 @@ python3 example.py xxx.xxx.xxx.xxx ooo.ooo.ooo.ooo port_num
 xxx.xxx.xxx.xxx : Robot IP address<br>
 ooo.ooo.ooo.ooo : Gripper IP address<br>
 port_num : Gripper port number<br>
+### 3.3 Python_Orientation
+~~~
+pip install math3d==3.0.0
+cd ${download sdk_challenge folder}/scripts
+chmod +x example_orientation.py
+python3 example_orientation.py
+~~~
 
 ***
 ## 4. Simulator
