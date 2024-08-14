@@ -47,3 +47,9 @@ class KetiZimmer:
     def SetOuter(self):
         self.lib.SetOuter.argtypes = [ctypes.c_void_p]
         self.lib.SetOuter(self.module)
+        
+    def Move(self, position):
+        self.lib.Move.argtypes = [ctypes.c_void_p, ctypes.c_uint16]
+        self.lib.Move(self.module, position)
+    
+    

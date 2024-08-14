@@ -55,7 +55,7 @@ public:
     void Init();
     void Grip(bool sync = true);
     void Release(bool sync = true);
-    void Custom(uint16_t position, uint8_t velocity, uint8_t force, bool sync = true);
+    void Move(uint16_t position, bool sync = true);
 	void SetOpt(uint8_t velocity, uint8_t force);
 	void jog_enable();
 	void jog_plus();
@@ -94,6 +94,8 @@ extern "C"{
     void SetInner(ZimmerGripper* pthis);
     void SetOuter(ZimmerGripper* pthis);
     bool IsAlive(ZimmerGripper* pthis);
+	void SetOpt(ZimmerGripper* pthis, uint8_t velocity, uint8_t force);
+	void Move(ZimmerGripper* pthis, uint16_t position);
 }
 
 #endif // ZIMMERGRIPPER_H
