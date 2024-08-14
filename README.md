@@ -51,6 +51,13 @@ cd ${download sdk_challenge folder}/scripts
 chmod +x example_orientation.py
 python3 example_orientation.py
 ~~~
+### 3.4 Python Gripper Width Control
+~~~
+cd ${download sdk_challenge folder}/scripts
+chmod +x example_gripper.py
+python3 example_gripper.py
+~~~
+This example dose not work in the simulator.
 
 ***
 ## 4. Simulator
