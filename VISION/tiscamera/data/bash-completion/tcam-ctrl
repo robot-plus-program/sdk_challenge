@@ -1,0 +1,61 @@
+# tcam-ctrl completion                             -*- shell-script -*-
+
+_tcam-ctrl () {
+
+    local cur prev words cword
+    _init_completion || return
+
+    local COMMANDS=(
+        "--list"
+        "-l"
+        "--caps"
+        "-c"
+        "--properties"
+        "-p"
+        "-h"
+        "--help"
+        "--version"
+        "--list-serial-long"
+        "--packages"
+        "--usb-info"
+        "--gige-info"
+        "--all-info"
+        "--save"
+        "--load"
+        "--save-json"
+        "--load-json"
+        "--transform"
+    )
+
+    local command i
+    for (( i=0; i < ${#words[@]}-1; i++ )); do
+        if [[ ${COMMANDS[@]} =~ ${words[i]} ]]; then
+            command=${words[i]}
+            break
+        fi
+    done
+
+
+    if [[ -n $command ]]; then
+        case $command in
+            list|properties|formats|caps|-c|-p|--caps|--properties|--save|--load|--save-json|--load-json)
+                # explicitly use --gst-debug=*:0
+                # we do not want debug output for tab completion
+                COMPREPLY=( $( compgen -W "$( tcam-ctrl --list-serial-long --gst-debug=*:0)" -- "$cur" ) )
+                return 0
+                ;;
+            --transform)
+                COMPREPLY=("-e" "--in" "--out")
+                return 0
+                ;;
+        esac
+    fi
+
+    # no command yet, show what commands we have
+    if [ "$command" = "" ]; then
+        COMPREPLY=( $( compgen -W '${COMMANDS[@]}' -- "$cur" ) )
+    fi
+
+    return 0
+} &&
+complete -F _tcam-ctrl tcam-ctrl

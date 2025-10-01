@@ -1,0 +1,46 @@
+{
+    "cameras":[
+        {
+            "serial": "28910212",
+			"format" : "video/x-raw",
+			"pixelformat" : "BGRx",
+			"width" : 640,
+			"height" : 480,
+            "framerate":"30/1",
+            "properties":
+            [
+                {"property":"BlackLevel",  "value":20},
+                {"property":"ExposureAuto","value":"Off"},
+                {"property":"ExposureTime", "value":33000},
+                {"property":"GainAuto", "value":"Off"},
+                {"property":"Gain", "value":0},
+                {"property":"BalanceWhiteAuto", "value":"Off"},
+                {"property":"BalanceWhiteRed", "value":1.9},
+                {"property":"BalanceWhiteGreen", "value":1.0},
+                {"property":"BalanceWhiteBlue", "value":1.9}
+            ],
+            "imageprefix" : "left"            
+        },        
+        {
+            "serial": "41910044",
+			"format" : "video/x-raw",
+			"pixelformat" : "BGRx",
+			"width" : 640,
+			"height" : 480,
+            "framerate":"30/1",
+            "properties":
+            [
+                {"property":"BlackLevel",  "value":20},
+                {"property":"ExposureAuto","value":"Off"},
+                {"property":"ExposureTime", "value":33000},
+                {"property":"GainAuto", "value":"Off"},
+                {"property":"Gain", "value":0},
+                {"property":"BalanceWhiteAuto", "value":"Off"},
+                {"property":"BalanceWhiteRed", "value":1.9},
+                {"property":"BalanceWhiteGreen", "value":1.0},
+                {"property":"BalanceWhiteBlue", "value":1.9}
+            ],
+            "imageprefix" : "right"            
+        }
+    ]
+}

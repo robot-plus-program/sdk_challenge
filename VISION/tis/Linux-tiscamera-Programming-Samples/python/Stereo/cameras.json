@@ -1,0 +1,34 @@
+{
+    "cameras":[
+        {
+            "serial": "28910212",
+			"format" : "video/x-raw",
+			"pixelformat" : "GRAY8",
+			"width" : 640,
+			"height" : 480,
+            "framerate":"15/1",
+            "properties":
+            [
+                {"property":"OffsetAutoCenter",  "value":"Off"},
+                {"property":"OffsetX",  "value":890},
+                {"property":"OffsetY",  "value":680}
+            ],
+            "imageprefix" : "right"            
+        },        
+        {
+            "serial": "41910044",
+			"format" : "video/x-raw",
+			"pixelformat" : "GRAY8",
+			"width" : 640,
+			"height" : 480,
+            "framerate":"15/1",
+            "properties":
+            [
+                {"property":"OffsetAutoCenter",  "value":"Off"},
+                {"property":"OffsetX",  "value":890},
+                {"property":"OffsetY",  "value":684}
+            ],
+            "imageprefix" : "left"            
+        }
+    ]
+}

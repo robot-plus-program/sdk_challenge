@@ -1,34 +1,4 @@
-# Created by https://www.toptal.com/developers/gitignore/api/visualstudiocode
-# Edit at https://www.toptal.com/developers/gitignore?templates=visualstudiocode
+.vscode/
 
-### VisualStudioCode ###
-.vscode/*
-
-# Local History for Visual Studio Code
-.history/
-
-# Built Visual Studio Code Extensions
-*.vsix
-
-### VisualStudioCode Patch ###
-# Ignore all local history of files
-.history
-.ionide
-
-# End of https://www.toptal.com/developers/gitignore/api/visualstudiocode
-
-build/*
-
-**/__pycache__
-
-
-.idea/
-
-gripper/*.txt
-gripper/__pycache__
-gripper/build
-gripper/test.py
-gripper/zimmergripper.cpp
-gripper/keti_zimmer_gripper.py
-
-**/.vscode
+**/**/**/__pycache__
+**/**/__pycache__

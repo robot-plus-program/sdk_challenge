@@ -1,0 +1,129 @@
+
+# examples
+
+*/c/00-list-devices
+*/c/01-list-properties
+*/c/02-set-properties
+*/c/03-live-stream
+*/c/04-list-formats
+*/c/05-set-format
+*/c/06-softwaretrigger
+*/c/07-appsink
+*/c/08-save-stream
+*/c/09-device-lost
+*/c/10-metadata
+*/c/11-device-state
+*/c/12-tcam-properties
+
+# ### VCS ###
+
+.svn/
+/CVS/*
+*/CVS/*
+.cvsignore
+*/.cvsignore
+
+# ### tags ###
+
+tags
+GPATH
+GTAGS
+GRTAGS
+
+# ### Emacs ###
+
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+.elc
+auto-save-list
+tramp
+.\#*
+
+# Org-mode
+
+.org-id-locations
+*_archive
+
+
+# ### Vim ###
+
+.*.s[a-w][a-z]
+*.un~
+Session.vim
+.netrwhist
+*~
+
+# ### C++ ###
+
+# Compiled Object files
+
+*.slo
+*.lo
+*.o
+
+# Compiled Dynamic libraries
+
+*.so
+*.dylib
+
+# Compiled Static libraries
+
+*.lai
+*.la
+*.a
+
+# QT related files
+
+*.pro.user
+*.pro.user.*
+moc_*.cpp
+qrc_*.cpp
+
+# Python related
+
+.ropeproject
+__pycache__
+
+image_dir.py
+
+# Misc
+
+*.kdev4
+
+
+# various IDEs
+
+.idea/
+build/
+.vscode/
+nbproject
+.vs/
+/out
+/CMakeSettings.json
+
+# kdevelop
+
+*.config
+*.creator
+*.creator.user
+*.files
+*.includes
+
+.dir-locals.el
+
+.gdb_history
+
+/CMakeCache.txt
+/CMakeFiles
+/CMakeScripts
+/Testing
+/Makefile
+/cmake_install.cmake
+/install_manifest.txt
+/compile_commands.json
+/CTestTestfile.cmake
+
+external/aravis
+external/meson

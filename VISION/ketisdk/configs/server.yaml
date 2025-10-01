@@ -1,0 +1,22 @@
+defaults:
+  - _self_
+  - override hydra/hydra_logging: disabled
+  - override hydra/job_logging: disabled
+
+hydra:
+  output_subdir: null
+  run:
+    dir: .
+
+server:
+  host: localhost
+  port: 8888
+
+module:
+  cfg_path: null
+  inputs: null
+  runner: run
+  runner_inputs: all
+  visualizer: null
+  visualizer_inputs: null
+  show_steps: True

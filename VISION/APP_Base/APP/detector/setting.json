@@ -1,0 +1,10 @@
+{
+    "dmin": 50,
+    "dmax": 70,
+    "max_ratio": 1,
+    "topn": 100,
+    "df": 50,
+    "crop_roi": [450,172,1040,513],
+    "min_mass":500,
+    "max_mass":10000
+}

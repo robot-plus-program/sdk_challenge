@@ -1,0 +1,14 @@
+# VS Code 설정
+.vscode/
+
+# 빌드 결과물
+build/
+
+# 임시 파일
+*.log
+*.tmp
+*.o
+
+# 특정 파일
+demo
+include/__pycache__/

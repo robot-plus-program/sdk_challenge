@@ -1,6 +1,0 @@
-<launch>
-    <!-- <include file="$(find keti_robot_moveit2)/launch/demo_gazebo.launch"/> -->
-    <node pkg="keti_robot_control_gui" type="robot_control_gui" name="robot_control_gui_node" output="screen" />
-
-    <!-- <include file="$(find keti_robot_server)/launch/robot_server.launch"/> -->
-</launch>

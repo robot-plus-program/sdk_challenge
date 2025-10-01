@@ -1,0 +1,12 @@
+{
+        "device_serial": "20120594",
+        "sensor_size": [1920, 1080],
+        "FocusAuto": "Off",
+        "Focus": 670,
+        "ExposureAuto": "Off",
+        "ExposureTime": 12000,
+        "ExposureAutoReference":60,
+        "GainAuto": "Off",
+        "Gain": 200,
+        "fps": 30
+}
