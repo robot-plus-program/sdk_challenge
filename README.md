@@ -37,5 +37,5 @@ python3 run_server.py
 ### 3. main script (Local PC)
 ```
 source venv/bin/activate
-pythoh3 poc_main.py
+pythoh3 main.py
 ```
