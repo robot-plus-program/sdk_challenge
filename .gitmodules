@@ -9,7 +9,3 @@
 [submodule "ROBOT/GRIPPER_SDK"]
 	path = ROBOT/GRIPPER_SDK
 	url = https://github.com/robot-plus-program/ketigrippersdk.git
-[submodule "ROBOT_ROBOT_SDK"]
-	path = ROBOT_ROBOT_SDK
-	url = https://github.com/robot-plus-program/ketirobotsdk.git
-	branch = sdk_challenge
