@@ -89,10 +89,10 @@ def data_update_func():
 if __name__ == '__main__':
 	setLibPath(f'{os.getcwd()}/ROBOT_SDK/ketirobotsdk/librobotsdk.so')
  
-	rob.SetRobotConf(M1013, "192.168.137.50", 12345)
+	rob.SetRobotConf(M1013, "192.168.137.101", 12345)
 	robot_connected = rob.RobotConnect()
 	
-	gripper.Connect("192.168.137.254", 502)
+	gripper.Connect("192.168.137.201", 502)
 	gripper_connected = gripper.IsConnected()
 	print("wait...")
 	if gripper_connected is True:
@@ -103,17 +103,17 @@ if __name__ == '__main__':
 	data_update_thread = threading.Thread(target=data_update_func, daemon=True)
 	data_update_thread.start()
 
-	cmd_joint = [[-math.pi/2.0, 0.0, math.pi/2.0, 0.0, math.pi/2.0, 37.0*math.pi/180.0],
-              [-math.pi/2.0, -30.0*math.pi/180.0, 120.0*math.pi/180.0, -math.pi/2.0, math.pi/2.0, -math.pi + 37.0*math.pi/180.0]]
+	cmd_joint = [[0.0, 0.0, -math.pi/2.0, 0.0, -math.pi/2.0, 225.0*math.pi/180.0],
+              [-18.21*math.pi/180.0, 15.07*math.pi/180.0, -97.89*math.pi/180.0, 24.83*math.pi/180.0, -108.83*math.pi/180.0, 243.98*math.pi/180.0]]
  
-	cmd_rot = [0.799254, 0.00104721, 0.600992,
-				0.600992, -1.09254e-06, -0.799255,
-				-0.000836329, 0.999999, -0.000630237]
-	cmd_pos = [[-0.15761, -0.688601, 0.694795],
-				[0.39412, -0.96386, 0.579953],
-				[-0.346809, -0.96386, 0.579953], 
-				[-0.346809, -0.492616, 0.901642],
-				[0.333264, -0.492616, 0.901642]]
+	cmd_rot = [0.7070832414296315, 0.7071303200514519, 1.2381295785053565e-05,
+				0.7071303198748388, -0.7070832415333757, 1.6011311553785398e-05,
+				2.0076690621550974e-05, -2.5661404240403675e-06, -0.9999999997951707]
+	cmd_pos = [[-0.516, 0.039, 0.628],
+				[-0.3259267883300781, 0.095145263671875, 0.68686279296875],
+				[-0.516, 0.039, 0.628], 
+				[-0.3259267883300781, 0.095145263671875, 0.68686279296875],
+				[-0.516, 0.039, 0.628]]
  
 	cnt_joint = 1
 	cnt_pose = 1
