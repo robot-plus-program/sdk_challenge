@@ -21,7 +21,7 @@ pip3 install pymodbus
 
 ### 3. Downlod project
 ~~~
-git clone https://github.com/robot-plus-program/keti-poc-talos.git
+git clone https://github.com/robot-plus-program/sdk_challenge.git
 cd sdk_challenge
 git submodule update --init --recursive --remote
 ~~~
