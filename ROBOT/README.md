@@ -73,7 +73,7 @@ docker pull ketiroxteam/talos-robot:latest
 
 ~~~
 # Docker container 생성
-docker run -it -d --network=host --name ketirobotctrl ketiroxteam/talos_robot:latest /bin/bash
+docker run -it -d --network=host --name ketirobotctrl ketiroxteam/talos-robot:latest /bin/bash
 ~~~
 
 ~~~

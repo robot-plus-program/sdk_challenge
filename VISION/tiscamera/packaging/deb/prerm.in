@@ -1,7 +1,0 @@
-#!/bin/sh
-# postinst script for tiscamera
-set -e
-
-@ARAVIS_PRERM@
-
-exit 0

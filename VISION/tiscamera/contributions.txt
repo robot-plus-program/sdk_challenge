@@ -1,2 +1,0 @@
-
-Kristoffer Nyborg Gregertsen - Improvements for the auto exposure algorithm

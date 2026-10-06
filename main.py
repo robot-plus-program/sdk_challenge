@@ -1,6 +1,5 @@
 #!/usr/bin/env python3
 
-from interface.vision import *
 from interface.gripper import *
 from interface.robot import *
 import copy
@@ -47,10 +46,21 @@ place_z = 0.190057
 place_obj_offset_x = ((-0.466570) - (-0.577230))/1.0
 place_obj_offset_y = ((0.590940) - (0.315530))/4.0
 
-vision=Vision("172.17.0.2",8801)
 gripper = Gripper("127.0.0.1", 5002)
 robot_info = RobotInfo("127.0.0.1", 3030)
 robot_cmd = RobotCmd("127.0.0.1", 3033)
+
+# ===== Vision (참가자 구현) =====
+# 2026년부터 Vision은 제공하지 않습니다. 아래 두 함수를 직접 구현하세요.
+# 현재 반환값은 로봇 동작 확인용 고정값입니다.
+
+def get_pick_offset():
+    """cam_pose 위치 기준 물체까지의 이동량 [dx, dy, dz] (m, 로봇 base 좌표계)"""
+    return [-0.02, 0.03, -0.3]
+
+def get_angle_offset():
+    """check_angle_pose 에서 측정한 물체의 회전 보정 각도 (deg)"""
+    return -15.0
 
 def init():
     cmd_str = f"""
@@ -283,30 +293,17 @@ def place(obj_cnt):
 
 
 if __name__ == '__main__':
-    vision.get_rs()
-
     init()
     max_cnt = 2
 
     for obj_cnt in range(0, max_cnt):
         cam_pose()
 
-        ret_rs,rgb,depth=vision.get_rs()
-        ret_pick,ret,ret_img=vision.get_pick(rgb,depth)
-        cv2.imshow("ret_img",ret_img)
-        cv2.waitKey(100)
-        offset_data = ret[0:3]
-        
+        offset_data = get_pick_offset()
         pick(offset_data)
         check_angle()
 
-        # vision request 2
-        ret_Tis,ret_resizeimg,ret_original=vision.get_TIS()
-        ret_angle,ret,ret_img =vision.get_angle(ret_original)
-        cv2.imshow("ret_img",ret_img)
-        cv2.waitKey(100)
-        angle = ret['differ_angle']*math.pi/180.0
-
+        angle = get_angle_offset()*math.pi/180.0
         move_angle(angle)
         insert()
         press()
