@@ -16,6 +16,7 @@ sudo apt-get update && sudo apt-get upgrade
 sudo apt-get install -y build-essential git cmake libcurl4-openssl-dev libmodbus*
 sudo apt-get install -y gcc g++ gcc-multilib g++-multilib
 sudo apt-get install -y python3-dev python3-pip python3-venv
+sudo apt-get install -y libpcre3 libmodbus5  # robot/gripper SDK 런타임 의존성 (Ubuntu 24.04는 기본 미설치)
 pip3 install pymodbus
 ~~~
 

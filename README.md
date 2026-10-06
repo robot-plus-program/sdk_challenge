@@ -46,6 +46,12 @@ python3 run_server.py
 
 ### 2. main script (Local PC)
 ```
+# 최초 1회
+python3 -m venv venv
+source venv/bin/activate
+pip install numpy
+
+# 실행
 source venv/bin/activate
 python3 main.py
 ```
