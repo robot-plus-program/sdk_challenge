@@ -13,15 +13,17 @@
 - 로봇이 **Doosan M1013 → Rainbow RB10**으로 변경되었습니다. `ketiroxteam/talos-robot:latest` 이미지의 robot server가 RB10에 맞게 수정되었으므로, 이전에 받은 이미지/컨테이너는 다시 받아서 새로 생성하세요.
   ```
   docker pull ketiroxteam/talos-robot:latest
-  docker rm ketirobotctrl
+  docker rm -f ketirobotctrl   # 기존 container 삭제
   docker run -it -d --network=host --name ketirobotctrl ketiroxteam/talos-robot:latest /bin/bash
   ```
 - `main.py`의 joint/pose 값은 이전 로봇(M1013) 기준입니다. RB10에서 실행하기 전에 반드시 다시 티칭하세요.
+- RB10은 이 SDK에서 **힘 제어/순응 제어를 지원하지 않습니다.** `RobotComplianceCtrlOn()`, `RobotSetToolForce()`, `RobotReleaseForce()`, `RobotComplianceCtrlOff()`는 호출해도 아무 동작을 하지 않고, `tool_force`는 항상 0입니다. `main.py`의 `insert()`는 위치 제어로만 동작하므로 RB10에 맞게 삽입 동작을 다시 구성하세요.
 
 | 장비 | IP | Port |
 |------|----|------|
 | Robot (RB10) | 192.168.137.50 | 5000 |
 | Gripper (Zimmer) | 192.168.137.254 | 502 |
+
 ***
 
 ## 시스템 구성도

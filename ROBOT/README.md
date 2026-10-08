@@ -1,7 +1,7 @@
 ***
 ## Environment
 
-### Linux Version : Ubuntu 20.04, 22.04(recommanded), 24.04
+### Linux Version : Ubuntu 20.04, 22.04(recommended), 24.04
 ### Python version : 3.8
 ***
 
@@ -20,14 +20,14 @@ sudo apt-get install -y libpcre3 libmodbus5  # robot/gripper SDK 런타임 의�
 pip3 install pymodbus
 ~~~
 
-### 3. Downlod project
+### 3. Download project
 ~~~
 git clone https://github.com/robot-plus-program/sdk_challenge.git
 cd sdk_challenge
 git submodule update --init --recursive --remote
 ~~~
 
-#### 3. Run robot & gripper integration example
+### 4. Run robot & gripper integration example
 ```
 cd ROBOT
 python3 sample.py
@@ -79,12 +79,12 @@ docker run -it -d --network=host --name ketirobotctrl ketiroxteam/talos-robot:la
 ~~~
 
 ~~~
-# Docner container 실행
+# Docker container 실행
 docker start -ai ketirobotctrl
 ~~~
 
 ### 4. 예제 코드 실행 (docker container 내부)
 ~~~
-cd ~/project/ROBOT_SDK && python3 pythontest.py # 로봇 예제 코드 (M1013 설정, RB10은 SetRobotConf(RB10, "192.168.137.50", 5000)으로 변경)
+cd ~/project/ROBOT_SDK && python3 pythontest.py # 로봇 예제 코드 (container 내부 파일은 M1013 설정이므로 SetRobotConf(RB10, "192.168.137.50", 5000)으로 변경 후 실행)
 cd ~/project/GRIPPER_SDK && python3 example/example.py include lib/libzimmergripper.so # 그리퍼 예제 코드
 ~~~
