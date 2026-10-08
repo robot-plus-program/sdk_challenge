@@ -10,6 +10,18 @@
 - 2026년부터 **Vision은 제공하지 않습니다.** 물체 인식은 참가자가 직접 개발합니다.
 - 로봇 & 그리퍼 제어용 기본 코드(SDK, 서버 docker, 예제)만 제공합니다.
 - 2025년도 자료(Vision 포함)는 [`2025` branch](https://github.com/robot-plus-program/sdk_challenge/tree/2025)에 있습니다.
+- 로봇이 **Doosan M1013 → Rainbow RB10**으로 변경되었습니다. `ketiroxteam/talos-robot:latest` 이미지의 robot server가 RB10에 맞게 수정되었으므로, 이전에 받은 이미지/컨테이너는 다시 받아서 새로 생성하세요.
+  ```
+  docker pull ketiroxteam/talos-robot:latest
+  docker rm ketirobotctrl
+  docker run -it -d --network=host --name ketirobotctrl ketiroxteam/talos-robot:latest /bin/bash
+  ```
+- `main.py`의 joint/pose 값은 이전 로봇(M1013) 기준입니다. RB10에서 실행하기 전에 반드시 다시 티칭하세요.
+
+| 장비 | IP | Port |
+|------|----|------|
+| Robot (RB10) | 192.168.137.50 | 5000 |
+| Gripper (Zimmer) | 192.168.137.254 | 502 |
 ***
 
 ## 시스템 구성도
@@ -41,8 +53,10 @@ flowchart LR
 docker start -ai ketirobotctrl
 ########## container 내부 ##########
 cd ~/project
-python3 run_server.py
+python3 run_server.py      # robot + gripper server
+# python3 robot_server.py  # gripper 없이 robot server만 실행
 ```
+server는 client 재접속을 받지 않으므로 `main.py`를 다시 실행할 때는 server도 재시작하세요.
 
 ### 2. main script (Local PC)
 ```

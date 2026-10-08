@@ -89,10 +89,10 @@ def data_update_func():
 if __name__ == '__main__':
 	setLibPath(f'{os.getcwd()}/ROBOT_SDK/ketirobotsdk/librobotsdk.so')
  
-	rob.SetRobotConf(M1013, "192.168.137.101", 12345)
+	rob.SetRobotConf(RB10, "192.168.137.50", 5000)
 	robot_connected = rob.RobotConnect()
-	
-	gripper.Connect("192.168.137.201", 502)
+
+	gripper.Connect("192.168.137.254", 502)
 	gripper_connected = gripper.IsConnected()
 	print("wait...")
 	if gripper_connected is True:
@@ -103,6 +103,7 @@ if __name__ == '__main__':
 	data_update_thread = threading.Thread(target=data_update_func, daemon=True)
 	data_update_thread.start()
 
+	# 아래 joint/pose 값은 이전 로봇(M1013) 기준입니다. RB10에서는 실행 전 반드시 다시 티칭하세요.
 	cmd_joint = [[0.0, 0.0, -math.pi/2.0, 0.0, -math.pi/2.0, 225.0*math.pi/180.0],
               [-18.21*math.pi/180.0, 15.07*math.pi/180.0, -97.89*math.pi/180.0, 24.83*math.pi/180.0, -108.83*math.pi/180.0, 243.98*math.pi/180.0]]
  

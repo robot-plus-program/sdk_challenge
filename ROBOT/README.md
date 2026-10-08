@@ -32,6 +32,7 @@ git submodule update --init --recursive --remote
 cd ROBOT
 python3 sample.py
 ```
+`sample.py`는 RB10(`192.168.137.50:5000`)과 gripper(`192.168.137.254:502`)에 직접 연결합니다. joint/pose 예제 값은 이전 로봇(M1013) 기준이므로 실행 전에 다시 티칭하세요.
 
 ## 로봇 통합 SDK 환경 구성 - Docker
 ### 1. 필수 패키지 설치
@@ -84,6 +85,6 @@ docker start -ai ketirobotctrl
 
 ### 4. 예제 코드 실행 (docker container 내부)
 ~~~
-cd ~/project/ROBOT_SDK && python3 pythontest.py # 로봇 예제 코드
+cd ~/project/ROBOT_SDK && python3 pythontest.py # 로봇 예제 코드 (M1013 설정, RB10은 SetRobotConf(RB10, "192.168.137.50", 5000)으로 변경)
 cd ~/project/GRIPPER_SDK && python3 example/example.py include lib/libzimmergripper.so # 그리퍼 예제 코드
 ~~~
