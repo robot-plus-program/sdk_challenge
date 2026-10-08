@@ -6,26 +6,6 @@
 ### Docker Version : 28.3.3
 ***
 
-## 2026 변경 사항
-- 2026년부터 **Vision은 제공하지 않습니다.** 물체 인식은 참가자가 직접 개발합니다.
-- 로봇 & 그리퍼 제어용 기본 코드(SDK, 서버 docker, 예제)만 제공합니다.
-- 2025년도 자료(Vision 포함)는 [`2025` branch](https://github.com/robot-plus-program/sdk_challenge/tree/2025)에 있습니다.
-- 로봇이 **Doosan M1013 → Rainbow RB10**으로 변경되었습니다. `ketiroxteam/talos-robot:latest` 이미지의 robot server가 RB10에 맞게 수정되었으므로, 이전에 받은 이미지/컨테이너는 다시 받아서 새로 생성하세요.
-  ```
-  docker pull ketiroxteam/talos-robot:latest
-  docker rm -f ketirobotctrl   # 기존 container 삭제
-  docker run -it -d --network=host --name ketirobotctrl ketiroxteam/talos-robot:latest /bin/bash
-  ```
-- `main.py`의 joint/pose 값은 이전 로봇(M1013) 기준입니다. RB10에서 실행하기 전에 반드시 다시 티칭하세요.
-- RB10은 이 SDK에서 **힘 제어/순응 제어를 지원하지 않습니다.** `RobotComplianceCtrlOn()`, `RobotSetToolForce()`, `RobotReleaseForce()`, `RobotComplianceCtrlOff()`는 호출해도 아무 동작을 하지 않고, `tool_force`는 항상 0입니다. `main.py`의 `insert()`는 위치 제어로만 동작하므로 RB10에 맞게 삽입 동작을 다시 구성하세요.
-
-| 장비 | IP | Port |
-|------|----|------|
-| Robot (RB10) | 192.168.137.50 | 5000 |
-| Gripper (Zimmer) | 192.168.137.254 | 502 |
-
-***
-
 ## 시스템 구성도
 ```mermaid
 flowchart LR
@@ -73,3 +53,8 @@ python3 main.py
 ```
 
 `main.py`의 `get_pick_offset()`, `get_angle_offset()`는 로봇 동작 확인용 고정값을 반환합니다. 참가자가 개발한 Vision 결과로 교체하여 사용하세요.
+
+**RB10에서 `main.py` 실행 전 확인**
+- joint/pose 값은 이전 로봇(M1013) 기준입니다. 실행 전에 반드시 다시 티칭하세요.
+- RB10은 이 SDK에서 힘 제어/순응 제어를 지원하지 않습니다. `RobotComplianceCtrlOn()`, `RobotSetToolForce()` 등은 호출해도 동작하지 않으므로 `insert()`는 위치 제어로만 동작합니다.
+- RB10의 `ControlBoxDigitalIn()`은 SDK 버그로 올바른 값을 반환하지 않습니다. `press()`의 DI 대기가 바로 통과하거나 끝나지 않을 수 있으므로 수정 전에는 사용하지 마세요.
