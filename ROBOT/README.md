@@ -17,7 +17,6 @@ sudo apt-get install -y build-essential git cmake libcurl4-openssl-dev libmodbus
 sudo apt-get install -y gcc g++ gcc-multilib g++-multilib
 sudo apt-get install -y python3-dev python3-pip python3-venv
 sudo apt-get install -y libpcre3 libmodbus5  # robot/gripper SDK 런타임 의존성 (Ubuntu 24.04는 기본 미설치)
-pip3 install pymodbus
 ~~~
 
 ### 3. Download project
@@ -85,6 +84,6 @@ docker start -ai ketirobotctrl
 
 ### 4. 예제 코드 실행 (docker container 내부)
 ~~~
-cd ~/project/ROBOT_SDK && python3 pythontest.py # 로봇 예제 코드 (container 내부 파일은 M1013 설정이므로 SetRobotConf(RB10, "192.168.137.50", 5000)으로 변경 후 실행)
+cd ~/project/ROBOT_SDK && python3 pythontest.py # 로봇 예제 코드 (RB10 연결 후 DI 값 출력, RB10의 DI 값은 SDK 버그로 부정확)
 cd ~/project/GRIPPER_SDK && python3 example/example.py include lib/libzimmergripper.so # 그리퍼 예제 코드
 ~~~

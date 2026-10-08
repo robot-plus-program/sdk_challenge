@@ -39,6 +39,7 @@ python3 run_server.py      # robot + gripper server
 # python3 robot_server.py  # gripper 없이 robot server만 실행
 ```
 server는 client 재접속을 받지 않으므로 `main.py`를 다시 실행할 때는 server도 재시작하세요.
+로봇 연결에 실패하면 `[error] robot connect failed` 메시지를 출력하고 종료합니다. 로봇 전원과 네트워크를 확인하세요.
 
 ### 2. main script (Local PC)
 ```
