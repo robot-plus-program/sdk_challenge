@@ -91,7 +91,7 @@ if __name__ == '__main__':
  
 	rob.SetRobotConf(RB10, "192.168.137.50", 5000)
 	robot_connected = rob.RobotConnect()
-
+	
 	gripper.Connect("192.168.137.254", 502)
 	gripper_connected = gripper.IsConnected()
 	print("wait...")
